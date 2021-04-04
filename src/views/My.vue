@@ -1,0 +1,121 @@
+<!--
+ * @Descripttion: 
+ * @Author: ''
+ * @Date: 2021-03-08 16:35:43
+ * @LastEditors: ''
+ * @LastEditTime: 2021-04-01 09:07:16
+-->
+<template>
+  <div class="my-warp app_content">
+    <div class="header_body">
+      <header-nav :leftArrow="false" titelText="我的"></header-nav>
+    </div>
+    <div class="warp_body">
+      
+      <div class="user-info-box">
+
+        <van-icon name="setting-o" class="mgt-icon" @click="setting"/>
+
+        <van-row gutter="20">
+          <van-col span="4">
+            <van-image
+                round
+                width="60"
+                height="60"
+                src="https://img.yzcdn.cn/vant/cat.jpeg"
+              />
+          </van-col>
+          <van-col span="20">
+            <div class="right-box">
+              <div class="name-text">昵称</div>
+              <div class="sign-text">签名</div>
+            </div>
+          </van-col>
+        </van-row>
+        
+      </div>
+      
+      <div style="margin: 10px;">
+        <van-grid square>
+          <van-grid-item v-for="(item,index) in orderTab" 
+          :icon="item.icon" 
+          :text="item.text"  
+          :key="index">
+          </van-grid-item>
+        </van-grid>
+      </div>
+    </div>
+    <div class="footer_body">
+        <footer-nav></footer-nav>
+    </div>
+  </div>
+</template>
+
+<script>
+import headerNav from '@/components/common/headerNav.vue'
+import footerNav from '@/components/common/footerNav.vue'
+import { reactive, toRefs } from 'vue'
+import { useRouter } from 'vue-router'
+export default {
+  name: 'My',
+  components: {
+    headerNav,
+    footerNav
+  },
+  setup(){
+    const router = useRouter()
+    const data = reactive({
+      orderTab:[{
+        icon:"send-gift-o",
+        text:"待付款"
+      },{
+        icon:"send-gift-o",
+        text:"待发货"
+      },{
+        icon:"todo-list-o",
+        text:"待收货"
+      },{
+        icon:"point-gift-o",
+        text:"待评价"
+      }]
+    })
+    let methodsMap = {
+      setting:()=>{
+         router.push({path:'setting'})
+      }
+    }
+    return {
+      ...methodsMap,
+      ...toRefs(data)
+    }
+  }
+}
+</script>
+<style lang="less">
+  .app_content{
+    .user-info-box{
+      position: relative;
+      margin: 10px;
+      padding: 10px 20px 10px 10px;
+      background: #FFF;
+      border-radius: 6px;
+      font-size: 14px;
+      color: #aaa;
+      .right-box{
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        .name-text{
+          margin: auto auto auto 10px;
+        }
+        .sign-text{
+          margin: auto auto auto 10px;
+        }
+      }
+      .mgt-icon{
+        position: absolute;
+        right: 10px;
+      }
+    }
+  }
+</style>
