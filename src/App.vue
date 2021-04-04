@@ -2,13 +2,15 @@
  * @Descripttion: 
  * @Author: ''
  * @Date: 2021-03-05 15:26:44
- * @LastEditors: ex_lanlj2@partner.midea.com
+ * @LastEditors: ''
  * @LastEditTime: 2021-04-03 18:30:02
 -->
 <template>
-  <keep-alive include="Shop">
-    <router-view/>
-  </keep-alive>
+  <router-view v-slot="{ Component }">
+    <keep-alive>
+      <component :is="Component" />
+    </keep-alive>
+  </router-view>
 </template>
 
 <script>

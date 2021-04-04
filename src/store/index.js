@@ -2,7 +2,7 @@
  * @Descripttion: 
  * @Author: ''
  * @Date: 2021-03-05 15:30:57
- * @LastEditors: ex_lanlj2@partner.midea.com
+ * @LastEditors: ''
  * @LastEditTime: 2021-04-03 18:02:38
  */
 import { createStore } from 'vuex'
