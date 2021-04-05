@@ -47,36 +47,16 @@ export default {
 
     const data = reactive({
       chosenAddressId:"",
-      list:[
-      {
-        id: '1',
-        name: '张三',
-        tel: '13000000000',
-        address: '浙江省杭州市西湖区文三路 138 号东方通信大厦 7 楼 501 室',
-        isDefault: true,
-      },
-      {
-        id: '2',
-        name: '李四',
-        tel: '1310000000',
-        address: '浙江省杭州市拱墅区莫干山路 50 号',
-      },
-    ],
-    disabledList: [
-      {
-        id: '3',
-        name: '王五',
-        tel: '1320000000',
-        address: '浙江省杭州市滨江区江南大道 15 号',
-      },
-    ],
+      list:[],
+      disabledList: [],
     })
 
     let methodsMap = {
         getList:()=>{
-            store.dispatch('Home/getCarousel').then((res)=>{
+            store.dispatch('My/getAddersslist').then((res)=>{
             if(res.code == 20000){
-                console.log(res);
+              data.list = res.data.list
+              data.disabledList = res.data.disabledList
             }
             
           }).catch(()=>{
@@ -90,8 +70,8 @@ export default {
             router.push({path:"addressEdit",query:{addressId:item.id}})
         }
     }
-     onMounted(() => {
-     
+    onMounted(() => {
+      methodsMap.getList()
     })
 
     return {

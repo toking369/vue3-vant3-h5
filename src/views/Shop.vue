@@ -76,7 +76,7 @@
 import { Toast } from 'vant';
 import headerNav from '@/components/common/headerNav.vue'
 import footerNav from '@/components/common/footerNav.vue'
-import { onMounted, reactive, toRefs, nextTick } from 'vue'
+import { onMounted, reactive, toRefs, nextTick, onActivated, onDeactivated } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 import util from '@/util/util'
@@ -139,17 +139,19 @@ export default {
 
       //计算与总计
       handlerFc(){
+
         methodsMap.calculation()
         data.totalPrice = parseFloat(methodsMap.calculation())
       },
 
       //全选择
       allCheckbox(val){
+
         nextTick(()=>{
           data.cartList = data.cartList.map((item)=>{
             return {
               ...item,
-              checked:val
+              checked:val || item.checked
             }
           })
           data.totalPrice = parseFloat(methodsMap.calculation())
@@ -159,7 +161,7 @@ export default {
 
       //单个选
       oneCheckbox(item){
-        
+       
         data.cartList.forEach((it)=>{
           if(it.id == item.id){
             it.checked = item.checked
@@ -207,12 +209,14 @@ export default {
 
       //输入框
       stpChange(item){
+        
         if(item.num>99){
           item.num = 99
         }
       },
 
       stplimit(){
+
         Toast('宝贝不能再减少了');
       },
 
@@ -239,6 +243,15 @@ export default {
    
     onMounted(()=>{
       methodsMap.getCard()
+    })
+
+    onActivated(()=>{
+      if(store.state.is_reload_card){
+        methodsMap.getCard()
+      }
+    }),
+    onDeactivated(()=>{
+      store.commit("SET_RELAOD_SHOP",false)
     })
 
     return {

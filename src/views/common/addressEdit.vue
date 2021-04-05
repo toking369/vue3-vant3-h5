@@ -13,12 +13,13 @@
         <div class="warp_body">
            <van-address-edit
             :area-list="areaList"
+            :address-info="addressInfo"
             show-postal
             show-delete
             show-set-default
             show-search-result
             :search-result="searchResult"
-            :area-columns-placeholder="['请选择', '请选择', '请选择']"
+            :area-columns-placeholder="areaColumns"
             @save="onSave"
             @delete="onDelete"
             @change-detail="onChangeDetail"
@@ -29,8 +30,10 @@
 
   <script>
 import headerNav from '@/components/common/headerNav.vue'
-import {onMounted, reactive, toRefs} from 'vue'
+import  util  from '@/util/area'
+import {nextTick, onMounted, reactive, toRefs} from 'vue'
 import { useStore } from 'vuex'
+import { useRouter,useRoute } from 'vue-router'
 export default {
   name: 'addressEdit',
   components: {
@@ -42,35 +45,47 @@ export default {
   setup(){
 
     const store = useStore()
-
+    const router = useRouter()
+    const route = useRoute()
     const data = reactive({
      searchResult:[],
-     areaList:{}
+     areaList:util.areaList,
+     addressInfo:{},
+     areaColumns:['请选择', '请选择', '请选择']
     })
 
     let methodsMap = {
-        getEditdata:()=>{
-
-        },
         onSave:()=>{
-
+            router.replace('addressList')
         },
         onDelete:()=>{
-
+            router.replace('addressList')
         },
         onChangeDetail:()=>{
-            store.dispatch('Home/getCarousel').then((res)=>{
+           
+        },
+
+        getEditdata:(addressId)=>{
+             store.dispatch('My/getAddressedit',{addressId:addressId}).then((res)=>{
                 if(res.code == 20000){
-                    console.log(res);
+                    data.addressInfo = res.data
+                    data.areaColumns = [ res.data.province, res.data.city, res.data.area]
                 }
                 
-            }).catch(()=>{
-                
-            })
+            }).catch(()=>{})
         }
     }
      onMounted(() => {
-     
+
+       
+        route?.query.addressId && methodsMap.getEditdata(route.query.addressId);
+
+        if(!route?.query.addressId){
+            nextTick(()=>{
+                data.addressInfo = {}
+            })
+        }
+        
     })
 
     return {

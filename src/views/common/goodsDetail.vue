@@ -24,8 +24,8 @@
             </div>
 
             <div class="goods-info-box">
-              <div class="price-body">¥ 115.56</div>
-              <div class="name-body">米家恒温电水壶</div>
+              <div class="price-body">¥ {{goodsInfo.price}}</div>
+              <div class="name-body">{{goodsInfo.goodsName}}</div>
               <div class="share-body" @click="showShare = true"><van-icon style="float: right;" name="share-o" /></div>
             </div>
 
@@ -49,7 +49,7 @@
           <van-action-bar>
             <van-action-bar-icon icon="cart-o" @click="goShopcart" text="购物车" />
             <van-action-bar-icon icon="star" text="已收藏" color="#ff5000" />
-            <van-action-bar-button type="warning" text="加入购物车" />
+            <van-action-bar-button type="warning" @click="addShopcart" text="加入购物车" />
             <van-action-bar-button type="danger" text="立即购买" />
           </van-action-bar>
       </div>
@@ -69,6 +69,7 @@ import refreshList from '@/components/common/refreshList.vue'
 import {onMounted, reactive, toRefs} from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
+import { Toast } from 'vant'
 export default {
   name: 'goodsDetail',
   components: {
@@ -86,11 +87,12 @@ export default {
 
     const data = reactive({
       carouselList:[],
+      goodsInfo:{},
       showShare:false,
       freshMap:{
           refreshLoad:false,
-          listLoading:false,
-          listFinished:false,
+          listLoading:true,
+          listFinished:true,
         },
       options: [
      [
@@ -132,13 +134,30 @@ export default {
         router.push({path:'shop'})
       },
 
-      //获取啥商品信息
-      getCarousel:()=>{
+      addShopcart(){
+        store.dispatch('ShopCard/getCard').then((res)=>{
+          if(res.code == 20000){
+            Toast("添加到购物车成功")
+           store.commit("SET_RELAOD_SHOP",true)
+          }
+          
+        }).catch(()=>{
+          data.refreshLoad = false
+        })
+        
+      },
+
+      //获取商品信息
+      getGoodsdetal:()=>{
         return new Promise((resolve,reject)=>{
-          store.dispatch('Home/getCarousel').then((res)=>{
+          store.dispatch('getGoodsdetal').then((res)=>{
             if(res.code == 20000){
-              data.carouselList = res.data
-              console.log(data.carouselList);
+              data.carouselList = res.data?.carouselList.map((item)=>{
+                return {
+                  img:item
+                }
+              })
+              data.goodsInfo = res.data
             }
             resolve(res)
           }).catch((err)=>{
@@ -149,21 +168,11 @@ export default {
 
       //获取评论
       getComment:()=>{
-        return new Promise((resolve,reject)=>{
-          store.dispatch('Home/getCarousel').then((res)=>{
-            if(res.code == 20000){
-              
-              console.log(res);
-            }
-            resolve(res)
-          }).catch((err)=>{
-            reject(err)
-          })
-        })
+       
       },
     }
      onMounted(() => {
-      methodsMap.getCarousel()
+      methodsMap.getGoodsdetal()
       methodsMap.getComment()
     })
 
