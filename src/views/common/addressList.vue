@@ -19,6 +19,7 @@
                 default-tag-text="默认"
                 @add="onAdd"
                 @edit="onEdit"
+                @select="selectDefault"
                 />
         </div>
         <div class="footer_body">
@@ -55,19 +56,28 @@ export default {
         getList:()=>{
             store.dispatch('My/getAddersslist').then((res)=>{
             if(res.code == 20000){
+              data.chosenAddressId = res.data.list.filter((item)=>{return item.isDefault})?.[0].id
               data.list = res.data.list
               data.disabledList = res.data.disabledList
             }
             
-          }).catch(()=>{
-            
-          })
+          }).catch(()=>{})
         },
         onAdd:()=>{
             router.push({path:"addressEdit"})
         },
         onEdit:(item)=>{
             router.push({path:"addressEdit",query:{addressId:item.id}})
+        },
+        selectDefault(item){
+          
+          data.list.forEach((it)=>{
+            if(it.id == item.id){
+              it.isDefault = true
+            }else{
+              it.isDefault = false
+            }
+          })
         }
     }
     onMounted(() => {

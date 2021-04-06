@@ -64,7 +64,7 @@
 
     <div class="footer_body">
       <van-submit-bar :price="totalPrice" button-text="提交订单" class="footer-one-btn" @submit="onSubmit">
-        <van-checkbox v-model="allchecked" @change="allCheckbox">全选</van-checkbox>
+        <van-checkbox v-model="allchecked"  @click="allCheckbox(allchecked)">全选</van-checkbox>
       </van-submit-bar>
       <footer-nav></footer-nav>
     </div>
@@ -144,14 +144,13 @@ export default {
         data.totalPrice = parseFloat(methodsMap.calculation())
       },
 
-      //全选择
+      //全选择 
       allCheckbox(val){
-
         nextTick(()=>{
           data.cartList = data.cartList.map((item)=>{
             return {
               ...item,
-              checked:val || item.checked
+              checked:val
             }
           })
           data.totalPrice = parseFloat(methodsMap.calculation())
