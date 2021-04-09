@@ -116,7 +116,7 @@ export default {
       onRefresh:()=>{
         data.freshMap.refreshLoad = true;
         Promise.all([
-          methodsMap.getCarousel(),
+          methodsMap.getGoodsdetal(),
           methodsMap.getComment(),
         ]).then(()=>{
          data.freshMap.refreshLoad = false;
