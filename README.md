@@ -1,8 +1,8 @@
-# vue3demo
+# vue3+vant3
 
 ## Project setup
 ```
-npm install
+npm install 或 cnpm install
 ```
 
 ### Compiles and hot-reloads for development
