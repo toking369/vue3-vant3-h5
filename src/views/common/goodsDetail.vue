@@ -8,9 +8,11 @@
 
  <template>
   <div class="goodsDetail">
+    
       <div class="header_body">
         <header-nav  titelText="商品详情"></header-nav>
       </div>
+
       <div class="warp_body">
 
         <refreshList 
@@ -45,6 +47,7 @@
         </refreshList>
 
       </div>
+
       <div class="footer_body">
           <van-action-bar>
             <van-action-bar-icon icon="cart-o" @click="goShopcart" text="购物车" />
@@ -53,6 +56,7 @@
             <van-action-bar-button type="danger" text="立即购买" />
           </van-action-bar>
       </div>
+
       <van-share-sheet
         v-model:show="showShare"
         title="立即分享给好友"
@@ -119,21 +123,26 @@ export default {
           methodsMap.getGoodsdetal(),
           methodsMap.getComment(),
         ]).then(()=>{
-         data.freshMap.refreshLoad = false;
+          data.freshMap.refreshLoad = false;
         })
       },
       
+      // 触底加载
       onLoad:()=>{
         
       },
+
+      // 点击分享选项时触发
       onSelect:()=>{
 
       },
 
+      //前往购物车
       goShopcart(){
-        router.push({path:'shop'})
+        router.replace({path:'shop'})
       },
 
+      // 添加购物车
       addShopcart(){
         store.dispatch('ShopCard/getCard').then((res)=>{
           if(res.code == 20000){

@@ -8,7 +8,7 @@
 <template>
     <div class="addressEdit">
         <div class="header_body">
-            <header-nav  titelText="地址列表"></header-nav>
+            <header-nav :slefBack="true" @goBack="goBack" titelText="地址列表"></header-nav>
         </div>
         <div class="warp_body">
            <van-address-edit
@@ -48,35 +48,48 @@ export default {
     const router = useRouter()
     const route = useRoute()
     const data = reactive({
-     searchResult:[],
-     areaList:util.areaList,
-     addressInfo:{},
-     areaColumns:['请选择', '请选择', '请选择']
+        searchResult:[],
+        areaList:util.areaList,
+        addressInfo:{},
+        areaColumns:['请选择', '请选择', '请选择']
     })
 
     let methodsMap = {
+        // 返回
+        goBack(){
+           router.replace('addressList')
+        },
+        
+        // 保存地址操作
         onSave:()=>{
             router.replace('addressList')
         },
+
+        // 删除地址操作
         onDelete:()=>{
             router.replace('addressList')
         },
+
+        // 修改详细地址
         onChangeDetail:()=>{
            
         },
 
+        // 获取编辑地址数据
         getEditdata:(addressId)=>{
-             store.dispatch('My/getAddressedit',{addressId:addressId}).then((res)=>{
+
+            store.dispatch('My/getAddressedit',{addressId:addressId}).then((res)=>{
                 if(res.code == 20000){
                     data.addressInfo = res.data
                     data.areaColumns = [ res.data.province, res.data.city, res.data.area]
                 }
                 
-            }).catch(()=>{})
+            }).catch(()=>{
+
+            })
         }
     }
-     onMounted(() => {
-
+    onMounted(() => {
        
         route?.query.addressId && methodsMap.getEditdata(route.query.addressId);
 

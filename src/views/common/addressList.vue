@@ -11,16 +11,16 @@
             <header-nav  titelText="地址列表"></header-nav>
         </div>
         <div class="warp_body">
-            <van-address-list
-                v-model="chosenAddressId"
-                :list="list"
-                :disabled-list="disabledList"
-                disabled-text="以下地址超出配送范围"
-                default-tag-text="默认"
-                @add="onAdd"
-                @edit="onEdit"
-                @select="selectDefault"
-                />
+          <van-address-list
+            v-model="chosenAddressId"
+            :list="list"
+            :disabled-list="disabledList"
+            disabled-text="以下地址超出配送范围"
+            default-tag-text="默认"
+            @add="onAdd"
+            @edit="onEdit"
+            @select="selectDefault"
+            />
         </div>
         <div class="footer_body">
            
@@ -53,6 +53,8 @@ export default {
     })
 
     let methodsMap = {
+
+        // 获取列表数据
         getList:()=>{
             store.dispatch('My/getAddersslist').then((res)=>{
             if(res.code == 20000){
@@ -61,14 +63,22 @@ export default {
               data.disabledList = res.data.disabledList
             }
             
-          }).catch(()=>{})
+          }).catch(()=>{
+
+          })
         },
+
+        // 添加地址
         onAdd:()=>{
-            router.push({path:"addressEdit"})
+          router.replace({path:"addressEdit"})
         },
+
+        // 修改地址
         onEdit:(item)=>{
-            router.push({path:"addressEdit",query:{addressId:item.id}})
+          router.replace({path:"addressEdit",query:{addressId:item.id}})
         },
+
+        // 切换地址触发
         selectDefault(item){
           
           data.list.forEach((it)=>{

@@ -150,6 +150,7 @@ export default {
         })
       },
       
+      // 触底加载
       onLoad:()=>{
         methodsMap.recommendGoods(true)
       },

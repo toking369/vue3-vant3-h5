@@ -32,12 +32,16 @@ export default {
       type:Boolean,
       default:true
     },
+    slefBack:{
+      type:Boolean,
+      default:false
+    },
     titelText:{
       type:String,
       default:''
     }
   },
-  setup(props){
+  setup(props,{emit}){
     const router = useRouter()
    const data = reactive({
      leftArrowtag: props.leftArrow,
@@ -45,9 +49,21 @@ export default {
    })
     
     let methodMap = {
+
+      // 左边返回
       onClickLeft:()=>{
-        router.go(-1)
+        
+        if(props.leftArrow){
+          if(props.slefBack){
+            emit('goBack')
+          }else{
+            router.go(-1)
+          }
+        }
+       
       },
+
+      // 右边返回
       onClickRight:()=>{
 
       }

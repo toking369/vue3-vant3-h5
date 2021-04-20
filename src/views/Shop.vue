@@ -189,10 +189,13 @@ export default {
       //删除商品
       delGoods(item){
         store.dispatch('ShopCard/delGoods',{id:item.id}).then((res)=>{
+
           if(res.code == 20000){
+
             data.cartList = data.cartList.filter((it)=>{
               return it.id != item.id
             })
+
             nextTick(()=>{
               methodsMap.handlerFc()
              
@@ -203,17 +206,22 @@ export default {
             }) : false
           }
           
-        }).catch(()=>{})
+        }).catch(()=>{
+          
+        })
       },
 
       //输入框
       stpChange(item){
         
         if(item.num>99){
-          item.num = 99
+          nextTick(()=>{
+            item.num = 99
+          })
         }
       },
 
+      // 减少到1后再减少时提示
       stplimit(){
 
         Toast('宝贝不能再减少了');

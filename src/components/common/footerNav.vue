@@ -27,11 +27,14 @@ export default {
     
   },
   setup(){
+
     const store = useStore()
+
     let data = reactive({
-      footerActive:'Home',
-      dot:false
+        footerActive:'Home',
+        dot:false
     });
+
     const goodsNum = computed(()=>{
       return store.state.goods_card_num
     })

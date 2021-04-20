@@ -7,9 +7,11 @@
 -->
 <template>
   <div class="Classify app_content">
+
     <div class="header_body">
       <header-nav :leftArrow="false" titelText="分类"></header-nav>
     </div>
+
     <div class="warp_body">
       <div class="warp_left" v-if="classifyList.length">
         <van-sidebar v-model="classifyActive">
@@ -37,9 +39,11 @@
       </div>
      
     </div>
+
     <div class="footer_body">
-        <footer-nav></footer-nav>
+      <footer-nav></footer-nav>
     </div>
+
   </div>
 </template>
 
@@ -75,7 +79,7 @@ export default {
           refreshLoad:false,
           listLoading:false,
           listFinished:false,
-        },
+      },
       cardAttr:{
         columnNum:2,
         gutter:10,
@@ -87,8 +91,6 @@ export default {
       resetScroll:0 
     })
 
-    
-     
     const methodsMap = {
       
       //下拉刷新

@@ -24,12 +24,16 @@ export default {
   setup(){
     const store = useStore()
     let methodsMap = {
+      
+      // 进入应用查询购物车数量
       getGoodsnum:()=>{
         store.dispatch('getGoodsNum').then((res)=>{
             if(res.code == 20000){
               util.setGoodsNum(store,res.data || 0)
             }
-        }).catch(()=>{})
+        }).catch(()=>{
+
+        })
       }
     }
     onMounted(()=>{

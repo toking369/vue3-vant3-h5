@@ -56,14 +56,13 @@ export default {
 
     const store = useStore()
     const router = useRouter()
-
-    const data = reactive({
-    
-    })
+    const data = reactive({})
 
     let methodsMap = {
+
+        // 获取个人中心信息
         getList:()=>{
-            store.dispatch('Home/getCarousel').then((res)=>{
+            store.dispatch('').then((res)=>{
             if(res.code == 20000){
                 console.log(res);
             }
@@ -72,6 +71,8 @@ export default {
             
           })
         },
+
+        // 前往地址列表
         goAddress:()=>{
             router.push({path:'addressList'})
         }

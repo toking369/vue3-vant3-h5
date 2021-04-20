@@ -80,8 +80,9 @@ export default {
       }]
     })
     let methodsMap = {
+      // 设置
       setting:()=>{
-         router.push({path:'setting'})
+        router.push({path:'setting'})
       }
     }
     return {
