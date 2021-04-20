@@ -40,8 +40,10 @@
                           v-model="item.num" 
                           @plus="plus(item)" 
                           @minus="minus(item)" 
-                          @change="stpChange(item)"
+                          @blur="stpBlur(item)"
                           @overlimit="stplimit"
+                          :min="1"
+                          :max="99"
                           theme="round" 
                           button-size="22" />
                         </template>
@@ -173,21 +175,31 @@ export default {
       },
 
       //加
-      plus(item){
-         
-        item.num += 1
-        methodsMap.handlerFc()
+      async plus(item){
+        let res = await methodsMap.changeGoods({id:item.id})
+        if(res.code === 20000){
+          methodsMap.handlerFc()
+        }else{
+          item.num -= 1
+          Toast(res.msg);
+        }
       },
 
       //减
-      minus(item){
-        
-        item.num -=1
-        methodsMap.handlerFc()
+      async minus(item){
+
+        let res = await methodsMap.changeGoods({id:item.id})
+        if(res.code === 20000){
+          methodsMap.handlerFc()
+        }else{
+          item.num += 1
+          Toast(res.msg);
+        }
       },
 
       //删除商品
       delGoods(item){
+
         store.dispatch('ShopCard/delGoods',{id:item.id}).then((res)=>{
 
           if(res.code == 20000){
@@ -198,7 +210,6 @@ export default {
 
             nextTick(()=>{
               methodsMap.handlerFc()
-             
             })
             
             data.allchecked = data.cartList?.length?data.cartList.every((item)=>{
@@ -207,24 +218,27 @@ export default {
           }
           
         }).catch(()=>{
-          
+
         })
       },
 
-      //输入框
-      stpChange(item){
-        
-        if(item.num>99){
-          nextTick(()=>{
-            item.num = 99
-          })
+      //输入框失去焦点
+      async stpBlur(item){
+        let res = await methodsMap.changeGoods({id:item.id})
+        if(res.code === 20000){
+          methodsMap.handlerFc()
+        }else{
+          Toast(res.msg);
         }
       },
 
-      // 减少到1后再减少时提示
-      stplimit(){
-
-        Toast('宝贝不能再减少了');
+      // 最大、最小时提示
+      stplimit(e){
+        let tip = {
+          "plus":'增加',
+          "minus":'减少'
+        }
+        Toast(`宝贝不能再${tip[e]}了`);
       },
 
       //获取购物车数据
@@ -245,6 +259,17 @@ export default {
         if(!["BUTTON","INPUT"].includes(target.tagName)){
           router.push({path:'goodsDetail'})
         }
+      },
+
+      // 操作购物车数量接口
+      changeGoods(parmas){
+        return new Promise((resolve,rejact)=>{
+           store.dispatch('ShopCard/changeGoods',parmas).then((res)=>{
+            resolve(res)
+          }).catch((err)=>{
+            rejact(err)
+          })
+        })
       }
     }
    

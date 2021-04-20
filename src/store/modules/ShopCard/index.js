@@ -43,6 +43,20 @@ const ShopCard = {
       }
     },
 
+    async changeGoods(state,params){
+      
+      let url = REQ.getRequestUrl({
+        url: API.changeGoods
+      });
+  
+      try {
+        const rep = await REQ.request(url, params, { method: 'POST' });
+        return rep;
+      }catch (error) {
+        return error;
+      }
+    },
+
   },
  
  
