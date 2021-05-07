@@ -8,7 +8,9 @@
 <template>
     <div class="addressEdit">
         <div class="header_body">
-            <header-nav :slefBack="true" @goBack="goBack" titelText="地址列表"></header-nav>
+            <header-nav :slefBack="true" @goBack="goBack" 
+            :titelText="`${queryaddressId?'编辑':'新增'}地址`">
+            </header-nav>
         </div>
         <div class="warp_body">
            <van-address-edit
@@ -31,7 +33,7 @@
   <script>
 import headerNav from '@/components/common/headerNav.vue'
 import  util  from '@/util/area'
-import {nextTick, onMounted, reactive, toRefs} from 'vue'
+import {nextTick, onMounted, reactive, toRefs, watchEffect} from 'vue'
 import { useStore } from 'vuex'
 import { useRouter,useRoute } from 'vue-router'
 export default {
@@ -51,6 +53,7 @@ export default {
         searchResult:[],
         areaList:util.areaList,
         addressInfo:{},
+        queryaddressId:'',
         areaColumns:['请选择', '请选择', '请选择']
     })
 
@@ -89,16 +92,20 @@ export default {
             })
         }
     }
+    watchEffect(()=>{
+        if(route?.query.addressId){
+            data.queryaddressId = route?.query.addressId
+        }
+    })
     onMounted(() => {
        
         route?.query.addressId && methodsMap.getEditdata(route.query.addressId);
 
-        if(!route?.query.addressId){
-            nextTick(()=>{
+        nextTick(()=>{
+            if(!route?.query.addressId){
                 data.addressInfo = {}
-            })
-        }
-        
+            }
+        })
     })
 
     return {
