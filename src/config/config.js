@@ -10,7 +10,7 @@ let envMap = {
     PRO:'PRO'
   }
 const prefix = {
-    DEV: 'https://mockapi.eolinker.com/I5GcBE7f2ec2e412269ba0036612578a9b3e1bc30976db6',
+    DEV: '',//这里不填 使用webpack的代理配置做跨域https://mockapi.eolinker.com/I5GcBE7f2ec2e412269ba0036612578a9b3e1bc30976db6
     PRO: 'https://pro.com/app',
   }
 let env = envMap[process.env.NODE_ENV] || 'DEV'
