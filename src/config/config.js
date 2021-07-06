@@ -6,14 +6,17 @@
  * @LastEditTime: 2021-03-12 10:52:06
  */
 let envMap = {
+    development:"LOC",
     DEV:'DEV',
     PRO:'PRO'
   }
 const prefix = {
-    DEV: '',//这里不填 使用webpack的代理配置做跨域https://mockapi.eolinker.com/I5GcBE7f2ec2e412269ba0036612578a9b3e1bc30976db6
-    PRO: 'https://pro.com/app',
+    LOC:"https://mockapi.eolinker.com/I5GcBE7f2ec2e412269ba0036612578a9b3e1bc30976db6", //本地（webpack配置了代理地址）
+    DEV: 'https://dev.com', //测试环境
+    PRO: 'https://pro.com', //生产环境
   }
-let env = envMap[process.env.NODE_ENV] || 'DEV'
+
+let env = envMap[process.env.NODE_ENV] || 'LOC'
 
 const getBaseUrl = function (type) {
     
@@ -26,6 +29,11 @@ const getBaseUrl = function (type) {
 
   let URL = {
 
+    LOC:Object.assign(getBaseUrl('LOC'),{
+      webpackUrl: prefix[env],
+      baseUrl:"/app",
+    }),
+
     DEV:Object.assign(getBaseUrl('DEV'),{
 
     }),
@@ -37,7 +45,8 @@ const getBaseUrl = function (type) {
   }
   
   let config = {
-    baseUrl: URL[env].baseUrl,
+    webpackUrl:URL[env].webpackUrl || "",
+    baseUrl:URL[env].baseUrl,
   }
 
-export default config
+module.exports = config
