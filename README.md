@@ -10,7 +10,7 @@
 
 ## Project setup
 ```
-npm install 或 cnpm install
+npm install 或 cnpm install  启动后报vue-loader-v16找不到可以执行试试  cnpm i vue-loader-v16
 ```
 
 ### Compiles and hot-reloads for development
