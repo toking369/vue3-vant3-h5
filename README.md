@@ -34,8 +34,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ###
 
-|![首页](preview/home.jpeg "首页")
-|![分类](preview/分类.jpeg "分类")
-|![购物车](preview/购物车.jpeg "购物车")
-|![我的](preview/我的.jpeg "我的")
-|![地址](preview/地址二C.jpeg "地址")
+![首页](preview/home.jpeg "首页")
+![分类](preview/分类.jpeg "分类")
+![购物车](preview/购物车.jpeg "购物车")
+![我的](preview/我的.jpeg "我的")
+![地址](preview/地址二.jpeg "地址")
