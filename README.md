@@ -33,26 +33,10 @@ npm run lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ###
-<p align="center">
-  <img width="400" src="https://qiniu.lanlianjiu.xyz/home.jpeg">
-</p>
 
-<p align="center">
-  <img width="400" src="https://qiniu.lanlianjiu.xyz/%E5%88%86%E7%B1%BB.jpeg">
-</p>
+|![首页](preview/home.jpeg "首页")
+|![分类](preview/分类.jpeg "分类")
+|![购物车](preview/购物车.jpe "购物车")
+|![我的](preview/我的.jpeg "我的")
+|![地址](preview/地址二C.jpe "地址")
 
-<p align="center">
-  <img width="400" src="https://qiniu.lanlianjiu.xyz/%E8%B4%AD%E7%89%A9%E8%BD%A6.jpeg">
-</p>
-
-<p align="center">
-  <img width="400" src="https://qiniu.lanlianjiu.xyz/%E6%88%91%E7%9A%84.jpeg">
-</p>
-
-<p align="center">
-  <img width="400" src="https://qiniu.lanlianjiu.xyz/%E5%9C%B0%E5%9D%801.jpeg">
-</p>
-
-<p align="center">
-  <img width="400" src="https://qiniu.lanlianjiu.xyz/%E5%9C%B0%E5%9D%80%E4%BA%8C.jpeg">
-</p>
