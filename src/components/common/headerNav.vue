@@ -6,7 +6,11 @@
       @click-right="onClickRight"
     >
       <template #left>
-        <van-icon v-if="data.leftArrowtag" class="left-color" name="arrow-left" />
+        <van-icon
+          v-if="data.leftArrowtag"
+          class="left-color"
+          name="arrow-left"
+        />
       </template>
     </van-nav-bar>
   </div>

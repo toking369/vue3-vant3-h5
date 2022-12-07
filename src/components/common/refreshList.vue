@@ -1,17 +1,16 @@
 
 <template>
   <van-pull-refresh
-    v-model="freshData.refreshLoad"
+    v-model="data.freshData.refreshLoad"
     @refresh="onRefresh"
     :class="classMap.refreshClass"
     @scroll="scrollHander"
     ref="ref_reshList"
   >
-  
     <van-list
       class="van-list-body"
-      v-model:loading="freshData.listLoading"
-      :finished="freshData.listFinished"
+      v-model:loading="data.freshData.listLoading"
+      :finished="data.freshData.listFinished"
       :immediate-check="false"
       finished-text="没有更多了"
       @load="onLoad"
@@ -19,77 +18,64 @@
     >
       <slot></slot>
     </van-list>
-    
   </van-pull-refresh>
 </template>
 
-<script>
-import { reactive, toRefs, ref, watchEffect } from "vue";
-export default {
-  name: "refreshList",
-  props: {
-    freshMap: {
-      type: Object,
-      default: () => {
-        return {
-          refreshLoad: false,
-          listLoading: false,
-          listFinished: false,
-        };
-      },
-    },
-    classMap: {
-      type: Object,
-      default: () => {
-        return {
-          refreshClass: "",
-        };
-      },
-    },
-    resetScroll: {
-      type: Number,
-      default: 0,
+<script setup>
+import { reactive, ref, watchEffect } from "vue";
+const emit = defineEmits(["onRefresh", "onLoad"]);
+const props = defineProps({
+  freshMap: {
+    type: Object,
+    default: () => {
+      return {
+        refreshLoad: false,
+        listLoading: false,
+        listFinished: false,
+      };
     },
   },
-  setup(props, { emit }) {
-    const data = reactive({
-      freshData: props.freshMap,
-    });
-
-    let ref_reshList = ref();
-
-    let methodMap = {
-      //下拉刷新
-      onRefresh: () => {
-        emit("onRefresh");
-      },
-
-      // 触底加载
-      onLoad: () => {
-        emit("onLoad");
-      },
-
-      //重置滚动距离
-      resetScroll: () => {
-        ref_reshList.value.$el.scrollTop = 0;
-      },
-
-      //滚动监听
-      scrollHander() {},
-    };
-    watchEffect(() => {
-      if (props.resetScroll) {
-        methodMap.resetScroll();
-      }
-    });
-
-    return {
-      ...methodMap,
-      ...toRefs(data),
-      ref_reshList,
-    };
+  classMap: {
+    type: Object,
+    default: () => {
+      return {
+        refreshClass: "",
+      };
+    },
   },
+  resetScroll: {
+    type: Number,
+    default: 0,
+  },
+});
+const data = reactive({
+  freshData: props.freshMap,
+});
+
+let ref_reshList = ref();
+
+//下拉刷新
+const onRefresh = () => {
+  emit("onRefresh");
 };
+
+// 触底加载
+const onLoad = () => {
+  emit("onLoad");
+};
+
+//重置滚动距离
+const resetScroll = () => {
+  ref_reshList.value.$el.scrollTop = 0;
+};
+
+//滚动监听
+const scrollHander = () => {};
+watchEffect(() => {
+  if (props.resetScroll) {
+    resetScroll();
+  }
+});
 </script>
 
 <style lang="less" scoped>

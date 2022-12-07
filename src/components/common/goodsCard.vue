@@ -30,9 +30,6 @@
 <script setup>
 import { useRouter } from "vue-router";
 const router = useRouter();
-const goGoodsdetail = (item) => {
-  router.push({ path: "goodsDetail", query: { goodsId: item.goodsId } });
-};
 const props = defineProps({
   goodsList: {
     type: Array,
@@ -51,6 +48,12 @@ const props = defineProps({
     },
   },
 });
+const goGoodsdetail = (item) => {
+  router.push({
+    path: "goodsDetail",
+    query: { goodsId: item.goodsId },
+  });
+};
 </script>
 <style lang="less">
 .goods-crad {
