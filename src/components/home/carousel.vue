@@ -1,45 +1,31 @@
-<!--
- * @Descripttion: 
- * @Author: ''
- * @Date: 2021-03-08 19:23:29
- * @LastEditors: ''
- * @LastEditTime: 2021-03-15 18:00:18
--->
+
 <template>
   <div class="carousel">
     <van-swipe :autoplay="3000" lazy-render :height="150">
-      <van-swipe-item v-for="(image,index) in images" :key="index">
+      <van-swipe-item v-for="(image, index) in data?.images" :key="index">
         <img class="img-box" :src="image.img" />
       </van-swipe-item>
     </van-swipe>
   </div>
 </template>
 
-<script>
-import {reactive, toRefs} from 'vue'
-export default {
-  name: 'carousel',
-  props:{
-    carouselList:{
-      type:Array,
-      default:()=>{
-        return []
-      }
-    }
+<script setup>
+import { reactive } from "vue";
+const props = defineProps({
+  carouselList: {
+    type: Array,
+    default: () => {
+      return [];
+    },
   },
-  setup(props){
-    const data = reactive({
-      images:props.carouselList
-    })
-    return {
-      ...toRefs(data)
-    }
-  }
-}
+});
+const data = reactive({
+  images: props.carouselList,
+});
 </script>
 <style lang="less">
-.carousel{
-  .img-box{
+.carousel {
+  .img-box {
     width: 100%;
     height: 100%;
   }

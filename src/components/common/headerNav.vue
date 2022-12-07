@@ -1,87 +1,62 @@
-<!--
- * @Descripttion: 
- * @Author: ''
- * @Date: 2021-03-08 18:03:45
- * @LastEditors: ''
- * @LastEditTime: 2021-04-01 11:51:20
--->
- <template>
+<template>
   <div class="headerNav">
-     <van-nav-bar
-        :title="titelTextvalue"
-        @click-left="onClickLeft"
-        @click-right="onClickRight"
-      >
+    <van-nav-bar
+      :title="data.titelTextvalue"
+      @click-left="onClickLeft"
+      @click-right="onClickRight"
+    >
       <template #left>
-        <van-icon v-if="leftArrowtag" class="left-color" name="arrow-left" />
+        <van-icon v-if="data.leftArrowtag" class="left-color" name="arrow-left" />
       </template>
-     </van-nav-bar>
+    </van-nav-bar>
   </div>
 </template>
 
-<script>
-import { reactive, toRefs} from 'vue'
-import { useRouter } from 'vue-router'
-export default {
-  name: 'headerNav',
-  components: {
-
+<script setup>
+import { reactive } from "vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
+const emit = defineEmits(["goBack"]);
+const props = defineProps({
+  leftArrow: {
+    type: Boolean,
+    default: true,
   },
-  props:{
-    leftArrow:{
-      type:Boolean,
-      default:true
-    },
-    slefBack:{
-      type:Boolean,
-      default:false
-    },
-    titelText:{
-      type:String,
-      default:''
-    }
+  slefBack: {
+    type: Boolean,
+    default: false,
   },
-  setup(props,{emit}){
-    const router = useRouter()
-   const data = reactive({
-     leftArrowtag: props.leftArrow,
-     titelTextvalue: props.titelText
-   })
-    
-    let methodMap = {
+  titelText: {
+    type: String,
+    default: "",
+  },
+});
+const data = reactive({
+  leftArrowtag: props.leftArrow,
+  titelTextvalue: props.titelText,
+});
 
-      // 左边返回
-      onClickLeft:()=>{
-        
-        if(props.leftArrow){
-          if(props.slefBack){
-            emit('goBack')
-          }else{
-            router.go(-1)
-          }
-        }
-       
-      },
-
-      // 右边返回
-      onClickRight:()=>{
-
-      }
-    }
-    return {
-      ...methodMap,
-      ...toRefs(data)
+// 左边返回
+const onClickLeft = () => {
+  if (props.leftArrow) {
+    if (props.slefBack) {
+      emit("goBack");
+    } else {
+      router.go(-1);
     }
   }
-}
+};
+
+// 右边返回
+const onClickRight = () => {};
 </script>
 <style lang="less" scpoed>
-  .headerNav{
-    position: fixed;
-    top: 0;
-    width: 100%;
-    .left-color{
-      color: black !important;
-    }
+.headerNav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  .left-color {
+    color: black !important;
   }
+}
 </style>

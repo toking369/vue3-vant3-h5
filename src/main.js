@@ -1,10 +1,3 @@
-/*
- * @Descripttion: 
- * @Author: ''
- * @Date: 2021-03-05 15:26:44
- * @LastEditors: ''
- * @LastEditTime: 2021-04-03 17:33:30
- */
 
 import { createApp } from 'vue'
 import App from './App.vue'

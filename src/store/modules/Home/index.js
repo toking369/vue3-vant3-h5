@@ -1,60 +1,47 @@
-/*
- * @Descripttion: 
- * @Author: ''
- * @Date: 2021-03-05 15:30:57
- * @LastEditors: ''
- * @LastEditTime: 2021-04-03 17:59:19
- */
-import  API  from '@/api/Home.js'
-import REQ  from '@/request/request.js'
+import API from "@/api/Home.js";
+import REQ from "@/request/request.js";
 const Home = {
   namespaced: true,
-  state: {
-  },
-  mutations: {
-  },
+  state: {},
+  mutations: {},
   actions: {
-    async getCarousel(state,params){
-      
+    async getCarousel(state, params) {
       let url = REQ.getRequestUrl({
-        url: API.getCarousel
+        url: API.getCarousel,
       });
 
       try {
-        const rep = await REQ.request(url, params, { method: 'GET' });
+        const rep = await REQ.request(url, params, { method: "GET" });
         return rep;
-      }catch (error) {
-          return error;
+      } catch (error) {
+        return error;
       }
     },
-    async boutiqueGoods(state,params){
-      
+    async boutiqueGoods(state, params) {
       let url = REQ.getRequestUrl({
-        url: API.boutiqueGoods
+        url: API.boutiqueGoods,
       });
-  
+
       try {
-        const rep = await REQ.request(url, params, { method: 'GET' });
+        const rep = await REQ.request(url, params, { method: "GET" });
         return rep;
-      }catch (error) {
-          return error;
+      } catch (error) {
+        return error;
       }
     },
-    async recommendGoods(state,params){
-      
+    async recommendGoods(state, params) {
       let url = REQ.getRequestUrl({
-        url: API.recommendGoods
+        url: API.recommendGoods,
       });
-  
+
       try {
-        const rep = await REQ.request(url, params, { method: 'GET' });
+        const rep = await REQ.request(url, params, { method: "GET" });
         return rep;
-      }catch (error) {
-          return error;
+      } catch (error) {
+        return error;
       }
-    }
+    },
   },
- 
-}
+};
 
-export default Home
+export default Home;

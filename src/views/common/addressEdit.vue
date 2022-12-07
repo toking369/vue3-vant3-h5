@@ -1,124 +1,96 @@
-<!--
- * @Descripttion: 
- * @Author: ''
- * @Date: 2021-04-04 15:26:10
- * @LastEditors: ''
- * @LastEditTime: 2021-04-04 15:26:36
--->
 <template>
-    <div class="addressEdit">
-        <div class="header_body">
-            <header-nav :slefBack="true" @goBack="goBack" 
-            :titelText="`${queryaddressId?'编辑':'新增'}地址`">
-            </header-nav>
-        </div>
-        <div class="warp_body">
-           <van-address-edit
-            :area-list="areaList"
-            :address-info="addressInfo"
-            show-postal
-            show-delete
-            show-set-default
-            show-search-result
-            :search-result="searchResult"
-            :area-columns-placeholder="areaColumns"
-            @save="onSave"
-            @delete="onDelete"
-            @change-detail="onChangeDetail"
-            />
-        </div>
+  <div class="addressEdit">
+    <div class="header_body">
+      <header-nav
+        :slefBack="true"
+        @goBack="goBack"
+        :titelText="`${queryaddressId ? '编辑' : '新增'}地址`"
+      >
+      </header-nav>
     </div>
+    <div class="warp_body">
+      <van-address-edit
+        :area-list="data.areaList"
+        :address-info="data.addressInfo"
+        show-postal
+        show-delete
+        show-set-default
+        show-search-result
+        :search-result="data.searchResult"
+        :area-columns-placeholder="data.areaColumns"
+        @save="onSave"
+        @delete="onDelete"
+        @change-detail="onChangeDetail"
+      />
+    </div>
+  </div>
 </template>
 
-  <script>
-import headerNav from '@/components/common/headerNav.vue'
-import  util  from '@/util/area'
-import {nextTick, onMounted, reactive, toRefs, watchEffect} from 'vue'
-import { useStore } from 'vuex'
-import { useRouter,useRoute } from 'vue-router'
-export default {
-  name: 'addressEdit',
-  components: {
-    headerNav
-  },
-  props:{
-   
-  },
-  setup(){
+<script setup>
+import headerNav from "@/components/common/headerNav.vue";
+import util from "@/util/area";
+import { nextTick, onMounted, reactive, ref, watchEffect } from "vue";
+import { useStore } from "vuex";
+import { useRouter, useRoute } from "vue-router";
+const store = useStore();
+const router = useRouter();
+const route = useRoute();
+let queryaddressId = ref("")
+const data = reactive({
+  searchResult: [],
+  areaList: util.areaList,
+  addressInfo: {},
+  areaColumns: ["请选择", "请选择", "请选择"],
+});
 
-    const store = useStore()
-    const router = useRouter()
-    const route = useRoute()
-    const data = reactive({
-        searchResult:[],
-        areaList:util.areaList,
-        addressInfo:{},
-        queryaddressId:'',
-        areaColumns:['请选择', '请选择', '请选择']
+// 返回
+const goBack = () => {
+  router.replace("addressList");
+};
+
+// 保存地址操作
+const onSave = () => {
+  router.replace("addressList");
+};
+
+// 删除地址操作
+const onDelete = () => {
+  router.replace("addressList");
+};
+
+// 修改详细地址
+const onChangeDetail = () => {};
+
+// 获取编辑地址数据
+const getEditdata = (addressId) => {
+  store
+    .dispatch("My/getAddressedit", { addressId: addressId })
+    .then((res) => {
+      if (res.code == 20000) {
+        data.addressInfo = res.data;
+        data.areaColumns = [res.data.province, res.data.city, res.data.area];
+      }
     })
-
-    let methodsMap = {
-        // 返回
-        goBack(){
-           router.replace('addressList')
-        },
-        
-        // 保存地址操作
-        onSave:()=>{
-            router.replace('addressList')
-        },
-
-        // 删除地址操作
-        onDelete:()=>{
-            router.replace('addressList')
-        },
-
-        // 修改详细地址
-        onChangeDetail:()=>{
-           
-        },
-
-        // 获取编辑地址数据
-        getEditdata:(addressId)=>{
-
-            store.dispatch('My/getAddressedit',{addressId:addressId}).then((res)=>{
-                if(res.code == 20000){
-                    data.addressInfo = res.data
-                    data.areaColumns = [ res.data.province, res.data.city, res.data.area]
-                }
-                
-            }).catch(()=>{
-
-            })
-        }
-    }
-    watchEffect(()=>{
-        if(route?.query.addressId){
-            data.queryaddressId = route?.query.addressId
-        }
-    })
-    onMounted(() => {
-       
-        route?.query.addressId && methodsMap.getEditdata(route.query.addressId);
-
-        nextTick(()=>{
-            if(!route?.query.addressId){
-                data.addressInfo = {}
-            }
-        })
-    })
-
-    return {
-      ...toRefs(data),
-     ...methodsMap,
-    }
+    .catch(() => {});
+};
+watchEffect(() => {
+  if (route?.query.addressId) {
+    queryaddressId = route?.query.addressId;
   }
-}
+});
+onMounted(() => {
+  route?.query.addressId && getEditdata(route.query.addressId);
+  nextTick(() => {
+    if (!route?.query.addressId) {
+      data.addressInfo = {};
+    }
+  });
+});
 </script>
 <style lang="less" scoped>
-    .addressEdit{
-        .warp_body{
-            height: calc(100vh - 46px);
-        }
-    }
+.addressEdit {
+  .warp_body {
+    height: calc(100vh - 46px);
+  }
+}
 </style>

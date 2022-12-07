@@ -1,10 +1,3 @@
-/*
- * @Descripttion: 
- * @Author: ''
- * @Date: 2021-03-11 19:13:11
- * @LastEditors: ''
- * @LastEditTime: 2021-04-03 17:08:43
- */
 import axios from 'axios'
 import { Toast } from 'vant';
 // 超时时间

@@ -1,10 +1,3 @@
-/*
- * @Descripttion: 
- * @Author: ''
- * @Date: 2021-03-12 09:23:32
- * @LastEditors: ''
- * @LastEditTime: 2021-03-12 10:52:06
- */
 let envMap = {
     development:"LOC",
     DEV:'DEV',
