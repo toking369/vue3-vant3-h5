@@ -1,8 +1,8 @@
 <template>
   <div class="footerNav">
     <van-tabbar v-model="data.footerActive" :route="true">
-      <van-tabbar-item name="Home" replace icon="wap-home-o" to="/home">首页</van-tabbar-item>
-      <van-tabbar-item name="Classify" replace icon="shop-o" to="/classify">分类</van-tabbar-item>
+      <van-tabbar-item name="Home" replace icon="wap-home-o" to="/home">{{$t('lang_home')}}</van-tabbar-item>
+      <van-tabbar-item name="Classify" replace icon="shop-o" to="/classify">{{$t('lang_classify')}}</van-tabbar-item>
       <van-tabbar-item
         name="Shop"
         replace
@@ -10,8 +10,8 @@
         to="/shop"
         :dot="data.dot"
         :badge="goodsNum"
-        >购物车</van-tabbar-item>
-      <van-tabbar-item name="My" replace icon="manager-o" to="/my">我的</van-tabbar-item>
+        >{{$t('lang_shop')}}</van-tabbar-item>
+      <van-tabbar-item name="My" replace icon="manager-o" to="/my">{{$t('lang_my')}}</van-tabbar-item>
     </van-tabbar>
   </div>
 </template>

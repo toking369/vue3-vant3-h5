@@ -21,6 +21,18 @@ export default createStore({
     },
   },
   actions: {
+    async getLang(state, params) {
+      let url = REQ.getRequestUrl({
+        url: API.getLang,
+      });
+
+      try {
+        const rep = await REQ.request(url, params, { method: "GET" });
+        return rep;
+      } catch (error) {
+        return error;
+      }
+    },
     async getGoodsNum(state, params) {
       let url = REQ.getRequestUrl({
         url: API.getGoodsNum,

@@ -101,7 +101,7 @@ import {
 } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import util from "@/util/util";
+import { setGoodsNum } from "@/util/util";
 const store = useStore();
 const router = useRouter();
 let allchecked = ref(false);
@@ -126,7 +126,7 @@ const calculationNum = () => {
   data.cartList.forEach((item) => {
     num += parseInt(item.num);
   });
-  util.setGoodsNum(store, num);
+  setGoodsNum(store, num);
 };
 
 //计算价格

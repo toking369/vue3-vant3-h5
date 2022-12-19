@@ -7,5 +7,5 @@ import Vant from 'vant';
 import 'vant/lib/index.css';
 import '@/request/http'
 import global from'@/components/global'
-
-createApp(App).use(store).use(router).use(Vant).use(global).mount('#app')
+import i18n from '@/locales'
+createApp(App).use(store).use(router).use(Vant).use(global).use(i18n).mount('#app')

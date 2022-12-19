@@ -16,7 +16,6 @@
             v-model:carouselList="carouselList"
           ></carousel>
         </div>
-
         <div class="boutique_box">
           <van-cell :border="false" title="精品" />
           <div class="boutique_body">
@@ -26,7 +25,6 @@
             ></goodsCard>
           </div>
         </div>
-
         <div class="recommend_box">
           <van-cell :border="false" title="推荐" />
           <div class="recommend_body">

@@ -8,9 +8,10 @@
 
 <script setup>
 import "@/assets/css/index.less";
+import i18n from "@/locales";
 import { onMounted } from "vue";
 import { useStore } from "vuex";
-import util from "@/util/util";
+import { setGoodsNum, isObject } from "@/util/util";
 const store = useStore();
 let methodsMap = {
   // 进入应用查询购物车数量
@@ -19,7 +20,23 @@ let methodsMap = {
       .dispatch("getGoodsNum")
       .then((res) => {
         if (res.code == 20000) {
-          util.setGoodsNum(store, res.data || 0);
+          setGoodsNum(store, res.data || 0);
+        }
+      })
+      .catch(() => {});
+  },
+
+  // 远程国际化-会和本地国际化合并
+  getLang: () => {
+    store
+      .dispatch("getLang")
+      .then((res) => {
+        if (res.code == 20000) {
+          if (isObject(res) && isObject(res.data)) {
+            Object.keys(res.data).forEach((key) => {
+              i18n.global.mergeLocaleMessage(key, res.data[key]);
+            });
+          }
         }
       })
       .catch(() => {});
@@ -27,5 +44,6 @@ let methodsMap = {
 };
 onMounted(() => {
   methodsMap.getGoodsnum();
+  methodsMap.getLang();
 });
 </script>

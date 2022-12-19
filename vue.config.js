@@ -1,10 +1,3 @@
-/*
- * @Descripttion: 
- * @Author: ''
- * @Date: 2021-03-05 16:16:53
- * @LastEditors: ''
- * @LastEditTime: 2021-03-20 14:03:59
- */
 const config = require('./src/config/config.js')
 module.exports = {
   lintOnSave: false,
