@@ -4,11 +4,11 @@
     <div class="header_body">
       <header-nav titelText="商品详情"></header-nav>
     </div>
-
     <div class="warp_body">
       <refreshList
         v-model:freshMap="data.freshMap"
         @refresh="onRefresh"
+        :finishedText="''"
         @onLoad="onLoad"
       >
         <div class="carousel_box">
@@ -40,9 +40,18 @@
           </van-cell-group>
         </div>
 
-        <div class="goods-comment-box"></div>
+        <div class="goods-recommend-box">
+          <van-cell :border="false" title="推荐" />
+          <goodsCard :goodsList="data.recommend"></goodsCard>
+        </div>
+
+        <div class="goods-comment-box">
+
+        </div>
       </refreshList>
     </div>
+
+    
 
     <div class="footer_body">
       <van-action-bar>
@@ -70,6 +79,7 @@
 import headerNav from "@/components/common/headerNav.vue";
 import carousel from "@/components/home/carousel.vue";
 import refreshList from "@/components/common/refreshList.vue";
+import goodsCard from "@/components/common/goodsCard.vue";
 import { onMounted, reactive, ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
@@ -99,6 +109,7 @@ const data = reactive({
       { name: "小程序码", icon: "weapp-qrcode" },
     ],
   ],
+  recommend:[]
 });
 
 //下拉刷新
@@ -125,7 +136,7 @@ const addShopcart = () => {
   store
     .dispatch("ShopCard/getCard")
     .then((res) => {
-      if (res.code == 20000) {
+      if (res.code === 20000) {
         showToast("添加到购物车成功");
         store.commit("SET_RELAOD_SHOP", true);
       }
@@ -141,7 +152,7 @@ const getGoodsdetal = () => {
     store
       .dispatch("getGoodsdetal")
       .then((res) => {
-        if (res.code == 20000) {
+        if (res.code === 20000) {
           data.carouselList = res.data?.carouselList.map((item) => {
             return {
               img: item,
@@ -157,10 +168,28 @@ const getGoodsdetal = () => {
   });
 };
 
+//推荐
+const recommendGoods = () => {
+  return new Promise((resolve, reject) => {
+    store
+      .dispatch("Home/recommendGoods")
+      .then((res) => {
+        if (res.code === 20000) {
+          data.recommend =  res.data;
+        }
+        resolve(res);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
 //获取评论
 const getComment = () => {};
 onMounted(() => {
   getGoodsdetal();
+  recommendGoods()
   getComment();
 });
 </script>
@@ -209,6 +238,9 @@ onMounted(() => {
   .goods-pra-box {
     margin-left: 10px;
     margin-right: 10px;
+  }
+  .goods-recommend-box{
+    margin: 10px;
   }
 }
 </style>

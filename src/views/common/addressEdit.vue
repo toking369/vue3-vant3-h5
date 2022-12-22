@@ -66,7 +66,7 @@ const getEditdata = (addressId) => {
   store
     .dispatch("My/getAddressedit", { addressId: addressId })
     .then((res) => {
-      if (res.code == 20000) {
+      if (res.code === 20000) {
         data.addressInfo = res.data;
         data.areaColumns = [res.data.province, res.data.city, res.data.area];
       }

@@ -47,7 +47,7 @@ const getList = () => {
   store
     .dispatch("")
     .then((res) => {
-      if (res.code == 20000) {
+      if (res.code === 20000) {
         console.log(res);
       }
     })

@@ -12,7 +12,7 @@
       v-model:loading="data.freshData.listLoading"
       :finished="data.freshData.listFinished"
       :immediate-check="false"
-      finished-text="没有更多了"
+      :finished-text="finishedText"
       @load="onLoad"
       :offset="20"
     >
@@ -47,12 +47,16 @@ const props = defineProps({
     type: Number,
     default: 0,
   },
+  finishedText: {
+    type: String,
+    default: '没有更多了',
+  },
 });
 const data = reactive({
   freshData: props.freshMap,
 });
 
-let ref_reshList = ref();
+let refReshList = ref();
 
 //下拉刷新
 const onRefresh = () => {
@@ -66,7 +70,7 @@ const onLoad = () => {
 
 //重置滚动距离
 const resetScroll = () => {
-  ref_reshList.value.$el.scrollTop = 0;
+  refReshList.value.$el.scrollTop = 0;
 };
 
 //滚动监听

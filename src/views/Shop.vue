@@ -5,70 +5,72 @@
     </div>
 
     <div class="warp_body">
-      <van-pull-refresh
-        v-model="refreshLoad"
-        @refresh="onRefresh"
-        class="refresh_box"
-      >
-        <div class="refresh_content" v-if="data.cartList.length">
-          <div
-            class="goods-box"
-            v-for="(item, index) in data.cartList"
-            :key="index"
-          >
-            <van-swipe-cell class="swipe-cell">
-              <div class="card-box">
-                <van-checkbox
-                  style="margin-left: 10px"
-                  v-model="item.checked"
-                  @change="oneCheckbox(item)"
-                ></van-checkbox>
-                <van-card
-                  class="card-body"
-                  :min="1"
-                  :max="999"
-                  centered
-                  :desc="item.desc"
-                  :title="item.name"
-                  :thumb="item.img"
-                  @click.stop="goto($event)"
-                >
-                  <template #price>
-                    <div style="color: red">¥ {{ item.price }}</div>
-                  </template>
+      <lodding-card :isLodding="isLodding">
+        <van-pull-refresh
+          v-model="refreshLoad"
+          @refresh="onRefresh"
+          class="refresh_box"
+        >
+          <div class="refresh_content" v-if="data.cartList.length">
+            <div
+              class="goods-box"
+              v-for="(item, index) in data.cartList"
+              :key="index"
+            >
+              <van-swipe-cell class="swipe-cell">
+                <div class="card-box">
+                  <van-checkbox
+                    style="margin-left: 10px"
+                    v-model="item.checked"
+                    @change="oneCheckbox(item)"
+                  ></van-checkbox>
+                  <van-card
+                    class="card-body"
+                    :min="1"
+                    :max="999"
+                    centered
+                    :desc="item.desc"
+                    :title="item.name"
+                    :thumb="item.img"
+                    @click.stop="goto($event)"
+                  >
+                    <template #price>
+                      <div style="color: red">¥ {{ item.price }}</div>
+                    </template>
 
-                  <template #footer>
-                    <van-stepper
-                      v-model="item.num"
-                      @plus="plus(item)"
-                      @minus="minus(item)"
-                      @blur="stpBlur(item)"
-                      @overlimit="stplimit"
-                      :min="1"
-                      :max="99"
-                      theme="round"
-                      button-size="22"
-                    />
-                  </template>
-                </van-card>
-              </div>
-
-              <template #right>
-                <div style="height: 100%">
-                  <van-button
-                    style="height: 100%"
-                    square
-                    @click="delGoods(item)"
-                    type="danger"
-                    text="删除"
-                  />
+                    <template #footer>
+                      <van-stepper
+                        v-model="item.num"
+                        @plus="plus(item)"
+                        @minus="minus(item)"
+                        @blur="stpBlur(item)"
+                        @overlimit="stplimit"
+                        :min="1"
+                        :max="99"
+                        theme="round"
+                        button-size="22"
+                      />
+                    </template>
+                  </van-card>
                 </div>
-              </template>
-            </van-swipe-cell>
+
+                <template #right>
+                  <div style="height: 100%">
+                    <van-button
+                      style="height: 100%"
+                      square
+                      @click="delGoods(item)"
+                      type="danger"
+                      text="删除"
+                    />
+                  </div>
+                </template>
+              </van-swipe-cell>
+            </div>
           </div>
-        </div>
-        <van-empty v-else class="no-data" description="暂无数据" />
-      </van-pull-refresh>
+          <van-empty v-else class="no-data" description="暂无数据" />
+        </van-pull-refresh>
+      </lodding-card>
     </div>
 
     <div class="footer_body">
@@ -91,6 +93,7 @@
 import { showToast } from "vant";
 import headerNav from "@/components/common/headerNav.vue";
 import footerNav from "@/components/common/footerNav.vue";
+import loddingCard from "@/components/common/loddingCard.vue";
 import {
   onMounted,
   reactive,
@@ -106,6 +109,7 @@ const store = useStore();
 const router = useRouter();
 let allchecked = ref(false);
 let refreshLoad = ref(false);
+let isLodding = ref(true);
 let totalPrice = ref(0);
 let data = reactive({
   cartList: [],
@@ -201,7 +205,7 @@ const delGoods = (item) => {
   store
     .dispatch("ShopCard/delGoods", { id: item.id })
     .then((res) => {
-      if (res.code == 20000) {
+      if (res.code === 20000) {
         data.cartList = data.cartList.filter((it) => {
           return it.id != item.id;
         });
@@ -244,12 +248,14 @@ const getCard = () => {
   store
     .dispatch("ShopCard/getCard")
     .then((res) => {
-      if (res.code == 20000) {
+      if (res.code === 20000) {
         data.cartList = res.data;
       }
+      isLodding.value = false
       refreshLoad.value = false;
     })
     .catch(() => {
+      isLodding.value = false
       refreshLoad.value = false;
     });
 };

@@ -1,9 +1,17 @@
 <template>
-  <router-view v-slot="{ Component }">
-    <keep-alive include="Shop">
+ 
+  <!-- 路由缓存 -->
+  <router-view
+    :max="100"
+    :key="$router.fullPath"
+    v-slot="{ Component }"
+  >
+    <keep-alive v-if="$route.meta.isKeepAlive">
       <component :is="Component" />
     </keep-alive>
+    <component v-if="!$route.meta.isKeepAlive" :is="Component" />
   </router-view>
+
 </template>
 
 <script setup>
@@ -19,7 +27,7 @@ let methodsMap = {
     store
       .dispatch("getGoodsNum")
       .then((res) => {
-        if (res.code == 20000) {
+        if (res.code === 20000) {
           setGoodsNum(store, res.data || 0);
         }
       })
@@ -31,7 +39,7 @@ let methodsMap = {
     store
       .dispatch("getLang")
       .then((res) => {
-        if (res.code == 20000) {
+        if (res.code === 20000) {
           if (isObject(res) && isObject(res.data)) {
             Object.keys(res.data).forEach((key) => {
               i18n.global.mergeLocaleMessage(key, res.data[key]);

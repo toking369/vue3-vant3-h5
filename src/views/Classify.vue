@@ -3,36 +3,40 @@
     <div class="header_body">
       <header-nav :leftArrow="false" titelText="分类"> </header-nav>
     </div>
-
     <div class="warp_body">
-      <div class="warp_left" v-if="classifyList.length">
-        <van-sidebar v-model="classifyActive">
-          <van-sidebar-item
-            v-for="(item, index) in classifyList"
-            :key="index"
-            :title="item.classifyName"
-            @click="chioceClassify(item)"
-          />
-        </van-sidebar>
-      </div>
-      <div class="warp_right">
-        <refreshList
-          v-model:freshMap="freshMap"
-          :classMap="classMap"
-          @refresh="onRefresh"
-          @onLoad="onLoad"
-          :resetScroll="resetScroll"
-        >
-          <div>
-            <goodsCard :goodsList="goodsList" :cardAttr="cardAttr"></goodsCard>
-          </div>
-          <van-empty
-            v-if="goodsList.length == 0"
-            class="no-data"
-            description="暂无数据"
-          />
-        </refreshList>
-      </div>
+      <lodding-card :isLodding="isLodding">
+        <div class="warp_left" v-if="classifyList.length">
+          <van-sidebar v-model="classifyActive">
+            <van-sidebar-item
+              v-for="(item, index) in classifyList"
+              :key="index"
+              :title="item.classifyName"
+              @click="chioceClassify(item)"
+            />
+          </van-sidebar>
+        </div>
+        <div class="warp_right">
+          <refreshList
+            v-model:freshMap="freshMap"
+            :classMap="classMap"
+            @refresh="onRefresh"
+            @onLoad="onLoad"
+            :resetScroll="resetScroll"
+          >
+            <div>
+              <goodsCard
+                :goodsList="goodsList"
+                :cardAttr="cardAttr"
+              ></goodsCard>
+            </div>
+            <van-empty
+              v-if="goodsList.length == 0"
+              class="no-data"
+              description="暂无数据"
+            />
+          </refreshList>
+        </div>
+      </lodding-card>
     </div>
 
     <div class="footer_body">
@@ -46,6 +50,7 @@ import headerNav from "@/components/common/headerNav.vue";
 import footerNav from "@/components/common/footerNav.vue";
 import refreshList from "@/components/common/refreshList.vue";
 import goodsCard from "@/components/common/goodsCard.vue";
+import loddingCard from "@/components/common/loddingCard.vue";
 import { onMounted, reactive, ref, toRefs } from "vue";
 import { useStore } from "vuex";
 
@@ -53,6 +58,7 @@ const store = useStore();
 let classifyId = ref("");
 let classifyActive = ref(0);
 let resetScroll = ref(0);
+let isLodding = ref(true);
 let classifyList = reactive([]);
 let goodsList = reactive([]);
 let freshMap = reactive({
@@ -92,7 +98,7 @@ const getClassify = () => {
     store
       .dispatch("Classify/getClassify")
       .then((res) => {
-        if (res.code == 20000) {
+        if (res.code === 20000) {
           classifyList.push(...res.data);
           resolve(res.data);
         } else {
@@ -108,7 +114,7 @@ const getClassify = () => {
 //获取分类下的商品列表
 const getGoodslist = (onLoad) => {
   store.dispatch("Classify/classifyGoods", { id: classifyId }).then((res) => {
-    if (res.code == 20000) {
+    if (res.code === 20000) {
       goodsList = onLoad ? goodsList.concat(res.data) : res.data;
       freshMap.refreshLoad = false;
       freshMap.listLoading = false;
@@ -117,6 +123,9 @@ const getGoodslist = (onLoad) => {
         freshMap.listFinished = true;
       }
     }
+    isLodding.value = false
+  }).catch(()=>{
+    isLodding.value = false
   });
 };
 
@@ -125,6 +134,8 @@ onMounted(async () => {
   if (res && res.length) {
     classifyId = res?.[0].id;
     classifyId && getGoodslist();
+  }else{
+    isLodding.value = false
   }
 });
 </script>

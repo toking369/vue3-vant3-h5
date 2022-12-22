@@ -69,7 +69,7 @@ const getCarousel = () => {
     store
       .dispatch("Home/getCarousel")
       .then((res) => {
-        if (res.code == 20000) {
+        if (res.code === 20000) {
           carouselList = res.data;
         }
         resolve(res);
@@ -86,7 +86,7 @@ const boutiqueGoods = () => {
     store
       .dispatch("Home/boutiqueGoods")
       .then((res) => {
-        if (res.code == 20000) {
+        if (res.code === 20000) {
           boutique = res.data;
         }
         resolve(res);
@@ -103,7 +103,7 @@ const recommendGoods = (onLoad) => {
     store
       .dispatch("Home/recommendGoods")
       .then((res) => {
-        if (res.code == 20000) {
+        if (res.code === 20000) {
           recommend = onLoad ? recommend.concat(res.data) : res.data;
           freshMap.listLoading = false;
           freshMap.listFinished = res.listFinished;
@@ -123,11 +123,7 @@ const recommendGoods = (onLoad) => {
 //下拉刷新
 const onRefresh = () => {
   freshMap.refreshLoad = true;
-  Promise.all([
-    getCarousel(),
-    boutiqueGoods(),
-    recommendGoods(),
-  ]).then(() => {
+  Promise.all([getCarousel(), boutiqueGoods(), recommendGoods()]).then(() => {
     freshMap.refreshLoad = false;
   });
 };
