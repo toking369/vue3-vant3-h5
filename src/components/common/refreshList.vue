@@ -5,7 +5,7 @@
     @refresh="onRefresh"
     :class="classMap.refreshClass"
     @scroll="scrollHander"
-    ref="ref_reshList"
+    ref="refReshList"
   >
     <van-list
       class="van-list-body"
