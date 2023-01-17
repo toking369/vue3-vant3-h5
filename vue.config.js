@@ -1,4 +1,3 @@
-const config = require('./src/config/config.js')
 module.exports = {
   lintOnSave: false,
   productionSourceMap:false,
@@ -8,7 +7,7 @@ module.exports = {
     host:"localhost",
     proxy: {
       "/app": {
-        target: config.webpackUrl, //代理请求地址
+        target: process.env.VUE_APP_BASE_URL, //代理请求地址
         secure: true, 
         changeOrigin: true, 
         pathRewrite: {

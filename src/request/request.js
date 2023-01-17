@@ -1,12 +1,11 @@
 import axios from "axios";
 import jsonp from "jsonp";
-import config from "@/config/config";
-
 axios.defaults.withCredentials = true;
 
 function getRequestUrl(params) {
+  const baseUrl = process.env.VUE_APP_BASE_URL
   return (
-    (params.baseUrl ? config[params.baseUrl] : config["baseUrl"]) + params.url
+    (params.baseUrl ? config[params.baseUrl] : baseUrl) + params.url
   );
 }
 
