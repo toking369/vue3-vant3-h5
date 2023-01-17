@@ -6,7 +6,7 @@
  * @Description: In User Settings Edit
  * @FilePath: \vue3-vant3-h5\README.md
 -->
-# vue3+vant3
+# vue3+vant4
 
 ## Project setup
 ```
