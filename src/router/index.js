@@ -85,7 +85,4 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes,
 });
-
-const mittBus = new mitt();
-
 export default router;
