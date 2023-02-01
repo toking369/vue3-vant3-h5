@@ -62,7 +62,10 @@ const onAdd = () => {
 
 // 修改地址
 const onEdit = (item) => {
-  router.replace({ path: "addressEdit", query: { addressId: item.id } });
+  router.replace({
+    path: "addressEdit",
+    query: { addressId: item.id }
+  });
 };
 
 // 切换地址触发

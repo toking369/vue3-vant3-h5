@@ -3,10 +3,8 @@ import jsonp from "jsonp";
 axios.defaults.withCredentials = true;
 
 function getRequestUrl(params) {
-  const baseUrl = process.env.VUE_APP_BASE_URL
-  return (
-    (params.baseUrl ? config[params.baseUrl] : baseUrl) + params.url
-  );
+  const baseUrl = process.env.VUE_APP_BASE_URL;
+  return `${params.baseUrl ? params.baseUrl : baseUrl}${params.url}`;
 }
 
 function request(url, params, option) {

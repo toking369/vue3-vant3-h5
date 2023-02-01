@@ -1,17 +1,19 @@
 <template>
- 
   <!-- 路由缓存 -->
-  <router-view
-    :max="100"
-    :key="$router.fullPath"
-    v-slot="{ Component }"
-  >
-    <keep-alive v-if="$route.meta.isKeepAlive">
-      <component :is="Component" />
+  <router-view  v-slot="{ Component }">
+    <keep-alive>
+      <component
+        :is="Component"
+        v-if="$route.meta.isKeepAlive"
+        :key="$route.name"
+      />
     </keep-alive>
-    <component v-if="!$route.meta.isKeepAlive" :is="Component" />
+    <component
+      :is="Component"
+      v-if="!$route.meta.isKeepAlive"
+      :key="$route.name"
+    />
   </router-view>
-
 </template>
 
 <script setup>
