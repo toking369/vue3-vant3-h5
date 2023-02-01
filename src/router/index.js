@@ -13,6 +13,7 @@ const routes = [
     component: Home,
     meta: {
       isKeepAlive: true,
+      subMsgKey: "APP_SHOP_PAGE",
     },
   },
   {
@@ -21,6 +22,7 @@ const routes = [
     component: () => import("@/views/Classify.vue"),
     meta: {
       isKeepAlive: true,
+      subMsgKey: "APP_CLASSIFY_PAGE",
     },
   },
   {
@@ -29,6 +31,7 @@ const routes = [
     component: () => import("@/views/Shop.vue"),
     meta: {
       isKeepAlive: true,
+      subMsgKey: "APP_SHOP_PAGE",
     },
   },
   {
@@ -37,6 +40,7 @@ const routes = [
     component: () => import("@/views/My.vue"),
     meta: {
       isKeepAlive: true,
+      subMsgKey: "APP_MY_PAGE",
     },
   },
   {
@@ -45,6 +49,7 @@ const routes = [
     component: () => import("@/views/common/setting.vue"),
     meta: {
       isKeepAlive: true,
+      subMsgKey: "APP_SETTING_PAGE",
     },
   },
   {
@@ -53,6 +58,7 @@ const routes = [
     component: () => import("@/views/common/addressList.vue"),
     meta: {
       isKeepAlive: true,
+      subMsgKey: "APP_ADDRESS_LIST_PAGE",
     },
   },
   {
@@ -69,6 +75,7 @@ const routes = [
     component: () => import("@/views/common/goodsDetail.vue"),
     meta: {
       isKeepAlive: true,
+      subMsgKey: "APP_GOODS_DETAIL_PAGE",
       isRouterKeepAlive: true,
     },
   },
@@ -78,5 +85,7 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes,
 });
+
+const mittBus = new mitt();
 
 export default router;
