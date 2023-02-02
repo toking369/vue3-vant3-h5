@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import Home from "@/views/Home.vue";
+import expandRouter from "@/router/expandRouter";
 
 const routes = [
   {
@@ -13,7 +14,7 @@ const routes = [
     component: Home,
     meta: {
       isKeepAlive: true,
-      subMsgKey: "APP_SHOP_PAGE",
+      subMsgKey: "APP_HOME_PAGE",
     },
   },
   {
@@ -79,10 +80,17 @@ const routes = [
       isRouterKeepAlive: true,
     },
   },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "404",
+    component: () => import("@/views/404.vue"),
+  },
 ];
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
 });
+
+expandRouter(router,routes) // 路由扩展
 export default router;

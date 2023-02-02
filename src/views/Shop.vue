@@ -264,7 +264,7 @@ const getCard = () => {
 const goto = (e) => {
   let target = e.srcElement || e.target;
   if (!["BUTTON", "INPUT"].includes(target.tagName)) {
-    router.push({ path: "goodsDetail" });
+    router.push({ name: "goodsDetail" });
   }
 };
 

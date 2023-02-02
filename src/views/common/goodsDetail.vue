@@ -76,15 +76,15 @@
 </template>
 
 <script setup>
+import configureInit from "@/common/js/configure";
 import headerNav from "@/components/common/headerNav.vue";
 import carousel from "@/components/home/carousel.vue";
 import refreshList from "@/components/common/refreshList.vue";
 import goodsCard from "@/components/common/goodsCard.vue";
-import { getCurrentInstance, onMounted, reactive, ref } from "vue";
+import {  onMounted, reactive, ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { showToast } from "vant";
-const { proxy } = getCurrentInstance()
 const store = useStore();
 const router = useRouter();
 let showShare = ref(false);
@@ -190,8 +190,8 @@ const recommendGoods = () => {
 const getComment = () => {};
 onMounted(() => {
   console.log('获取路由参数:', router.currentRoute.value.query)
-  proxy.mittBus.on('APP_GOODS_DETAIL_PAGE',(data) =>{
-      console.log('总监听事件接收')
+  configureInit(()=>{
+    console.log('缓存页面时--总监听事件接收--用于初始化操作')
   })
   getGoodsdetal();
   recommendGoods()

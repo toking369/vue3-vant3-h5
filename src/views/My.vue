@@ -70,7 +70,7 @@ const data = reactive({
   ],
 });
 const setting = () => {
-  router.push({ path: "setting" });
+  router.push({ name: "setting" });
 };
 </script>
 <style lang="less">

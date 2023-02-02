@@ -50,8 +50,9 @@ const props = defineProps({
 });
 const goGoodsdetail = (item) => {
   router.push({
-    path: "goodsDetail",
+    name: "goodsDetail",
     query: { goodsId: item.goodsId },
+    isSendBusMsg: true,
   });
 };
 </script>
