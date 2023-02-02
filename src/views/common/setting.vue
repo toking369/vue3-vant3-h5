@@ -54,9 +54,9 @@ const getList = () => {
     .catch(() => {});
 };
 
-// 前往地址列表
+// 前往地址列表APP_GOODS_DETAIL_PAGE
 const goAddress = () => {
-  router.push({ path: "addressList" });
+  router.push({ name: "addressList" });
 };
 onMounted(() => {});
 </script>
