@@ -1,23 +1,9 @@
 import eventBus from "@/common/js/eventBus";
 import { isObject } from "@/util/util";
-const expandFn = function (location, routes) {
-  let busName = "";
-  const { isSendBusMsg } = location;
-  if (isSendBusMsg) {
-    routes.forEach((e) => {
-      const { meta } = e;
-      if (e.name === location.name && isObject(meta)) {
-        const { subMsgKey } = meta;
-        busName = subMsgKey;
-      }
-    });
-  }
-  return busName;
-};
 
-const expandRouter = function (router, routes) {
-  let arr = [];
-  // 加载模块路由
+// 加载模块路由
+const loadRouterModules = function (routes) {
+  let routesArr = [];
   const modulesRouter = require.context("./modules", true, /\.js$/);
   modulesRouter.keys().reduce((modules, modulePath) => {
     const modulesArr = modulesRouter(modulePath).routes;
@@ -39,9 +25,29 @@ const expandRouter = function (router, routes) {
         }
       });
     });
-    routes = [...routes, ...modulesArr];
+    routesArr = [...routesArr, ...modulesArr];
   }, {});
+  return [...routes, ...routesArr];
+};
 
+// 添加通知事件
+const expandFn = function (location, routes) {
+  let busName = "";
+  const { isSendBusMsg } = location;
+  if (isSendBusMsg) {
+    routes.forEach((e) => {
+      const { meta } = e;
+      if (e.name === location.name && isObject(meta)) {
+        const { subMsgKey } = meta;
+        busName = subMsgKey;
+      }
+    });
+  }
+  return busName;
+};
+
+// 添加扩展方法
+const expandRouter = function (router, routes) {
   // 扩展push方法
   const routerPush = router.push;
   router.push = function (location) {
@@ -67,4 +73,4 @@ const expandRouter = function (router, routes) {
   };
 };
 
-export default expandRouter;
+export { loadRouterModules, expandRouter };

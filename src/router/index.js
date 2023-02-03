@@ -1,8 +1,8 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import Home from "@/views/Home.vue";
-import expandRouter from "@/router/expandRouter";
+import { loadRouterModules, expandRouter } from "@/router/expandRouter";
 
-const routes = [
+let routes = [
   {
     path: "/",
     redirect: "/home",
@@ -87,10 +87,13 @@ const routes = [
   },
 ];
 
+routes = loadRouterModules(routes); // 加载模块路由
+
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
 });
 
-expandRouter(router,routes) // 路由扩展
+expandRouter(router, routes); // 添加路由扩展
+
 export default router;
