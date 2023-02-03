@@ -3,17 +3,16 @@ import { isObject } from "@/util/util";
 
 // 加载模块路由
 const loadRouterModules = function (routes) {
-  let routesArr = [];
+  let routesArr = [...routes];
   const modulesRouter = require.context("./modules", true, /\.js$/);
   modulesRouter.keys().reduce((modules, modulePath) => {
     const modulesArr = modulesRouter(modulePath).routes;
     modulesArr.forEach((item) => {
-      routes.forEach((it) => {
+      routesArr.forEach((it) => {
         const { meta: preMeta, name: preName } = it;
         const { meta: nextMeta, name: nextName } = item;
         const preBusName = isObject(preMeta) ? preMeta.subMsgKey : "";
         const nextBusName = isObject(nextMeta) ? nextMeta.subMsgKey : "";
-
         const isRepeatBus =
           preBusName && nextBusName && preBusName === nextBusName;
         if (preName === nextName || isRepeatBus) {
@@ -27,7 +26,7 @@ const loadRouterModules = function (routes) {
     });
     routesArr = [...routesArr, ...modulesArr];
   }, {});
-  return [...routes, ...routesArr];
+  return routesArr;
 };
 
 // 添加通知事件
