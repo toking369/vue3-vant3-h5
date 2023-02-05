@@ -4,13 +4,13 @@
     <keep-alive>
       <component
         :is="Component"
-        v-if="$route.meta.isKeepAlive"
+        v-if="$route?.meta?.isKeepAlive"
         :key="$route.name"
       />
     </keep-alive>
     <component
       :is="Component"
-      v-if="!$route.meta.isKeepAlive"
+      v-if="!$route?.meta?.isKeepAlive"
       :key="$route.name"
     />
   </router-view>

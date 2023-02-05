@@ -1,4 +1,3 @@
-
 <template>
   <div class="goodsDetail">
     <div class="header_body">
@@ -20,7 +19,7 @@
 
         <div class="goods-info-box">
           <div class="price-body">¥ {{ data.goodsInfo.price }}</div>
-          <div class="name-body">{{ data.goodsInfo.goodsName }}</div>
+          <div class="name-body">{{ data.goodsInfo.goodsName }}-{{ data.goodsInfo.gId }}</div>
           <div class="share-body" @click="showShare = true">
             <van-icon style="float: right" name="share-o" />
           </div>
@@ -45,13 +44,9 @@
           <goodsCard :goodsList="data.recommend"></goodsCard>
         </div>
 
-        <div class="goods-comment-box">
-
-        </div>
+        <div class="goods-comment-box"></div>
       </refreshList>
     </div>
-
-    
 
     <div class="footer_body">
       <van-action-bar>
@@ -81,7 +76,7 @@ import headerNav from "@/components/common/headerNav.vue";
 import carousel from "@/components/home/carousel.vue";
 import refreshList from "@/components/common/refreshList.vue";
 import goodsCard from "@/components/common/goodsCard.vue";
-import {  onMounted, reactive, ref } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { showToast } from "vant";
@@ -110,7 +105,7 @@ const data = reactive({
       { name: "小程序码", icon: "weapp-qrcode" },
     ],
   ],
-  recommend:[]
+  recommend: [],
 });
 
 //下拉刷新
@@ -148,7 +143,7 @@ const addShopcart = () => {
 };
 
 //获取商品信息
-const getGoodsdetal = () => {
+const getGoodsdetal = (goodsId) => {
   return new Promise((resolve, reject) => {
     store
       .dispatch("getGoodsdetal")
@@ -159,7 +154,7 @@ const getGoodsdetal = () => {
               img: item,
             };
           });
-          data.goodsInfo = res.data;
+          data.goodsInfo = {...res.data,gId:goodsId};
         }
         resolve(res);
       })
@@ -176,7 +171,7 @@ const recommendGoods = () => {
       .dispatch("Home/recommendGoods")
       .then((res) => {
         if (res.code === 20000) {
-          data.recommend =  res.data;
+          data.recommend = res.data;
         }
         resolve(res);
       })
@@ -189,13 +184,14 @@ const recommendGoods = () => {
 //获取评论
 const getComment = () => {};
 onMounted(() => {
-  console.log('获取路由参数:', router.currentRoute.value.query)
-  configureInit(()=>{
-    console.log('缓存页面时--总监听事件接收--用于初始化操作')
-  })
-  getGoodsdetal();
-  recommendGoods()
-  getComment();
+  configureInit(() => {
+    console.log("获取路由参数:", router.currentRoute.value.query);
+    console.log("缓存页面时--总监听事件接收--用于初始化操作");
+    const { goodsId } = router.currentRoute.value.query;
+    getGoodsdetal(goodsId);
+    recommendGoods();
+    getComment();
+  });
 });
 </script>
 <style lang="less">
@@ -244,7 +240,7 @@ onMounted(() => {
     margin-left: 10px;
     margin-right: 10px;
   }
-  .goods-recommend-box{
+  .goods-recommend-box {
     margin: 10px;
   }
 }
