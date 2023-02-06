@@ -32,7 +32,7 @@
                     :desc="item.desc"
                     :title="item.name"
                     :thumb="item.img"
-                    @click.stop="goto($event)"
+                    @click.stop="goto($event, item)"
                   >
                     <template #price>
                       <div style="color: red">¥ {{ item.price }}</div>
@@ -251,20 +251,26 @@ const getCard = () => {
       if (res.code === 20000) {
         data.cartList = res.data;
       }
-      isLodding.value = false
+      isLodding.value = false;
       refreshLoad.value = false;
     })
     .catch(() => {
-      isLodding.value = false
+      isLodding.value = false;
       refreshLoad.value = false;
     });
 };
 
 //点击加、减、输入框处理
-const goto = (e) => {
+const goto = (e, item) => {
+  console.log(item);
   let target = e.srcElement || e.target;
   if (!["BUTTON", "INPUT"].includes(target.tagName)) {
-    router.push({ name: "goodsDetail" });
+    router.push({
+      name: "goodsDetail",
+      query: {
+        goodsId: item.id,
+      },
+    });
   }
 };
 

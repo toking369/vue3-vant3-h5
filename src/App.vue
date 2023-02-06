@@ -1,17 +1,17 @@
 <template>
   <!-- 路由缓存 -->
-  <router-view  v-slot="{ Component }">
+  <router-view v-slot="{ Component, route }">
     <keep-alive>
       <component
         :is="Component"
-        v-if="$route?.meta?.isKeepAlive"
-        :key="$route.name"
+        v-if="route?.meta?.isKeepAlive"
+        :key="route?.meta?.isRouterKeepAlive ? route?.fullPath : route?.name"
       />
     </keep-alive>
     <component
       :is="Component"
-      v-if="!$route?.meta?.isKeepAlive"
-      :key="$route.name"
+      v-if="!route?.meta?.isKeepAlive"
+      :key="route.name"
     />
   </router-view>
 </template>

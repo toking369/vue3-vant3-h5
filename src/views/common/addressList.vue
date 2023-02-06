@@ -27,6 +27,7 @@ import loddingCard from "@/components/common/loddingCard.vue";
 import { onMounted, reactive, ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import configureInit from "@/common/js/configure";
 const store = useStore();
 const router = useRouter();
 let chosenAddressId = ref("");
@@ -64,7 +65,7 @@ const onAdd = () => {
 const onEdit = (item) => {
   router.replace({
     path: "addressEdit",
-    query: { addressId: item.id }
+    query: { addressId: item.id },
   });
 };
 
@@ -80,7 +81,10 @@ const selectDefault = (item) => {
 };
 
 onMounted(() => {
-  getList();
+  configureInit(() => {
+    console.log("缓存页面时--总监听事件接收--用于初始化操作");
+    getList();
+  });
 });
 </script>
 <style lang="less" scoped>

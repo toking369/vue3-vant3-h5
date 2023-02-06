@@ -19,14 +19,16 @@
 
         <div class="goods-info-box">
           <div class="price-body">¥ {{ data.goodsInfo.price }}</div>
-          <div class="name-body">{{ data.goodsInfo.goodsName }}-{{ data.goodsInfo.gId }}</div>
+          <div class="name-body">
+            {{ data.goodsInfo.goodsName }}-{{ data.goodsInfo.gId }}
+          </div>
           <div class="share-body" @click="showShare = true">
             <van-icon style="float: right" name="share-o" />
           </div>
         </div>
 
         <div class="goods-pra-box">
-          <van-cell-group>
+          <van-cell-group @click="goAddresList">
             <van-cell is-link title="选择" value="配送至:广州" />
             <van-cell
               is-link
@@ -71,7 +73,7 @@
 </template>
 
 <script setup>
-import configureInit from "@/common/js/configure";
+
 import headerNav from "@/components/common/headerNav.vue";
 import carousel from "@/components/home/carousel.vue";
 import refreshList from "@/components/common/refreshList.vue";
@@ -154,7 +156,7 @@ const getGoodsdetal = (goodsId) => {
               img: item,
             };
           });
-          data.goodsInfo = {...res.data,gId:goodsId};
+          data.goodsInfo = { ...res.data, gId: goodsId };
         }
         resolve(res);
       })
@@ -183,15 +185,23 @@ const recommendGoods = () => {
 
 //获取评论
 const getComment = () => {};
-onMounted(() => {
-  configureInit(() => {
-    console.log("获取路由参数:", router.currentRoute.value.query);
-    console.log("缓存页面时--总监听事件接收--用于初始化操作");
-    const { goodsId } = router.currentRoute.value.query;
-    getGoodsdetal(goodsId);
-    recommendGoods();
-    getComment();
+
+// 跳转到地址列表
+const goAddresList = () => {
+  router.push({
+    name: "AddressList",
+    isSendBusMsg: true,
   });
+};
+
+onMounted(() => {
+  console.log("获取路由参数:", router.currentRoute.value.query);
+  console.log("缓存页面初始化操作路由");
+  const { goodsId } = router.currentRoute.value.query;
+  getGoodsdetal(goodsId);
+  recommendGoods();
+  getComment();
+  
 });
 </script>
 <style lang="less">

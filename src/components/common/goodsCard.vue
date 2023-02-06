@@ -52,7 +52,6 @@ const goGoodsdetail = (item) => {
   router.push({
     name: "goodsDetail",
     query: { goodsId: item.goodsId },
-    isSendBusMsg: true,
   });
 };
 </script>
