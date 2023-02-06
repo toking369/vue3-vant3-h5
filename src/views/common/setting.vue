@@ -1,4 +1,3 @@
-
 <template>
   <div class="setting">
     <div class="header_body">
@@ -56,7 +55,7 @@ const getList = () => {
 
 // 前往地址列表APP_GOODS_DETAIL_PAGE
 const goAddress = () => {
-  router.push({ name: "addressList" });
+  router.push({ name: "AddressList", isSendBusMsg: true });
 };
 onMounted(() => {});
 </script>

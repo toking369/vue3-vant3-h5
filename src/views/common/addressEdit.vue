@@ -35,7 +35,7 @@ import { useRouter, useRoute } from "vue-router";
 const store = useStore();
 const router = useRouter();
 const route = useRoute();
-let queryaddressId = ref("")
+let queryaddressId = ref("");
 const data = reactive({
   searchResult: [],
   areaList: util.areaList,
@@ -45,17 +45,17 @@ const data = reactive({
 
 // 返回
 const goBack = () => {
-  router.replace("addressList");
+  router.replace({ name: "AddressList", isSendBusMsg: true });
 };
 
 // 保存地址操作
 const onSave = () => {
-  router.replace("addressList");
+  router.replace({ name: "AddressList", isSendBusMsg: true });
 };
 
 // 删除地址操作
 const onDelete = () => {
-  router.replace("addressList");
+  router.replace({ name: "AddressList", isSendBusMsg: true });
 };
 
 // 修改详细地址

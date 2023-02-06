@@ -46,7 +46,7 @@ let routes = [
   },
   {
     path: "/setting",
-    name: "Setting",
+    name: "setting",
     component: () => import("@/views/common/setting.vue"),
     meta: {
       isKeepAlive: true,
