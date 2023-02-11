@@ -16,7 +16,7 @@
   </router-view>
 </template>
 
-<script setup>
+<script setup name="App">
 import "@/assets/css/index.less";
 import i18n from "@/locales";
 import { onMounted } from "vue";
@@ -29,8 +29,8 @@ let methodsMap = {
     store
       .dispatch("getGoodsNum")
       .then((res) => {
-        if (res.code === 20000) {
-          setGoodsNum(store, res.data || 0);
+        if (res?.code === 20000) {
+          setGoodsNum(store, res?.data || 0);
         }
       })
       .catch(() => {});
@@ -41,10 +41,10 @@ let methodsMap = {
     store
       .dispatch("getLang")
       .then((res) => {
-        if (res.code === 20000) {
-          if (isObject(res) && isObject(res.data)) {
-            Object.keys(res.data).forEach((key) => {
-              i18n.global.mergeLocaleMessage(key, res.data[key]);
+        if (res?.code === 20000) {
+          if (isObject(res) && isObject(res?.data)) {
+            Object.keys(res?.data).forEach((key) => {
+              i18n.global.mergeLocaleMessage(key, res?.data[key]);
             });
           }
         }

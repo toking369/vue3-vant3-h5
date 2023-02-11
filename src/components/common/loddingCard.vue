@@ -7,7 +7,7 @@
   <slot v-else> </slot>
 </template>
 
-<script setup>
+<script setup name="loddingCard">
 import { ref, watchEffect } from "vue";
 const props = defineProps({
   isLodding: {
@@ -15,9 +15,9 @@ const props = defineProps({
     default: true,
   },
 });
-let lodding = ref(props.isLodding);
+let lodding = ref(props?.isLodding);
 watchEffect(() => {
-  lodding.value = props.isLodding;
+  lodding.value = props?.isLodding;
 });
 </script>
 <style lang="less" scpoed>

@@ -33,7 +33,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup name="setting">
 import headerNav from "@/components/common/headerNav.vue";
 import { onMounted, reactive, toRefs } from "vue";
 import { useStore } from "vuex";
@@ -46,7 +46,7 @@ const getList = () => {
   store
     .dispatch("")
     .then((res) => {
-      if (res.code === 20000) {
+      if (res?.code === 20000) {
         console.log(res);
       }
     })

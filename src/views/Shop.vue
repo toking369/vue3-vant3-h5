@@ -11,10 +11,10 @@
           @refresh="onRefresh"
           class="refresh_box"
         >
-          <div class="refresh_content" v-if="data.cartList.length">
+          <div class="refresh_content" v-if="data?.cartList.length">
             <div
               class="goods-box"
-              v-for="(item, index) in data.cartList"
+              v-for="(item, index) in data?.cartList"
               :key="index"
             >
               <van-swipe-cell class="swipe-cell">
@@ -29,13 +29,13 @@
                     :min="1"
                     :max="999"
                     centered
-                    :desc="item.desc"
-                    :title="item.name"
-                    :thumb="item.img"
+                    :desc="item?.desc"
+                    :title="item?.name"
+                    :thumb="item?.img"
                     @click.stop="goto($event, item)"
                   >
                     <template #price>
-                      <div style="color: red">¥ {{ item.price }}</div>
+                      <div style="color: red">¥ {{ item?.price }}</div>
                     </template>
 
                     <template #footer>
@@ -89,7 +89,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup name="Shop">
 import { showToast } from "vant";
 import headerNav from "@/components/common/headerNav.vue";
 import footerNav from "@/components/common/footerNav.vue";
@@ -128,7 +128,7 @@ const calculationNum = () => {
   let num = 0;
 
   data.cartList.forEach((item) => {
-    num += parseInt(item.num);
+    num += parseInt(item?.num);
   });
   setGoodsNum(store, num);
 };
@@ -137,8 +137,8 @@ const calculationNum = () => {
 const calculation = () => {
   let res = 0;
   data.cartList.forEach((item) => {
-    if (item.checked) {
-      res += parseFloat(item.num * parseFloat(item.price));
+    if (item?.checked) {
+      res += parseFloat(item?.num * parseFloat(item?.price));
     }
   });
 
@@ -155,7 +155,7 @@ const handlerFc = () => {
 //全选择
 const allCheckbox = (val) => {
   nextTick(() => {
-    data.cartList = data.cartList.map((item) => {
+    data.cartList = data?.cartList.map((item) => {
       return {
         ...item,
         checked: val,
@@ -168,8 +168,8 @@ const allCheckbox = (val) => {
 //单个选
 const oneCheckbox = (item) => {
   data.cartList.forEach((it) => {
-    if (it.id == item.id) {
-      it.checked = item.checked;
+    if (it?.id == item?.id) {
+      it.checked = item?.checked;
     }
   });
   totalPrice.value = parseFloat(calculation());
@@ -191,7 +191,7 @@ const plus = async (item) => {
 
 //减
 const minus = async (item) => {
-  let res = await changeGoods({ id: item.id });
+  let res = await changeGoods({ id: item?.id });
   if (res.code === 20000) {
     handlerFc();
   } else {
@@ -203,20 +203,20 @@ const minus = async (item) => {
 //删除商品
 const delGoods = (item) => {
   store
-    .dispatch("ShopCard/delGoods", { id: item.id })
+    .dispatch("ShopCard/delGoods", { id: item?.id })
     .then((res) => {
       if (res.code === 20000) {
-        data.cartList = data.cartList.filter((it) => {
-          return it.id != item.id;
+        data.cartList = data?.cartList.filter((it) => {
+          return it.id != item?.id;
         });
 
         nextTick(() => {
           handlerFc();
         });
 
-        allchecked.value = data.cartList?.length
+        allchecked.value = data?.cartList.length
           ? data.cartList.every((item) => {
-              return item.checked;
+              return item?.checked;
             })
           : false;
       }
@@ -226,11 +226,11 @@ const delGoods = (item) => {
 
 //输入框失去焦点
 const stpBlur = async (item) => {
-  let res = await changeGoods({ id: item.id });
-  if (res.code === 20000) {
+  let res = await changeGoods({ id: item?.id });
+  if (res?.code === 20000) {
     handlerFc();
   } else {
-    showToast(res.msg);
+    showToast(res?.msg);
   }
 };
 
@@ -248,8 +248,8 @@ const getCard = () => {
   store
     .dispatch("ShopCard/getCard")
     .then((res) => {
-      if (res.code === 20000) {
-        data.cartList = res.data;
+      if (res?.code === 20000) {
+        data.cartList = res?.data;
       }
       isLodding.value = false;
       refreshLoad.value = false;
@@ -263,12 +263,12 @@ const getCard = () => {
 //点击加、减、输入框处理
 const goto = (e, item) => {
   console.log(item);
-  let target = e.srcElement || e.target;
-  if (!["BUTTON", "INPUT"].includes(target.tagName)) {
+  let target = e?.srcElement || e?.target;
+  if (!["BUTTON", "INPUT"].includes(target?.tagName)) {
     router.push({
       name: "goodsDetail",
       query: {
-        goodsId: item.id,
+        goodsId: item?.id,
       },
     });
   }
@@ -293,7 +293,7 @@ onMounted(() => {
 });
 
 onActivated(() => {
-  if (store.state.is_reload_card) {
+  if (store.state?.is_reload_card) {
     getCard();
   }
 });

@@ -12,15 +12,15 @@
       >
         <div class="carousel_box">
           <carousel
-            v-if="data.carouselList.length"
+            v-if="data?.carouselList?.length"
             v-model:carouselList="data.carouselList"
           ></carousel>
         </div>
 
         <div class="goods-info-box">
-          <div class="price-body">¥ {{ data.goodsInfo.price }}</div>
+          <div class="price-body">¥ {{ data?.goodsInfo?.price }}</div>
           <div class="name-body">
-            {{ data.goodsInfo.goodsName }}-{{ data.goodsInfo.gId }}
+            {{ data?.goodsInfo?.goodsName }}-{{ data?.goodsInfo?.gId }}
           </div>
           <div class="share-body" @click="showShare = true">
             <van-icon style="float: right" name="share-o" />
@@ -66,13 +66,13 @@
     <van-share-sheet
       v-model:show="showShare"
       title="立即分享给好友"
-      :options="data.options"
+      :options="data?.options"
       @select="onSelect"
     />
   </div>
 </template>
 
-<script setup>
+<script setup name="goodsDetail">
 
 import headerNav from "@/components/common/headerNav.vue";
 import carousel from "@/components/home/carousel.vue";
@@ -134,7 +134,7 @@ const addShopcart = () => {
   store
     .dispatch("ShopCard/getCard")
     .then((res) => {
-      if (res.code === 20000) {
+      if (res?.code === 20000) {
         showToast("添加到购物车成功");
         store.commit("SET_RELAOD_SHOP", true);
       }
@@ -151,12 +151,12 @@ const getGoodsdetal = (goodsId) => {
       .dispatch("getGoodsdetal")
       .then((res) => {
         if (res.code === 20000) {
-          data.carouselList = res.data?.carouselList.map((item) => {
+          data.carouselList = res?.data?.carouselList.map((item) => {
             return {
               img: item,
             };
           });
-          data.goodsInfo = { ...res.data, gId: goodsId };
+          data.goodsInfo = { ...res?.data, gId: goodsId };
         }
         resolve(res);
       })
@@ -172,8 +172,8 @@ const recommendGoods = () => {
     store
       .dispatch("Home/recommendGoods")
       .then((res) => {
-        if (res.code === 20000) {
-          data.recommend = res.data;
+        if (res?.code === 20000) {
+          data.recommend = res?.data;
         }
         resolve(res);
       })
@@ -195,9 +195,9 @@ const goAddresList = () => {
 };
 
 onMounted(() => {
-  console.log("获取路由参数:", router.currentRoute.value.query);
+  console.log("获取路由参数:", router?.currentRoute?.value?.query);
   console.log("缓存页面初始化操作路由");
-  const { goodsId } = router.currentRoute.value.query;
+  const { goodsId } = router?.currentRoute?.value?.query;
   getGoodsdetal(goodsId);
   recommendGoods();
   getComment();

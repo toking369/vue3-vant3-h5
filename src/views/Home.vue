@@ -40,7 +40,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup name="Home">
 import headerNav from "@/components/common/headerNav.vue";
 import footerNav from "@/components/common/footerNav.vue";
 import refreshList from "@/components/common/refreshList.vue";
@@ -69,8 +69,8 @@ const getCarousel = () => {
     store
       .dispatch("Home/getCarousel")
       .then((res) => {
-        if (res.code === 20000) {
-          carouselList = res.data;
+        if (res?.code === 20000) {
+          carouselList = res?.data;
         }
         resolve(res);
       })
@@ -86,8 +86,8 @@ const boutiqueGoods = () => {
     store
       .dispatch("Home/boutiqueGoods")
       .then((res) => {
-        if (res.code === 20000) {
-          boutique = res.data;
+        if (res?.code === 20000) {
+          boutique = res?.data;
         }
         resolve(res);
       })

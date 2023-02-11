@@ -10,14 +10,14 @@
     </div>
     <div class="warp_body">
       <van-address-edit
-        :area-list="data.areaList"
-        :address-info="data.addressInfo"
+        :area-list="data?.areaList"
+        :address-info="data?.addressInfo"
         show-postal
         show-delete
         show-set-default
         show-search-result
-        :search-result="data.searchResult"
-        :area-columns-placeholder="data.areaColumns"
+        :search-result="data?.searchResult"
+        :area-columns-placeholder="data?.areaColumns"
         @save="onSave"
         @delete="onDelete"
         @change-detail="onChangeDetail"
@@ -26,7 +26,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup name="addressEdit">
 import headerNav from "@/components/common/headerNav.vue";
 import util from "@/util/area";
 import { nextTick, onMounted, reactive, ref, watchEffect } from "vue";
@@ -45,7 +45,7 @@ const data = reactive({
 
 // 返回
 const goBack = () => {
-  router.replace({ name: "AddressList", isSendBusMsg: true });
+  router.replace({ name: "AddressList"});
 };
 
 // 保存地址操作
@@ -67,21 +67,21 @@ const getEditdata = (addressId) => {
     .dispatch("My/getAddressedit", { addressId: addressId })
     .then((res) => {
       if (res.code === 20000) {
-        data.addressInfo = res.data;
-        data.areaColumns = [res.data.province, res.data.city, res.data.area];
+        data.addressInfo = res?.data;
+        data.areaColumns = [res?.data?.province, res?.data?.city, res?.data?.area];
       }
     })
     .catch(() => {});
 };
 watchEffect(() => {
-  if (route?.query.addressId) {
-    queryaddressId = route?.query.addressId;
+  if (route?.query?.addressId) {
+    queryaddressId = route?.query?.addressId;
   }
 });
 onMounted(() => {
-  route?.query.addressId && getEditdata(route.query.addressId);
+  route?.query?.addressId && getEditdata(route?.query?.addressId);
   nextTick(() => {
-    if (!route?.query.addressId) {
+    if (!route?.query?.addressId) {
       data.addressInfo = {};
     }
   });

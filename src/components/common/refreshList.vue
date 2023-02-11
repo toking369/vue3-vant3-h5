@@ -3,14 +3,14 @@
   <van-pull-refresh
     v-model="data.freshData.refreshLoad"
     @refresh="onRefresh"
-    :class="classMap.refreshClass"
+    :class="classMap?.refreshClass"
     @scroll="scrollHander"
     ref="refReshList"
   >
     <van-list
       class="van-list-body"
       v-model:loading="data.freshData.listLoading"
-      :finished="data.freshData.listFinished"
+      :finished="data?.freshData?.listFinished"
       :immediate-check="false"
       :finished-text="finishedText"
       @load="onLoad"
@@ -21,7 +21,7 @@
   </van-pull-refresh>
 </template>
 
-<script setup>
+<script setup name="refreshList">
 import { reactive, ref, watchEffect } from "vue";
 const emit = defineEmits(["onRefresh", "onLoad"]);
 const props = defineProps({
@@ -53,7 +53,7 @@ const props = defineProps({
   },
 });
 const data = reactive({
-  freshData: props.freshMap,
+  freshData: props?.freshMap,
 });
 
 let refReshList = ref();
@@ -76,7 +76,7 @@ const resetScroll = () => {
 //滚动监听
 const scrollHander = () => {};
 watchEffect(() => {
-  if (props.resetScroll) {
+  if (props?.resetScroll) {
     resetScroll();
   }
 });

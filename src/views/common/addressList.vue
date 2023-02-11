@@ -7,8 +7,8 @@
       <lodding-card :isLodding="isLodding">
         <van-address-list
           v-model="chosenAddressId"
-          :list="data.list"
-          :disabled-list="data.disabledList"
+          :list="data?.list"
+          :disabled-list="data?.disabledList"
           disabled-text="以下地址超出配送范围"
           default-tag-text="默认"
           @add="onAdd"
@@ -21,7 +21,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup name="addressList">
 import headerNav from "@/components/common/headerNav.vue";
 import loddingCard from "@/components/common/loddingCard.vue";
 import { onMounted, reactive, ref } from "vue";
@@ -43,12 +43,12 @@ const getList = () => {
     .dispatch("My/getAddersslist")
     .then((res) => {
       isLodding.value = false;
-      if (res.code === 20000) {
+      if (res?.code === 20000) {
         chosenAddressId = res.data.list.filter((item) => {
-          return item.isDefault;
+          return item?.isDefault;
         })?.[0].id;
-        data.list = res.data.list;
-        data.disabledList = res.data.disabledList;
+        data.list = res?.data?.list;
+        data.disabledList = res?.data?.disabledList;
       }
     })
     .catch(() => {
@@ -65,7 +65,7 @@ const onAdd = () => {
 const onEdit = (item) => {
   router.replace({
     path: "addressEdit",
-    query: { addressId: item.id },
+    query: { addressId: item?.id },
   });
 };
 
@@ -74,7 +74,7 @@ const selectDefault = (item) => {
   const dataArr = data.list.map((it) => {
     return {
       ...it,
-      isDefault: it.id == item.id ? true : false,
+      isDefault: it?.id === item?.id ? true : false,
     };
   });
   data.list = dataArr;

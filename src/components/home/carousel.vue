@@ -3,13 +3,13 @@
   <div class="carousel">
     <van-swipe :autoplay="3000" lazy-render :height="150">
       <van-swipe-item v-for="(image, index) in data?.images" :key="index">
-        <img class="img-box" :src="image.img" />
+        <img class="img-box" :src="image?.img" />
       </van-swipe-item>
     </van-swipe>
   </div>
 </template>
 
-<script setup>
+<script setup name="carousel">
 import { reactive } from "vue";
 const props = defineProps({
   carouselList: {
@@ -20,7 +20,7 @@ const props = defineProps({
   },
 });
 const data = reactive({
-  images: props.carouselList,
+  images: props?.carouselList,
 });
 </script>
 <style lang="less">

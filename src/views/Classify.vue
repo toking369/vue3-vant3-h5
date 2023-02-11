@@ -45,7 +45,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup name="Classify">
 import headerNav from "@/components/common/headerNav.vue";
 import footerNav from "@/components/common/footerNav.vue";
 import refreshList from "@/components/common/refreshList.vue";
@@ -87,7 +87,7 @@ const onLoad = () => {
 
 // 点击分类
 const chioceClassify = (item) => {
-  classifyId = item.id;
+  classifyId = item?.id;
   resetScroll.value += 1;
   getGoodslist();
 };
@@ -98,8 +98,8 @@ const getClassify = () => {
     store
       .dispatch("Classify/getClassify")
       .then((res) => {
-        if (res.code === 20000) {
-          classifyList.push(...res.data);
+        if (res?.code === 20000) {
+          classifyList.push(...res?.data);
           resolve(res.data);
         } else {
           resolve("");
@@ -114,11 +114,11 @@ const getClassify = () => {
 //获取分类下的商品列表
 const getGoodslist = (onLoad) => {
   store.dispatch("Classify/classifyGoods", { id: classifyId }).then((res) => {
-    if (res.code === 20000) {
-      goodsList = onLoad ? goodsList.concat(res.data) : res.data;
+    if (res?.code === 20000) {
+      goodsList = onLoad ? goodsList.concat(res?.data) : res?.data;
       freshMap.refreshLoad = false;
       freshMap.listLoading = false;
-      freshMap.listFinished = res.listFinished;
+      freshMap.listFinished = res?.listFinished;
       if (goodsList.length > 50) {
         freshMap.listFinished = true;
       }
@@ -131,8 +131,8 @@ const getGoodslist = (onLoad) => {
 
 onMounted(async () => {
   let res = await getClassify();
-  if (res && res.length) {
-    classifyId = res?.[0].id;
+  if (res && res?.length) {
+    classifyId = res?.[0]?.id;
     classifyId && getGoodslist();
   }else{
     isLodding.value = false

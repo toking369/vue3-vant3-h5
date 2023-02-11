@@ -28,7 +28,7 @@
       <div style="margin: 10px">
         <van-grid square>
           <van-grid-item
-            v-for="(item, index) in data.orderTab"
+            v-for="(item, index) in data?.orderTab"
             :icon="item.icon"
             :text="item.text"
             :key="index"
@@ -43,7 +43,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup name="My">
 import headerNav from "@/components/common/headerNav.vue";
 import footerNav from "@/components/common/footerNav.vue";
 import { reactive } from "vue";

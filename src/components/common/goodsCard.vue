@@ -1,15 +1,15 @@
 <template>
   <van-grid
-    :class="cardAttr.goodsCradclass"
-    :column-num="cardAttr.columnNum"
-    :gutter="cardAttr.gutter"
+    :class="cardAttr?.goodsCradclass"
+    :column-num="cardAttr?.columnNum"
+    :gutter="cardAttr?.gutter"
     class="goods-crad"
   >
     <van-grid-item
       v-for="(item, index) in goodsList"
       :key="index"
       @click="goGoodsdetail(item)"
-      :class="cardAttr.itemClass"
+      :class="cardAttr?.itemClass"
     >
       <transition
         appear
@@ -18,16 +18,16 @@
         appear-active-class="card-appear-active-class"
       >
         <div class="card-body">
-          <van-image :src="item.img" />
-          <div class="name_text">{{ item.name }}</div>
-          <div class="price_text">¥ {{ item.price }}</div>
+          <van-image :src="item?.img" />
+          <div class="name_text">{{ item?.name }}</div>
+          <div class="price_text">¥ {{ item?.price }}</div>
         </div>
       </transition>
     </van-grid-item>
   </van-grid>
 </template>
 
-<script setup>
+<script setup name="goodsCard">
 import { useRouter } from "vue-router";
 const router = useRouter();
 const props = defineProps({
@@ -51,7 +51,7 @@ const props = defineProps({
 const goGoodsdetail = (item) => {
   router.push({
     name: "goodsDetail",
-    query: { goodsId: item.goodsId },
+    query: { goodsId: item?.goodsId },
   });
 };
 </script>

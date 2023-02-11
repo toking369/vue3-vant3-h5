@@ -16,7 +16,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup name="footerNav">
 import { computed, reactive } from "vue";
 import { useStore } from "vuex";
 const store = useStore();
@@ -26,6 +26,6 @@ let data = reactive({
 });
 
 const goodsNum = computed(() => {
-  return store.state.goods_card_num;
+  return store?.state?.goods_card_num;
 });
 </script>
