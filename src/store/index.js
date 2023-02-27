@@ -1,11 +1,18 @@
 import { createStore } from "vuex";
 import API from "@/api/common.js";
 import REQ from "@/request/request.js";
-import Home from "./modules/Home";
-import Classify from "./modules/Classify";
-import ShopCard from "./modules/ShopCard";
-import My from "./modules/My";
 
+let storeMap = {};
+const modulesStore = require.context("./modules", true, /\.js$/);
+modulesStore.keys().reduce((modules, modulePath) => {
+  const modulesArr = modulesStore(modulePath);
+  const moduleName = modulePath.replace(/^\.\/(.*)\.\w+$/, "$1");
+  const reg = new RegExp(/\//);
+  const moduleKey = reg.test(moduleName)
+    ? moduleName.substring(0, moduleName.indexOf("/"))
+    : moduleName;
+  storeMap[moduleKey] = modulesArr["default"];
+}, {});
 export default createStore({
   namespaced: true,
   state: {
@@ -58,10 +65,5 @@ export default createStore({
       }
     },
   },
-  modules: {
-    My,
-    Home,
-    Classify,
-    ShopCard,
-  },
+  modules: storeMap,
 });
