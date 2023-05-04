@@ -1,12 +1,10 @@
-<!--
- * @Author: your name
- * @Date: 2021-04-11 19:02:56
- * @LastEditTime: 2021-05-08 08:01:24
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \vue3-vant3-h5\README.md
--->
 # vue3+vant4
+
+## 环境版本
+nuc 16.10.9
+nvm 1.1.11
+node 20.0.0
+npm 9.6.4
 
 ## Project setup
 ```

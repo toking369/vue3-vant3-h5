@@ -1,15 +1,10 @@
 import axios from "axios";
 import { showToast } from "vant";
 // 超时时间
-// axios.defaults.timeout = 5000;
+axios.defaults.timeout = 5000;
 // http请求拦截器
 axios.interceptors.request.use(
   (config) => {
-    //请求前的处理
-    // showToast.loading({
-    //     message: '加载中...',
-    //     forbidClick: true,
-    // });
     return config;
   },
   (error) => {
@@ -18,10 +13,10 @@ axios.interceptors.request.use(
   }
 );
 
-//http响应拦截器
+// http响应拦截器
 axios.interceptors.response.use(
   (data) => {
-    //请求后的处理
+    // 请求后的处理
 
     if (data.data.code == "50005") {
       showToast.fail("token已失效");

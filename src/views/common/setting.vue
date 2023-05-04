@@ -35,7 +35,7 @@
 
 <script setup name="setting">
 import headerNav from "@/components/common/headerNav.vue";
-import { onMounted, reactive, toRefs } from "vue";
+import { onMounted, reactive } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 const store = useStore();
