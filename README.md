@@ -1,11 +1,12 @@
 # vue3+vant4
 
 ## 环境版本
+```
 nuc 16.10.9
 nvm 1.1.11
 node 20.0.0
 npm 9.6.4
-
+```
 ## Project setup
 ```
 npm install 或 cnpm install 
