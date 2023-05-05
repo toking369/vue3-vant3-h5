@@ -262,7 +262,6 @@ const getCard = () => {
 
 //点击加、减、输入框处理
 const goto = (e, item) => {
-  console.log(item);
   let target = e?.srcElement || e?.target;
   if (!["BUTTON", "INPUT"].includes(target?.tagName)) {
     router.push({

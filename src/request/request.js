@@ -196,24 +196,16 @@ function handlePutFormData(params, option) {
   return { headers, params };
 }
 
-function request(url, params, option) {
-  params = params || {};
-  option = option || {};
-  let config = {};
-  let methodStr = option.method;
-  option.method =
-    typeof methodStr === "string" ? methodStr.toUpperCase() : methodStr;
+function request(url = "", params = {}, option = {}) {
+  try {
+    const { method } = option;
+    const methodStr =
+      typeof method === "string" ? method.toUpperCase() : method;
+    option.method = methodStr;
+    let config = extend({ method: "JSONP" }, option);
+    let reqData = {};
 
-  config = extend(
-    {
-      method: "JSONP",
-    },
-    option
-  );
-  let reqData = {};
-
-  switch (option.method) {
-    case "POST_FORMDATA":
+    if (["POST_FORMDATA"].includes(methodStr)) {
       const fd = handlePostFormdata(params);
       reqData = {
         url: url,
@@ -226,8 +218,7 @@ function request(url, params, option) {
       return post(config).then((res) => {
         return res;
       });
-
-    case "POST_FORM_URLENCODED":
+    } else if (["POST_FORM_URLENCODED"].includes(methodStr)) {
       const str = handlePostFormURLENCODED(params);
       reqData = {
         url: url,
@@ -240,9 +231,8 @@ function request(url, params, option) {
       return post(config).then((res) => {
         return res;
       });
-    case "POST_JSON":
-    case "POST":
-      if (option.method === "POST_JSON") {
+    } else if (["POST", "POST_JSON"].includes(methodStr)) {
+      if (methodStr === "POST_JSON") {
         params = JSON.stringify(params);
       }
       reqData = {
@@ -256,9 +246,7 @@ function request(url, params, option) {
       return post(config).then((res) => {
         return res;
       });
-
-    case "PUT_FORDATA":
-    case "PUT":
+    } else if (["PUT", "PUT_FORDATA"].includes(methodStr)) {
       const { headers, params } = handlePutFormData(params, option);
       reqData = {
         url: url,
@@ -269,7 +257,7 @@ function request(url, params, option) {
       return put(config).then((res) => {
         return res;
       });
-    case "DELETE":
+    } else if (["DELETE"].includes(methodStr)) {
       reqData = {
         url: url,
         headers: {
@@ -281,7 +269,7 @@ function request(url, params, option) {
       return Delete(config).then((res) => {
         return res;
       });
-    case "GET":
+    } else if (["GET"].includes(methodStr)) {
       reqData = {
         url: url,
         headers: {
@@ -293,13 +281,16 @@ function request(url, params, option) {
       return get(config).then((res) => {
         return res;
       });
-    case "JSONP":
+    } else if (["JSONP"].includes(methodStr)) {
       return getJsonpData(url, params, null).then((res) => {
         return res;
       });
-    default:
+    } else {
       console.error("请求方式有误，请检查您的请求方式");
-      break;
+      return;
+    }
+  } catch (error) {
+    console.error("请求方式代码异常", error);
   }
 }
 

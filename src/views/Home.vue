@@ -103,7 +103,7 @@ const recommendGoods = (onLoad) => {
     store
       .dispatch("Home/recommendGoods")
       .then((res) => {
-        if (res.code === 20000) {
+        if (res?.code === 20000) {
           recommend = onLoad ? recommend.concat(res.data) : res.data;
           freshMap.listLoading = false;
           freshMap.listFinished = res.listFinished;
