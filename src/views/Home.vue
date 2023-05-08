@@ -1,9 +1,11 @@
 <template>
   <div class="home app_content">
+    <!-- 导航栏 -->
     <div class="header_body">
       <header-nav :leftArrow="false" titelText="首页"></header-nav>
     </div>
 
+    <!-- 中间 -->
     <div class="warp_body">
       <refreshList
         v-model:freshMap="freshMap"
@@ -34,6 +36,7 @@
       </refreshList>
     </div>
 
+    <!-- 底部 -->
     <div class="footer_body">
       <footer-nav></footer-nav>
     </div>
@@ -41,27 +44,27 @@
 </template>
 
 <script setup name="Home">
-import headerNav from "@/components/common/headerNav.vue";
-import footerNav from "@/components/common/footerNav.vue";
-import refreshList from "@/components/common/refreshList.vue";
-import goodsCard from "@/components/common/goodsCard.vue";
-import carousel from "@/components/home/carousel.vue";
+import headerNav from "@/components/common/headerNav.vue"; // 引入导航栏组件
+import footerNav from "@/components/common/footerNav.vue"; // 引入底部组件
+import refreshList from "@/components/common/refreshList.vue"; // 引入上拉加载触底刷新组件
+import goodsCard from "@/components/common/goodsCard.vue"; // 引入商品卡片组件
+import carousel from "@/components/home/carousel.vue"; // 引入轮播组件
 import { onMounted, reactive } from "vue";
 import { useStore } from "vuex";
 const store = useStore();
-let carouselList = reactive([]);
-let boutique = reactive([]);
-let recommend = reactive([]);
+let carouselList = reactive([]); // 轮播列表
+let boutique = reactive([]); // 精品数据
+let recommend = reactive([]); // 推荐
 let freshMap = reactive({
-  refreshLoad: false,
-  listLoading: false,
-  listFinished: false,
+  refreshLoad: false, // 是否刷新
+  listLoading: false, // 是否加载中
+  listFinished: false, // 是否加载完成标识
 });
 const boutiqueAttr = reactive({
   columnNum: 4,
   itemClass: "boutique_item",
   goodsCradclass: "boutique-crad",
-});
+}); // 商品卡片展示
 
 //获取轮播
 const getCarousel = () => {

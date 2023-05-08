@@ -1,29 +1,29 @@
-import API from "@/api/My.js";
-import REQ from "@/request/request.js";
+import { getAddersslist, getAddressedit } from "@/api/My";
+import { getRequestUrl, request } from "@/request/request";
 const Classify = {
   namespaced: true,
   state: {},
   mutations: {},
   actions: {
     async getAddersslist(state, params) {
-      let url = REQ.getRequestUrl({
-        url: API.getAddersslist,
+      let url = getRequestUrl({
+        url: getAddersslist,
       });
 
       try {
-        const rep = await REQ.request(url, params, { method: "GET" });
+        const rep = await request(url, params, { method: "GET" });
         return rep;
       } catch (error) {
         return error;
       }
     },
     async getAddressedit(state, params) {
-      let url = REQ.getRequestUrl({
-        url: API.getAddressedit,
+      let url = getRequestUrl({
+        url: getAddressedit,
       });
 
       try {
-        const rep = await REQ.request(url, params, { method: "POST" });
+        const rep = await request(url, params, { method: "POST" });
         return rep;
       } catch (error) {
         return error;

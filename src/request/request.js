@@ -294,8 +294,7 @@ function request(url = "", params = {}, option = {}) {
   }
 }
 
-let REQ = {
+export {
   getRequestUrl, //拼接url
   request, //请求
 };
-export default REQ;

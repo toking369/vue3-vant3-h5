@@ -1,29 +1,29 @@
-import API from "@/api/Classify.js";
-import REQ from "@/request/request.js";
+import { classifyGoods, getClassify } from "@/api/Classify";
+import { getRequestUrl, request } from "@/request/request";
 const Classify = {
   namespaced: true,
   state: {},
   mutations: {},
   actions: {
     async classifyGoods(state, params) {
-      let url = REQ.getRequestUrl({
-        url: API.classifyGoods,
+      let url = getRequestUrl({
+        url: classifyGoods,
       });
 
       try {
-        const rep = await REQ.request(url, params, { method: "POST" });
+        const rep = await request(url, params, { method: "POST" });
         return rep;
       } catch (error) {
         return error;
       }
     },
     async getClassify(state, params) {
-      let url = REQ.getRequestUrl({
-        url: API.getClassify,
+      let url = getRequestUrl({
+        url: getClassify,
       });
 
       try {
-        const rep = await REQ.request(url, params, { method: "GET" });
+        const rep = await request(url, params, { method: "GET" });
         return rep;
       } catch (error) {
         return error;

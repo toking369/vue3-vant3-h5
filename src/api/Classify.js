@@ -1,5 +1,3 @@
-let API = {
-  classifyGoods: "/classifyGoods",
-  getClassify: "/getClassify",
-};
-export default API;
+
+export const  classifyGoods = "/classifyGoods"
+export const  getClassify = "/getClassify"

@@ -3,7 +3,7 @@
     :class="cardAttr?.goodsCradclass"
     :column-num="cardAttr?.columnNum"
     :gutter="cardAttr?.gutter"
-    class="goods-crad"
+    class="goods_crad"
   >
     <van-grid-item
       v-for="(item, index) in goodsList"
@@ -13,11 +13,11 @@
     >
       <transition
         appear
-        appear-class="card-appear-class"
-        appear-to-class="card-appear-to-class"
-        appear-active-class="card-appear-active-class"
+        appear-class="card_appear__class"
+        appear-to-class="card_appear__to__class"
+        appear-active-class="card_appear__active__class"
       >
-        <div class="card-body">
+        <div class="card_body">
           <van-image :src="item?.img" />
           <div class="name_text">{{ item?.name }}</div>
           <div class="price_text">¥ {{ item?.price }}</div>
@@ -56,7 +56,7 @@ const goGoodsdetail = (item) => {
 };
 </script>
 <style lang="less">
-.goods-crad {
+.goods_crad {
   .recommend_item {
     border-radius: 10px;
     max-width: 50%;
@@ -73,10 +73,10 @@ const goGoodsdetail = (item) => {
 }
 </style>
 <style lang="less" scoped>
-.goods-crad {
+.goods_crad {
   padding-top: 10px;
   padding-bottom: 10px;
-  .card-body {
+  .card_body {
     text-align: center;
   }
 
@@ -101,22 +101,15 @@ const goGoodsdetail = (item) => {
   }
 
   /** 卡片过渡动画 */
-  .card-appear-class {
+  .card_appear__class {
     transform: scale(0);
   }
-  .card-appear-to-class {
+  .card_appear__to__class {
     transform: scale(1);
   }
-  .card-appear-active-class {
+  .card_appear__active__class {
     transition: transform 2s ease;
   }
 }
 
-.boutique-crad {
-  flex-wrap: nowrap !important;
-  overflow-x: scroll;
-  .boutique_item {
-    width: 25%;
-  }
-}
 </style>

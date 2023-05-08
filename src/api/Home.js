@@ -1,6 +1,4 @@
-let API = {
-  getCarousel: "/getCarousel",
-  boutiqueGoods: "/boutiqueGoods",
-  recommendGoods: "/recommendGoods",
-};
-export default API;
+export const  getCarousel = "/getCarousel"
+export const  boutiqueGoods = "/boutiqueGoods"
+export const  recommendGoods = "/recommendGoods"
+

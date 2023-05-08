@@ -1,8 +1,12 @@
 <template>
-  <div class="Classify app_content">
+  <div class="classify app_content">
+
+    <!-- 导航栏 -->
     <div class="header_body">
       <header-nav :leftArrow="false" titelText="分类"> </header-nav>
     </div>
+
+    <!-- 中间 -->
     <div class="warp_body">
       <lodding-card :isLodding="isLodding">
         <div class="warp_left" v-if="classifyList.length">
@@ -31,7 +35,7 @@
             </div>
             <van-empty
               v-if="goodsList.length == 0"
-              class="no-data"
+              class="no_data"
               description="暂无数据"
             />
           </refreshList>
@@ -39,6 +43,7 @@
       </lodding-card>
     </div>
 
+    <!-- 底部 -->
     <div class="footer_body">
       <footer-nav></footer-nav>
     </div>
@@ -46,34 +51,37 @@
 </template>
 
 <script setup name="Classify">
-import headerNav from "@/components/common/headerNav.vue";
-import footerNav from "@/components/common/footerNav.vue";
-import refreshList from "@/components/common/refreshList.vue";
-import goodsCard from "@/components/common/goodsCard.vue";
-import loddingCard from "@/components/common/loddingCard.vue";
-import { onMounted, reactive, ref, toRefs } from "vue";
-import { useStore } from "vuex";
+import headerNav from "@/components/common/headerNav.vue"; // 引入导航栏组件
+import footerNav from "@/components/common/footerNav.vue"; // 引入底部组件
+import refreshList from "@/components/common/refreshList.vue"; // 引入上拉加载触底刷新组件
+import goodsCard from "@/components/common/goodsCard.vue";// 引入商品卡片组件
+import loddingCard from "@/components/common/loddingCard.vue"; // 引入lodding组件
+import { onMounted, reactive, ref } from "vue"; // 导出vue
+import { useStore } from "vuex"; // 导出vuex
 
 const store = useStore();
-let classifyId = ref("");
-let classifyActive = ref(0);
-let resetScroll = ref(0);
-let isLodding = ref(true);
-let classifyList = reactive([]);
-let goodsList = reactive([]);
+let classifyId = ref(""); // 分类id
+let classifyActive = ref(0); // 是否是选择中分类
+let resetScroll = ref(0); // 滚动记录
+let isLodding = ref(true); // 是否加载中
+let classifyList = reactive([]); // 分类列表
+let goodsList = reactive([]); // 商品列表
 let freshMap = reactive({
-  refreshLoad: false,
-  listLoading: false,
-  listFinished: false,
+  refreshLoad: false, // 是否刷新
+  listLoading: false, // 是否加载中
+  listFinished: false, // 是否加载完成标识
 });
+
 const cardAttr = reactive({
   columnNum: 2,
   gutter: 10,
   itemClass: "recommend_item",
-});
+}); // 商品卡片参数
+
 const classMap = reactive({
   refreshClass: "classify_refresh_box",
-});
+}); // 分类样式
+
 //下拉刷新
 const onRefresh = () => {
   getGoodslist();
@@ -140,7 +148,7 @@ onMounted(async () => {
 });
 </script>
 <style lang="less" scoped>
-.Classify {
+.classify {
   .warp_body {
     display: flex;
     height: calc(100vh - 96px);

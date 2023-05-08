@@ -1,41 +1,41 @@
-import API from "@/api/Home.js";
-import REQ from "@/request/request.js";
+import { getCarousel, boutiqueGoods, recommendGoods } from "@/api/Home";
+import { getRequestUrl, request } from "@/request/request";
 const Home = {
   namespaced: true,
   state: {},
   mutations: {},
   actions: {
     async getCarousel(state, params) {
-      let url = REQ.getRequestUrl({
-        url: API.getCarousel,
+      let url = getRequestUrl({
+        url: getCarousel,
       });
 
       try {
-        const rep = await REQ.request(url, params, { method: "GET" });
+        const rep = await request(url, params, { method: "GET" });
         return rep;
       } catch (error) {
         return error;
       }
     },
     async boutiqueGoods(state, params) {
-      let url = REQ.getRequestUrl({
-        url: API.boutiqueGoods,
+      let url = getRequestUrl({
+        url: boutiqueGoods,
       });
 
       try {
-        const rep = await REQ.request(url, params, { method: "GET" });
+        const rep = await request(url, params, { method: "GET" });
         return rep;
       } catch (error) {
         return error;
       }
     },
     async recommendGoods(state, params) {
-      let url = REQ.getRequestUrl({
-        url: API.recommendGoods,
+      let url = getRequestUrl({
+        url: recommendGoods,
       });
 
       try {
-        const rep = await REQ.request(url, params, { method: "GET" });
+        const rep = await request(url, params, { method: "GET" });
         return rep;
       } catch (error) {
         return error;

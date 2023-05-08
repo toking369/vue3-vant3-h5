@@ -1,9 +1,12 @@
 <template>
-  <div class="Shop app_content">
+  <div class="shop app_content">
+
+    <!-- 导航栏 -->
     <div class="header_body">
       <header-nav :leftArrow="false" titelText="购物车"></header-nav>
     </div>
 
+    <!-- 中间 -->
     <div class="warp_body">
       <lodding-card :isLodding="isLodding">
         <van-pull-refresh
@@ -13,19 +16,19 @@
         >
           <div class="refresh_content" v-if="data?.cartList.length">
             <div
-              class="goods-box"
+              class="goods_box"
               v-for="(item, index) in data?.cartList"
               :key="index"
             >
-              <van-swipe-cell class="swipe-cell">
-                <div class="card-box">
+              <van-swipe-cell class="swipe_cell">
+                <div class="card_box">
                   <van-checkbox
                     style="margin-left: 10px"
                     v-model="item.checked"
                     @change="oneCheckbox(item)"
                   ></van-checkbox>
                   <van-card
-                    class="card-body"
+                    class="card_body"
                     :min="1"
                     :max="999"
                     centered
@@ -68,11 +71,12 @@
               </van-swipe-cell>
             </div>
           </div>
-          <van-empty v-else class="no-data" description="暂无数据" />
+          <van-empty v-else class="no_data" description="暂无数据" />
         </van-pull-refresh>
       </lodding-card>
     </div>
 
+    <!-- 底部 -->
     <div class="footer_body">
       <van-submit-bar
         :price="totalPrice"
@@ -90,10 +94,10 @@
 </template>
 
 <script setup name="Shop">
-import { showToast } from "vant";
-import headerNav from "@/components/common/headerNav.vue";
-import footerNav from "@/components/common/footerNav.vue";
-import loddingCard from "@/components/common/loddingCard.vue";
+import { showToast } from "vant"; // 引入提示组件
+import headerNav from "@/components/common/headerNav.vue"; // 引入导航组件
+import footerNav from "@/components/common/footerNav.vue"; // 引入底部组件
+import loddingCard from "@/components/common/loddingCard.vue"; // 引入lodding组件
 import {
   onMounted,
   reactive,
@@ -101,19 +105,20 @@ import {
   nextTick,
   onActivated,
   onDeactivated,
-} from "vue";
-import { useStore } from "vuex";
-import { useRouter } from "vue-router";
-import { setGoodsNum } from "@/util/util";
+} from "vue";  // 导出vue
+import { useStore } from "vuex"; // 导出vuex
+import { useRouter } from "vue-router"; // 导出路由
+import { setGoodsNum } from "@/util/util"; // 导出工具类
 const store = useStore();
 const router = useRouter();
-let allchecked = ref(false);
-let refreshLoad = ref(false);
-let isLodding = ref(true);
-let totalPrice = ref(0);
+let allchecked = ref(false); // 是否全选
+let refreshLoad = ref(false); // 是否加载中
+let isLodding = ref(true); // lodding标识
+let totalPrice = ref(0); // 总钱数
 let data = reactive({
   cartList: [],
-});
+}); // 列表
+
 //提交订单
 const onSubmit = () => {};
 
@@ -302,7 +307,7 @@ onDeactivated(() => {
 });
 </script>
 <style lang="less">
-.Shop {
+.shop {
   .footer-one-btn {
     bottom: 50px;
     .van-submit-bar__bar > .van-submit-bar__button--danger {
@@ -314,22 +319,22 @@ onDeactivated(() => {
 </style>
 
 <style lang="less" scoped>
-.Shop {
+.shop {
   .warp_body {
     height: calc(100vh - 146px);
     position: relative;
-    .goods-box {
+    .goods_box {
       display: flex;
       background-color: #fff;
       margin: 6px;
       border-radius: 10px;
-      .swipe-cell {
+      .swipe_cell {
         width: 100%;
       }
-      .card-box {
+      .card_box {
         display: flex;
         width: 100%;
-        .card-body {
+        .card_body {
           background-color: #fff;
           border-radius: 10px;
           flex: 1;

@@ -1,6 +1,4 @@
-let API = {
-  getCard: "/getCard",
-  delGoods: "/delCard",
-  changeGoods: "/changeGoods",
-};
-export default API;
+
+export const  getCard = "/getCard"
+export const  delGoods = "/delCard"
+export const  changeGoods = "/changeGoods"

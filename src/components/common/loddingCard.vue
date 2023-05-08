@@ -1,6 +1,6 @@
 <template>
-  <div class="lodding-card" v-if="lodding">
-    <div class="lodding-body">
+  <div class="lodding_card" v-if="lodding">
+    <div class="lodding_card__body">
       <van-loading type="spinner" />
     </div>
   </div>
@@ -21,11 +21,12 @@ watchEffect(() => {
 });
 </script>
 <style lang="less" scpoed>
-.lodding-card {
+.lodding_card {
   height: 100%;
   width: 100%;
   display: flex;
-  .lodding-body {
+  flex-direction: column;
+  .lodding_card__body {
     margin: auto;
   }
 }

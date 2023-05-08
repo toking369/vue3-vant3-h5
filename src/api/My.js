@@ -1,5 +1,2 @@
-let API = {
-  getAddersslist: "/getAddersslist",
-  getAddressedit: "/getAddressedit",
-};
-export default API;
+export const  getAddersslist = "/getAddersslist"
+export const  getAddressedit = "/getAddressedit"

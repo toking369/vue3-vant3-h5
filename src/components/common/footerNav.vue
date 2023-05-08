@@ -1,5 +1,5 @@
 <template>
-  <div class="footerNav">
+  <div class="footer_nav">
     <van-tabbar v-model="data.footerActive" :route="true">
       <van-tabbar-item name="Home" replace icon="wap-home-o" to="/home">{{$t('lang_home')}}</van-tabbar-item>
       <van-tabbar-item name="Classify" replace icon="shop-o" to="/classify">{{$t('lang_classify')}}</van-tabbar-item>

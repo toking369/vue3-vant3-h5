@@ -1,6 +1,6 @@
 import { createStore } from "vuex";
-import API from "@/api/common.js";
-import REQ from "@/request/request.js";
+import {getLang, getGoodsNum, getGoodsdetal} from "@/api/common";
+import { getRequestUrl, request } from "@/request/request";
 
 let storeMap = {};
 const modulesStore = require.context("./modules", true, /\.js$/);
@@ -29,37 +29,37 @@ export default createStore({
   },
   actions: {
     async getLang(state, params) {
-      let url = REQ.getRequestUrl({
-        url: API.getLang,
+      let url = getRequestUrl({
+        url: getLang,
       });
 
       try {
-        const rep = await REQ.request(url, params, { method: "GET" });
+        const rep = await request(url, params, { method: "GET" });
         return rep;
       } catch (error) {
         return error;
       }
     },
     async getGoodsNum(state, params) {
-      let url = REQ.getRequestUrl({
-        url: API.getGoodsNum,
+      let url = getRequestUrl({
+        url: getGoodsNum,
       });
 
       try {
        
-        const rep = await REQ.request(url, params, { method: "GET" });
+        const rep = await request(url, params, { method: "GET" });
         return rep;
       } catch (error) {
         return error;
       }
     },
     async getGoodsdetal(state, params) {
-      let url = REQ.getRequestUrl({
-        url: API.getGoodsdetal,
+      let url = getRequestUrl({
+        url: getGoodsdetal,
       });
 
       try {
-        const rep = await REQ.request(url, params, { method: "POST" });
+        const rep = await request(url, params, { method: "POST" });
         return rep;
       } catch (error) {
         return error;

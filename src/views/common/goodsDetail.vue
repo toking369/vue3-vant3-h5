@@ -1,8 +1,11 @@
 <template>
-  <div class="goodsDetail">
+  <div class="goods_detail">
+    <!-- 导航栏 -->
     <div class="header_body">
       <header-nav titelText="商品详情"></header-nav>
     </div>
+
+    <!-- 中间 -->
     <div class="warp_body">
       <refreshList
         v-model:freshMap="data.freshMap"
@@ -17,17 +20,17 @@
           ></carousel>
         </div>
 
-        <div class="goods-info-box">
-          <div class="price-body">¥ {{ data?.goodsInfo?.price }}</div>
-          <div class="name-body">
+        <div class="goods_info_box">
+          <div class="price_body">¥ {{ data?.goodsInfo?.price }}</div>
+          <div class="name_body">
             {{ data?.goodsInfo?.goodsName }}-{{ data?.goodsInfo?.gId }}
           </div>
-          <div class="share-body" @click="showShare = true">
+          <div class="name_body" @click="showShare = true">
             <van-icon style="float: right" name="share-o" />
           </div>
         </div>
 
-        <div class="goods-pra-box">
+        <div class="goods_pra__box">
           <van-cell-group @click="goAddresList">
             <van-cell is-link title="选择" value="配送至:广州" />
             <van-cell
@@ -50,6 +53,7 @@
       </refreshList>
     </div>
 
+    <!-- 底部 -->
     <div class="footer_body">
       <van-action-bar>
         <van-action-bar-icon icon="cart-o" @click="goShopcart" text="购物车" />
@@ -63,6 +67,7 @@
       </van-action-bar>
     </div>
 
+    <!-- 分享弹窗 -->
     <van-share-sheet
       v-model:show="showShare"
       title="立即分享给好友"
@@ -73,11 +78,10 @@
 </template>
 
 <script setup name="goodsDetail">
-
-import headerNav from "@/components/common/headerNav.vue";
-import carousel from "@/components/home/carousel.vue";
-import refreshList from "@/components/common/refreshList.vue";
-import goodsCard from "@/components/common/goodsCard.vue";
+import headerNav from "@/components/common/headerNav.vue"; // 引入导航栏组件
+import carousel from "@/components/home/carousel.vue"; // 引入轮播组件
+import refreshList from "@/components/common/refreshList.vue"; // 引入上拉加载触底刷新组件
+import goodsCard from "@/components/common/goodsCard.vue"; // 引入商品卡片组件
 import { onMounted, reactive, ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
@@ -89,9 +93,9 @@ const data = reactive({
   carouselList: [],
   goodsInfo: {},
   freshMap: {
-    refreshLoad: false,
-    listLoading: true,
-    listFinished: true,
+    refreshLoad: false, // 是否刷新
+    listLoading: false, // 是否加载中
+    listFinished: false, // 是否加载完成标识
   },
   options: [
     [
@@ -201,12 +205,11 @@ onMounted(() => {
   getGoodsdetal(goodsId);
   recommendGoods();
   getComment();
-  
 });
 </script>
 <style lang="less">
-.goodsDetail {
-  .goods-pra-box > .van-cell-group {
+.goods_detail {
+  .goods_pra__box > .van-cell-group {
     border-radius: 10px;
     .van-cell--clickable {
       border-radius: 10px;
@@ -215,13 +218,15 @@ onMounted(() => {
 }
 </style>
 <style lang="less" scoped>
-.goodsDetail {
+.goods_detail {
+  display: flex;
+  flex-direction: column;
   .carousel_box {
     height: 150px;
     width: 100%;
     padding-bottom: 10px;
   }
-  .goods-info-box {
+  .goods_info_box {
     display: flex;
     flex-direction: column;
     background-color: #fff;
@@ -229,10 +234,10 @@ onMounted(() => {
     position: sticky;
     top: 0;
     border-radius: 10px;
-    .price-body {
+    .price_body {
       color: red;
     }
-    .name-body {
+    .name_body {
       font-size: 14px;
       font-weight: 600;
       -o-text-overflow: ellipsis;
@@ -240,13 +245,13 @@ onMounted(() => {
       display: -webkit-box;
       -webkit-line-clamp: 2;
     }
-    .price-body,
-    .name-body,
-    .share-body {
+    .price_body,
+    .name_body,
+    .name_body {
       padding: 10px;
     }
   }
-  .goods-pra-box {
+  .goods_pra__box {
     margin-left: 10px;
     margin-right: 10px;
   }

@@ -1,5 +1,5 @@
 <template>
-  <div class="headerNav">
+  <div class="header__nav">
     <van-nav-bar
       :title="data?.titelTextvalue"
       @click-left="onClickLeft"
@@ -8,7 +8,7 @@
       <template #left>
         <van-icon
           v-if="data?.leftArrowtag"
-          class="left-color"
+          class="left_icon"
           name="arrow-left"
         />
       </template>
@@ -55,11 +55,11 @@ const onClickLeft = () => {
 const onClickRight = () => {};
 </script>
 <style lang="less" scpoed>
-.headerNav {
+.header__nav {
   position: fixed;
   top: 0;
   width: 100%;
-  .left-color {
+  .left_icon {
     color: black !important;
   }
 }

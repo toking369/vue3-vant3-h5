@@ -1,8 +1,12 @@
 <template>
-  <div class="addressList">
+  <div class="address_list">
+
+    <!-- 导航栏 -->
     <div class="header_body">
       <header-nav titelText="地址列表"></header-nav>
     </div>
+
+    <!-- 中间 -->
     <div class="warp_body">
       <lodding-card :isLodding="isLodding">
         <van-address-list
@@ -17,17 +21,19 @@
         />
       </lodding-card>
     </div>
+
+    <!-- 底部 -->
     <div class="footer_body"></div>
   </div>
 </template>
 
 <script setup name="addressList">
-import headerNav from "@/components/common/headerNav.vue";
-import loddingCard from "@/components/common/loddingCard.vue";
+import headerNav from "@/components/common/headerNav.vue"; // 引入导航栏组件
+import loddingCard from "@/components/common/loddingCard.vue"; // 引入lodding组件
 import { onMounted, reactive, ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-import configureInit from "@/common/js/configure";
+import configureInit from "@/common/js/configure"; // 引入路由缓存触发工具
 const store = useStore();
 const router = useRouter();
 let chosenAddressId = ref("");
@@ -88,7 +94,7 @@ onMounted(() => {
 });
 </script>
 <style lang="less" scoped>
-.addressList {
+.address_list {
   width: 100%;
 }
 </style>

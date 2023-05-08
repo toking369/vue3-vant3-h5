@@ -1,6 +1,6 @@
 <template>
-  <!-- 路由缓存 -->
   <router-view v-slot="{ Component, route }">
+    <!-- 路由缓存 -->
     <keep-alive>
       <component
         :is="Component"
@@ -8,6 +8,8 @@
         :key="route?.meta?.isRouterKeepAlive ? route?.fullPath : route?.name"
       />
     </keep-alive>
+
+    <!-- 不缓存 -->
     <component
       :is="Component"
       v-if="!route?.meta?.isKeepAlive"
@@ -17,12 +19,12 @@
 </template>
 
 <script setup name="App">
-import "@/assets/css/index.less";
-import i18n from "@/locales";
-import { onMounted } from "vue";
-import { useStore } from "vuex";
-import { setGoodsNum, isObject } from "@/util/util";
-const store = useStore();
+import "@/assets/css/index.less"; // 引入样式文件
+import i18n from "@/locales"; // 导出国际化
+import { onMounted } from "vue"; // 导出vue
+import { useStore } from "vuex"; // 导出vuex
+import { setGoodsNum, isObject } from "@/util/util"; // 导出工具类
+const store = useStore(); // 实例化vuex
 let methodsMap = {
   // 进入应用查询购物车数量
   getGoodsnum: () => {

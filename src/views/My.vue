@@ -1,8 +1,12 @@
 <template>
-  <div class="my-warp app_content">
+  <div class="my_warp app_content">
+
+    <!-- 导航栏 -->
     <div class="header_body">
       <header-nav :leftArrow="false" titelText="我的"></header-nav>
     </div>
+
+    <!-- 中间 -->
     <div class="warp_body">
       <div class="user-info-box">
         <van-icon name="setting-o" class="mgt-icon" @click="setting" />
@@ -37,6 +41,8 @@
         </van-grid>
       </div>
     </div>
+
+    <!-- 底部 -->
     <div class="footer_body">
       <footer-nav></footer-nav>
     </div>
@@ -44,10 +50,10 @@
 </template>
 
 <script setup name="My">
-import headerNav from "@/components/common/headerNav.vue";
-import footerNav from "@/components/common/footerNav.vue";
-import { reactive } from "vue";
-import { useRouter } from "vue-router";
+import headerNav from "@/components/common/headerNav.vue"; // 引入导航组件
+import footerNav from "@/components/common/footerNav.vue"; // 引入底部组件
+import { reactive } from "vue"; // 导出vue
+import { useRouter } from "vue-router"; // 导出路由
 const router = useRouter();
 const data = reactive({
   orderTab: [
@@ -68,7 +74,7 @@ const data = reactive({
       text: "待评价",
     },
   ],
-});
+}); // tab
 const setting = () => {
   router.push({ name: "setting" });
 };

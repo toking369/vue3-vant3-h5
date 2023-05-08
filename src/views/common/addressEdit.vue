@@ -1,5 +1,6 @@
 <template>
-  <div class="addressEdit">
+  <div class="address_edit">
+    <!-- 导航栏 -->
     <div class="header_body">
       <header-nav
         :slefBack="true"
@@ -8,6 +9,7 @@
       >
       </header-nav>
     </div>
+    <!-- 中间 -->
     <div class="warp_body">
       <van-address-edit
         :area-list="data?.areaList"
@@ -27,7 +29,7 @@
 </template>
 
 <script setup name="addressEdit">
-import headerNav from "@/components/common/headerNav.vue";
+import headerNav from "@/components/common/headerNav.vue"; // 引入导航栏组件
 import util from "@/util/area";
 import { nextTick, onMounted, reactive, ref, watchEffect } from "vue";
 import { useStore } from "vuex";
@@ -88,7 +90,7 @@ onMounted(() => {
 });
 </script>
 <style lang="less" scoped>
-.addressEdit {
+.address_edit {
   .warp_body {
     height: calc(100vh - 46px);
   }

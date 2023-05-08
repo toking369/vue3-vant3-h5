@@ -1,4 +1,3 @@
-
 <template>
   <van-pull-refresh
     v-model="data.freshData.refreshLoad"
@@ -8,7 +7,7 @@
     ref="refReshList"
   >
     <van-list
-      class="van-list-body"
+      class="lodding_card"
       v-model:loading="data.freshData.listLoading"
       :finished="data?.freshData?.listFinished"
       :immediate-check="false"
@@ -49,7 +48,7 @@ const props = defineProps({
   },
   finishedText: {
     type: String,
-    default: '没有更多了',
+    default: "没有更多了",
   },
 });
 const data = reactive({
@@ -88,7 +87,7 @@ watchEffect(() => {
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
 }
-.van-list-body {
+.lodding_card {
   height: 100%;
 }
 </style>
