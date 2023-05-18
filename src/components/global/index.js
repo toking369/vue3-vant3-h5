@@ -1,10 +1,9 @@
-
-const context = require.context('./components', true, /\.vue$/);
-const global = (Vue) => {
-  context.keys().forEach((key) => {
-    const component = context(key).default;
-    Vue.component(component.name, component);
-  });
+const context = require.context("./components", true, /importIndex.js$/);
+export default {
+  install(app) {
+    context.keys().forEach((item) => {
+      const component = context(item).default;
+      app.component(component.name, component);
+    });
+  },
 };
-
-export default global
