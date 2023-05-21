@@ -159,6 +159,7 @@ onMounted(() => {
   }
   .recommend_box {
     .recommend_body {
+      width: 100%;
     }
   }
 }
