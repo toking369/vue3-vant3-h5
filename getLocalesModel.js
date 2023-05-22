@@ -36,12 +36,16 @@ function getLangJson(filePath) {
                 folderKey[it].push(i);
               }
             });
-            Object.assign(jsonMap[folderName][it], data[it]); 
+            jsonMap[folderName][it] = {
+              ...jsonMap[folderName][it],
+              ...data[it],
+            };
           });
         }
       });
     }
   });
+  console.log(`output->`, jsonMap);
   process.env.VUE_APP_LOCALMODELJSON = JSON.stringify(jsonMap);
 }
 module.exports = {

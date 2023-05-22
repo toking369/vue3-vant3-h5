@@ -44,11 +44,10 @@ modulesFiles.keys().reduce((modules, modulePath) => {
         locales[k][moduleName] = value[k];
         moduleKeyMap[k] = Object.keys(value[k]);
         if (modelMap[moduleName]) {
-          locales[k][moduleName] = Object.assign(
-            {},
-            modelMap[moduleName][k],
-            locales[k][moduleName]
-          );
+          locales[k][moduleName] = {
+            ...modelMap[moduleName][k],
+            ...locales[k][moduleName],
+          };
         }
       }
     });
