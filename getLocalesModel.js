@@ -45,7 +45,6 @@ function getLangJson(filePath) {
       });
     }
   });
-  console.log(`output->`, jsonMap);
   process.env.VUE_APP_LOCALMODELJSON = JSON.stringify(jsonMap);
 }
 module.exports = {

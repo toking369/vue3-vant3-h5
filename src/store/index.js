@@ -4,9 +4,9 @@ import { getRequestUrl, request } from "@/request/request";
 
 let storeMap = {};
 const modulesStore = require.context("./modules", true, /\.js$/);
-modulesStore.keys().reduce((modules, modulePath) => {
-  const modulesArr = modulesStore(modulePath);
-  const moduleName = modulePath.replace(/^\.\/(.*)\.\w+$/, "$1");
+modulesStore.keys().forEach((modules) => {
+  const modulesArr = modulesStore(modules);
+  const moduleName = modules.replace(/^\.\/(.*)\.\w+$/, "$1");
   const reg = new RegExp(/\//);
   const moduleKey = reg.test(moduleName)
     ? moduleName.substring(0, moduleName.indexOf("/"))

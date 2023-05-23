@@ -5,8 +5,8 @@ import { isObject } from "@/util/util";
 const loadRouterModules = function (routes) {
   let routesArr = [...routes];
   const modulesRouter = require.context("./modules", true, /\.js$/);
-  modulesRouter.keys().reduce((modules, modulePath) => {
-    const modulesArr = modulesRouter(modulePath).routes;
+  modulesRouter.keys().forEach((modules) => {
+    const modulesArr = modulesRouter(modules).routes;
     modulesArr.forEach((item) => {
       routesArr.forEach((it) => {
         const { meta: preMeta, name: preName } = it;
