@@ -13,7 +13,11 @@ const importFn = function (data) {
   return lang;
 };
 
-let locales = importFn(require.context("./zh-us", false, /\.json$/));
+let locales = {
+  ...importFn(require.context("./US-EN", false, /\.json$/)),
+  ...importFn(require.context("./ZH-CN", false, /\.json$/)),
+};
+
 const modulesFiles = require.context("./modules", false, /\.json$/);
 
 modulesFiles.keys().forEach((modules) => {
