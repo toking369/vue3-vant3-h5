@@ -44,42 +44,30 @@ const comparisonObject = function (objPre, objNext) {
   return false;
 };
 
-// 文本超出N行隐藏判断
-const isElementHidden = (
-  ele = "",
-  rowCount = 1,
-  cssStyles = "",
-  isRemove = true
-) => {
-  if (!ele) {
+/*
+ele:要插入的元素（父元素要设置相对定位）
+cloneEl：要克隆的元素
+cssStyles：克隆时去掉不克隆的样式
+*/
+const isElementHidden = (ele = "", cloneEl = "", cssStyles = []) => {
+  if (!ele || !cloneEl) {
     return false;
   }
-
-  const clonedNode = ele.cloneNode(true);
-  clonedNode.style.overflow = "visible";
-  clonedNode.style.display = "inline-block";
-  clonedNode.style.width = "auto";
-  clonedNode.style.whiteSpace = "nowrap";
+  const clonedNode = cloneEl.cloneNode(true);
+  const allStyle = cloneEl.computedStyleMap();
+  for (const [prop, val] of allStyle) {
+    if (!cssStyles.includes(prop)) {
+      clonedNode.style[prop] = val;
+    }
+  }
+  clonedNode.className = "";
   clonedNode.style.visibility = "hidden";
-  if (cssStyles) {
-    Object.keys(cssStyles).forEach((item) => {
-      clonedNode.style[item] = cssStyles[item];
-    });
-  }
-  const containerId = "ellipt_hidden__node___id";
-  clonedNode.setAttribute("id", containerId);
-  const tempNode = document.getElementById(containerId);
-  let domNode = clonedNode;
-  if (tempNode) {
-    document.body.replaceChild(clonedNode, tempNode);
-  } else {
-    domNode = document.body.appendChild(clonedNode);
-  }
-  const differ = domNode.offsetWidth - ele.offsetWidth * rowCount;
-  if (isRemove) {
-    document.body.removeChild(domNode);
-  }
-  return differ > 0;
+  clonedNode.style.position = "absolute";
+  clonedNode.setAttribute("id", "ellipt_hidden__node___id");
+  ele.appendChild(clonedNode);
+  const differ = clonedNode.offsetHeight > ele.offsetHeight;
+  ele.removeChild(clonedNode);
+  return differ;
 };
 
 export { setGoodsNum, isObject, comparisonObject, isElementHidden };
