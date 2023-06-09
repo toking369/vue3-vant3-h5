@@ -47,17 +47,17 @@ const data = reactive({
 
 // 返回
 const goBack = () => {
-  router.replace({ name: "AddressList"});
+  router.replace({ name: "AddressList" });
 };
 
 // 保存地址操作
 const onSave = () => {
-  router.replace({ name: "AddressList", isSendBusMsg: true });
+  router.replace({ name: "AddressList" });
 };
 
 // 删除地址操作
 const onDelete = () => {
-  router.replace({ name: "AddressList", isSendBusMsg: true });
+  router.replace({ name: "AddressList" });
 };
 
 // 修改详细地址
@@ -70,7 +70,11 @@ const getEditdata = (addressId) => {
     .then((res) => {
       if (res.code === 20000) {
         data.addressInfo = res?.data;
-        data.areaColumns = [res?.data?.province, res?.data?.city, res?.data?.area];
+        data.areaColumns = [
+          res?.data?.province,
+          res?.data?.city,
+          res?.data?.area,
+        ];
       }
     })
     .catch(() => {});

@@ -4,7 +4,7 @@
     <div class="header_body">
       <header-nav titelText="商品详情"></header-nav>
     </div>
-
+    {{ data.conut }}
     <!-- 中间 -->
     <div class="warp_body">
       <refreshList
@@ -82,14 +82,17 @@ import headerNav from "@/components/common/headerNav.vue"; // 引入导航栏组
 import carousel from "@/components/home/carousel.vue"; // 引入轮播组件
 import refreshList from "@/components/common/refreshList.vue"; // 引入上拉加载触底刷新组件
 import goodsCard from "@/components/common/goodsCard.vue"; // 引入商品卡片组件
+import { configureInit } from "@/common/js/configure"; // 引入路由缓存触发工具
 import { onMounted, reactive, ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { showToast } from "vant";
+
 const store = useStore();
 const router = useRouter();
 let showShare = ref(false);
 const data = reactive({
+  conut: 0,
   carouselList: [],
   goodsInfo: {},
   freshMap: {
@@ -194,13 +197,20 @@ const getComment = () => {};
 const goAddresList = () => {
   router.push({
     name: "AddressList",
-    isSendBusMsg: true,
   });
 };
 
 onMounted(() => {
   console.log("获取路由参数:", router?.currentRoute?.value?.query);
-  console.log("缓存页面初始化操作路由");
+
+  configureInit(() => {
+    console.log("缓存页面时--总监听事件接收--用于初始化操作");
+    const { goodsId } = router?.currentRoute?.value?.query;
+    getGoodsdetal(goodsId);
+    recommendGoods();
+    getComment();
+  }, data);
+
   const { goodsId } = router?.currentRoute?.value?.query;
   getGoodsdetal(goodsId);
   recommendGoods();

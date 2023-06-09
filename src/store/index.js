@@ -1,5 +1,5 @@
 import { createStore } from "vuex";
-import {getLang, getGoodsNum, getGoodsdetal} from "@/api/common";
+import { getLang, getGoodsNum, getGoodsdetal } from "@/api/common";
 import { getRequestUrl, request } from "@/request/request";
 
 let storeMap = {};
@@ -16,10 +16,15 @@ modulesStore.keys().forEach((modules) => {
 export default createStore({
   namespaced: true,
   state: {
+    projectPageInitData: {}, // 用于存储缓存页面初始化的数据，便于再次进入页面用于初始化
     goods_card_num: 0,
     is_reload_card: false,
   },
   mutations: {
+    SET_ALL_KEEP_PAGE_INIT_DATA(state, data) {
+      const { dataKey, initData } = data;
+      state.projectPageInitData[dataKey] = initData;
+    },
     SET_GOODS_NUM(state, data) {
       state.goods_card_num = data;
     },
@@ -46,7 +51,6 @@ export default createStore({
       });
 
       try {
-       
         const rep = await request(url, params, { method: "GET" });
         return rep;
       } catch (error) {

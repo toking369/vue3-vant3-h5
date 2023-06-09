@@ -48,10 +48,7 @@ let routes = [
     path: "/setting",
     name: "setting",
     component: () => import("@/views/common/setting.vue"),
-    meta: {
-      isKeepAlive: true,
-      subMsgKey: "APP_SETTING_PAGE",
-    },
+    meta: {},
   },
   {
     path: "/addressList",

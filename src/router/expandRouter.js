@@ -29,32 +29,16 @@ const loadRouterModules = function (routes) {
   return routesArr;
 };
 
-// 添加通知事件
-const expandFn = function (location, routes) {
-  let busName = "";
-  const { isSendBusMsg } = location;
-  if (isSendBusMsg) {
-    routes.forEach((e) => {
-      const { meta } = e;
-      if (e.name === location.name && isObject(meta)) {
-        const { subMsgKey } = meta;
-        busName = subMsgKey;
-      }
-    });
-  }
-  return busName;
-};
-
 // 添加扩展方法
 const expandRouter = function (router, routes) {
   // 扩展push方法
   const routerPush = router.push;
   router.push = function (location) {
-    let busName = expandFn(location, routes);
     return routerPush.call(this, location).then(() => {
-      const { isSendBusMsg } = location;
-      if (busName && isSendBusMsg) {
-        eventBus.emit(busName);
+      const { meta = {} } = router.currentRoute.value;
+      const { subMsgKey = "" } = meta;
+      if (subMsgKey) {
+        eventBus.emit(subMsgKey);
       }
     });
   };
@@ -62,11 +46,11 @@ const expandRouter = function (router, routes) {
   // 扩展replace方法
   const routerReplace = router.replace;
   router.replace = function (location) {
-    let busName = expandFn(location, routes);
     return routerReplace.call(this, location).then(() => {
-      const { isSendBusMsg } = location;
-      if (busName && isSendBusMsg) {
-        eventBus.emit(busName);
+      const { meta = {} } = router.currentRoute.value;
+      const { subMsgKey = "" } = meta;
+      if (subMsgKey) {
+        eventBus.emit(subMsgKey);
       }
     });
   };

@@ -1,6 +1,5 @@
 <template>
   <div class="setting">
-
     <!-- 导航栏 -->
     <div class="header_body">
       <header-nav titelText="设置"></header-nav>
@@ -53,7 +52,6 @@ const getList = () => {
     .dispatch("")
     .then((res) => {
       if (res?.code === 20000) {
-        
       }
     })
     .catch(() => {});
@@ -61,11 +59,9 @@ const getList = () => {
 
 // 前往地址列表APP_GOODS_DETAIL_PAGE
 const goAddress = () => {
-  router.push({ name: "AddressList", isSendBusMsg: true });
+  router.push({ name: "AddressList" });
 };
-onMounted(() => {
-  
-});
+onMounted(() => {});
 </script>
 <style lang="less" scoped>
 .setting {
