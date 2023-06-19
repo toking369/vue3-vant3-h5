@@ -1,5 +1,6 @@
 import eventBus from "@/common/js/eventBus";
 import { isObject } from "@/util/util";
+import store from "@/store"; // vuex
 
 // 加载模块路由
 const loadRouterModules = function (routes) {
@@ -29,14 +30,25 @@ const loadRouterModules = function (routes) {
   return routesArr;
 };
 
+// 获取发消息的key
+const getBusKey = function (name, data) {
+  const [res] = data.filter((item) => {
+    return [name].includes(item.name);
+  });
+  const { meta } = res || {};
+  const { subMsgKey = "" } = meta;
+  return subMsgKey;
+};
+
 // 添加扩展方法
 const expandRouter = function (router, routes) {
   // 扩展push方法
   const routerPush = router.push;
   router.push = function (location) {
+    const { name = "" } = location;
+    const subMsgKey = getBusKey(name, routes);
+    store.commit("SET_SUB_MSG_KEY", subMsgKey);
     return routerPush.call(this, location).then(() => {
-      const { meta = {} } = router.currentRoute.value;
-      const { subMsgKey = "" } = meta;
       if (subMsgKey) {
         eventBus.emit(subMsgKey);
       }
@@ -46,9 +58,10 @@ const expandRouter = function (router, routes) {
   // 扩展replace方法
   const routerReplace = router.replace;
   router.replace = function (location) {
+    const { name = "" } = location;
+    const subMsgKey = getBusKey(name, routes);
+    store.commit("SET_SUB_MSG_KEY", subMsgKey);
     return routerReplace.call(this, location).then(() => {
-      const { meta = {} } = router.currentRoute.value;
-      const { subMsgKey = "" } = meta;
       if (subMsgKey) {
         eventBus.emit(subMsgKey);
       }

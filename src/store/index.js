@@ -16,11 +16,15 @@ modulesStore.keys().forEach((modules) => {
 export default createStore({
   namespaced: true,
   state: {
+    subMsgKey:'', // 定义通知(由于路由不再支持parmas传参丢失)
     projectPageInitData: {}, // 用于存储缓存页面初始化的数据，便于再次进入页面用于初始化
     goods_card_num: 0,
     is_reload_card: false,
   },
   mutations: {
+    SET_SUB_MSG_KEY(state, data) {
+      state.subMsgKey = data;
+    },
     SET_ALL_KEEP_PAGE_INIT_DATA(state, data) {
       const { dataKey, initData } = data;
       state.projectPageInitData[dataKey] = initData;

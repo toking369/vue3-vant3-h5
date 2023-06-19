@@ -6,16 +6,17 @@ import { cloneDeep } from "lodash";
 
 const configureInit = function (callback, data) {
   const router = useRouter();
-  const { meta } = router.currentRoute.value;
-  const { subMsgKey = "" } = meta;
-
+  const { subMsgKey = "" } = store.state;
   if (subMsgKey) {
-    store.commit("SET_ALL_KEEP_PAGE_INIT_DATA", {
-      dataKey: subMsgKey,
-      initData: cloneDeep(data),
-    });
-
+    if (data) {
+      store.commit("SET_ALL_KEEP_PAGE_INIT_DATA", {
+        dataKey: subMsgKey,
+        initData: cloneDeep(data),
+      });
+    }
+    console.log(`output->43333333333`,subMsgKey)
     eventBus.on(subMsgKey, ($event) => {
+      console.log(`output->444444444`,444444444)
       if (
         callback &&
         Object.prototype.toString.call(callback) === "[object Function]"
