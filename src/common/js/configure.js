@@ -14,9 +14,7 @@ const configureInit = function (callback, data) {
         initData: cloneDeep(data),
       });
     }
-    console.log(`output->43333333333`,subMsgKey)
     eventBus.on(subMsgKey, ($event) => {
-      console.log(`output->444444444`,444444444)
       if (
         callback &&
         Object.prototype.toString.call(callback) === "[object Function]"
