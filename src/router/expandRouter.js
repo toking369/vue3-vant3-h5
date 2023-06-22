@@ -35,9 +35,15 @@ const getBusKey = function (name, data) {
   const [res] = data.filter((item) => {
     return [name].includes(item.name);
   });
-  const { meta } = res || {};
-  const { subMsgKey = "" } = meta;
-  return subMsgKey;
+  const { meta = {} } = res || {};
+  const {
+    isKeepAlive = false,
+    isRouterKeepAlive = false,
+    subMsgKey = "",
+  } = meta;
+  const uniId = new Date().getTime();
+  const resMsgKey = isRouterKeepAlive ? `${subMsgKey}_${uniId}` : subMsgKey;
+  return isKeepAlive ? resMsgKey : "";
 };
 
 // 添加扩展方法

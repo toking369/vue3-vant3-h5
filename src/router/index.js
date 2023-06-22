@@ -1,6 +1,13 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import Home from "@/views/Home.vue";
 import { loadRouterModules, expandRouter } from "@/router/expandRouter";
+/*
+   meta: {
+      isKeepAlive: true,  // 是否缓存
+      isRouterKeepAlive: true, // 是否针对路由全路径作为key缓存
+      subMsgKey: "APP_GOODS_DETAIL_PAGE", // 缓存通知事件
+    }
+*/
 
 let routes = [
   {
@@ -14,7 +21,6 @@ let routes = [
     component: Home,
     meta: {
       isKeepAlive: true,
-      subMsgKey: "APP_HOME_PAGE",
     },
   },
   {
@@ -23,7 +29,6 @@ let routes = [
     component: () => import("@/views/Classify.vue"),
     meta: {
       isKeepAlive: true,
-      subMsgKey: "APP_CLASSIFY_PAGE",
     },
   },
   {
@@ -32,7 +37,6 @@ let routes = [
     component: () => import("@/views/Shop.vue"),
     meta: {
       isKeepAlive: true,
-      subMsgKey: "APP_SHOP_PAGE",
     },
   },
   {
@@ -41,7 +45,6 @@ let routes = [
     component: () => import("@/views/My.vue"),
     meta: {
       isKeepAlive: true,
-      subMsgKey: "APP_MY_PAGE",
     },
   },
   {
@@ -55,7 +58,7 @@ let routes = [
     name: "AddressList",
     component: () => import("@/views/common/addressList.vue"),
     meta: {
-      isKeepAlive: true,
+      isKeepAlive: true, 
       subMsgKey: "APP_ADDRESS_LIST_PAGE",
     },
   },
@@ -63,18 +66,16 @@ let routes = [
     path: "/addressEdit",
     name: "AddressEdit",
     component: () => import("@/views/common/addressEdit.vue"),
-    meta: {
-      isKeepAlive: false,
-    },
+    meta: {},
   },
   {
     path: "/goodsDetail",
     name: "goodsDetail",
     component: () => import("@/views/common/goodsDetail.vue"),
     meta: {
-      isKeepAlive: true,
-      subMsgKey: "APP_GOODS_DETAIL_PAGE",
+      isKeepAlive: true, 
       isRouterKeepAlive: true,
+      subMsgKey: "APP_GOODS_DETAIL_PAGE",
     },
   },
   {

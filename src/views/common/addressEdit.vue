@@ -47,7 +47,7 @@ const data = reactive({
 
 // 返回
 const goBack = () => {
-  router.replace({ name: "AddressList" });
+  router.go(-1);
 };
 
 // 保存地址操作

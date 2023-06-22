@@ -202,7 +202,6 @@ const goAddresList = () => {
 
 onMounted(() => {
   console.log("获取路由参数:", router?.currentRoute?.value?.query);
-
   configureInit(() => {
     console.log("缓存页面时--总监听事件接收--用于初始化操作");
     const { goodsId } = router?.currentRoute?.value?.query;
@@ -210,11 +209,6 @@ onMounted(() => {
     recommendGoods();
     getComment();
   }, data);
-
-  const { goodsId } = router?.currentRoute?.value?.query;
-  getGoodsdetal(goodsId);
-  recommendGoods();
-  getComment();
 });
 </script>
 <style lang="less">
