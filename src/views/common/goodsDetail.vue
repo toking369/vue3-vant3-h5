@@ -25,7 +25,7 @@
           <div class="name_body">
             {{ data?.goodsInfo?.goodsName }}-{{ data?.goodsInfo?.gId }}
           </div>
-          <div class="name_body" @click="showShare = true">
+          <div class="name_body" @click="data.showShare = true">
             <van-icon style="float: right" name="share-o" />
           </div>
         </div>
@@ -69,7 +69,7 @@
 
     <!-- 分享弹窗 -->
     <van-share-sheet
-      v-model:show="showShare"
+      v-model:show="data.showShare"
       title="立即分享给好友"
       :options="data?.options"
       @select="onSelect"
@@ -90,7 +90,6 @@ import { showToast } from "vant";
 
 const store = useStore();
 const router = useRouter();
-let showShare = ref(false);
 const data = reactive({
   conut: 0,
   carouselList: [],
@@ -115,6 +114,7 @@ const data = reactive({
     ],
   ],
   recommend: [],
+  showShare: false,
 });
 
 //下拉刷新
