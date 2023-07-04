@@ -7,6 +7,11 @@ nvm 1.1.11
 node 20.0.0
 npm 9.6.4
 ```
+## 脚手架
+```
+master分支使用 vue-cli
+vite分支使用 vite
+```
 ## Project setup
 ```
 npm install 或 cnpm install 
