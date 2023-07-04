@@ -1,9 +1,13 @@
-const context = require.context("./components", true, /importIndex.js$/);
+const context = import.meta.glob("./components/**/importIndex.js", {
+	import: "default",
+	eager: true,
+});
 export default {
-  install(app) {
-    context.keys().forEach((item) => {
-      const component = context(item).default;
-      app.component(component.name, component);
-    });
-  },
+	install(app) {
+		console.log("context", context);
+		for (const [key, value] of Object.entries(context)) {
+			const { name } = value;
+			name && app.component(name, value);
+		}
+	},
 };
