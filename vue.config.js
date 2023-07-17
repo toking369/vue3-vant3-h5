@@ -27,7 +27,7 @@ module.exports = {
   },
 
   configureWebpack: (config) => {
-    const plugins = [];
+    const plugins = [require('unplugin-vue-define-options/webpack')];
     config.plugins = [...config.plugins, ...plugins];
   },
 };

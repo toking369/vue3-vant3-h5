@@ -20,7 +20,7 @@
 5. 使用规则: US-EN、ZH-CN 文件夹下 $t('国际化key'),modules文件夹下，json文件->$t('json文件名.定义key')，文件夹内json->$('文件夹名.定义key')
 6. 注意：本地调试，在modules文件夹内下的子文件夹内的json改动或新增时，必须要重新启动前端项目。
 
-以上的json文件必须使用以下格式（例如：user.json）：
+以上的json文件必须使用以下格式（例如：test.json）：
 {
   zh:{},
   en:{}
