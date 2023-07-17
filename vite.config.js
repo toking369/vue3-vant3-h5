@@ -1,5 +1,6 @@
 import { defineConfig, loadEnv } from "vite";
 import vue from "@vitejs/plugin-vue";
+import DefineOptions from 'unplugin-vue-define-options/vite'
 import { resolve } from "path";
 
 export default ({ mode }) => {
@@ -9,7 +10,7 @@ export default ({ mode }) => {
 		resolve: {
 			alias: {
 				"@": resolve("./src"),
-				'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js'
+				"vue-i18n": "vue-i18n/dist/vue-i18n.cjs.js",
 			},
 			extensions: [".js", ".vue", ".json", ".less", ".css"],
 		},
@@ -30,7 +31,7 @@ export default ({ mode }) => {
 			},
 		},
 		// plugins
-		plugins: [vue()],
+		plugins: [vue(), DefineOptions()],
 		// build configure
 		build: {
 			outDir: "dist",

@@ -149,6 +149,24 @@ src/locales文件夹下：
 2.动态加载模块：通过读取modules文件夹下的js文件作为模块，模块名为导出名（一般与文件夹名称或文件名称一致）
 ```
 
+### 项目组件 name 属性设置
+
+```
+1.安装unplugin-vue-define-options插件，在vite.config.js进行插件配置
+  import DefineOptions from 'unplugin-vue-define-options/vite'
+  defineConfig({
+		...
+        plugins: [DefineOptions()],
+        ...
+	});
+2.在页面组件内使用：
+        <script setup>
+        defineOptions({
+            name: "wc-test-global-2",
+        });
+        </script>
+```
+
 ## 项目图片
 
 ![首页](preview/home.jpeg "首页")
