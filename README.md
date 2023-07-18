@@ -36,12 +36,6 @@ npm run build:dev
 npm run build:prod
 ```
 
-### 项目测试
-
-```
-npm run lint
-```
-
 ### 项目目录结构
 
 ```
@@ -92,7 +86,7 @@ npm run lint
   },
 
 3.配置缓存路由：
-   （1）配置isKeepAlive为true并且配置subMsgKey使改值整个项目路由subMsgKey唯一不重复（命名规则可以是：模块_操作_含义）
+   （1）配置isKeepAlive为true并且配置subMsgKey使该值整个项目路由subMsgKey唯一不重复（命名规则可以是：模块_操作_含义）
         {
             path: "/test",
             name: "test",
@@ -166,6 +160,12 @@ npm run lint
 ```
 1.src/store文件夹下index.js内为第一层级的配置
 2.动态加载模块：通过读取modules文件夹下的js文件作为模块，模块名为导出名（一般与文件夹名称或文件名称一致）
+3.vuex的辅助函数使用：
+ import { storeState，storeGetter，storeMutation，storeAction } from "@/store/storeUtil";
+ const stateFn = storeState('模块名',['函数名/键值'])
+ const getterFn =storeGetter('模块名',['函数名/键值'])
+ const mutationFn =storeMutation('模块名',['函数名/键值'])
+ const actionFn =storeAction('模块名',['函数名/键值'])
 ```
 
 ### 项目组件 name 属性设置
