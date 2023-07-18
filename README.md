@@ -92,11 +92,11 @@ npm run build:prod
             component: () => import("@/views/common/test.vue"),
             meta: {
                 isKeepAlive: true,
-                isRouterKeepAlive: true, // 是否针对路由全路径作为key缓存
                 subMsgKey: "APP_GOODS_DETAIL_PAGE", 
             },
         }
-   （2）使用页面需要minxs混入：import { configureInit } from "@/common/js/configure";
+   （2）使用页面需要导入：
+        import { configureInit } from "@/common/js/configure";
    （3）在使用页面（缓存页面）的生命周期使用 
         onMounted(() => {
             configureInit(() => {
