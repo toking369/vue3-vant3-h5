@@ -134,6 +134,12 @@ src/locales文件夹下：
 2.US-EN文件夹配置英文zh.json文件(不可建其他json文件)
 3.modules文件夹下的json,可以建多个json文件，最后以文件名作为模块合并到最终的json国际化中
 4.ZH-CN/en.json、US-EN/zh.json 中配置时使用：$t("key"),modules文件夹下的json配置时使用：$t("模块名.key")
+以上的modules内的json文件必须使用以下格式（例如：test.json）
+{
+  zh:{},
+  en:{}
+}
+
 
 ```
 
