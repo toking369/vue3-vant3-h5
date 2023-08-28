@@ -1,7 +1,3 @@
-const localesPath = "./getLocalesModel";
-const modelPath = "./src/locales/modules"
-const { getLangJson } = require(localesPath);
-getLangJson(modelPath)
 module.exports = {
   lintOnSave: false,
   productionSourceMap: false,
