@@ -107,7 +107,7 @@ npm run build:prod
 
    通过以上四步配置达到效果是：使用push()、replace()方法跳进页面会初始化当前页面，在当前页面再跳入其他页面后返回当前页面当前页面不会初始化起到缓存效果。例子：A->B->C, B页面缓存，C倒回B不初始化B页面，当C倒回B倒回A后再由A-B页面会执行初始化函数configureInit
 
-4.配置无限自己跳自己缓存路由：
+4.配置无限A页面跳A页面缓存路由：
    （1）配置和3步骤一致基础上加isRouterKeepAlive：true配置
     {
         path: "/test",
@@ -116,11 +116,13 @@ npm run build:prod
         meta: {
             isKeepAlive: true,
             isRouterKeepAlive: true, // 是否针对路由全路径作为key缓存
-            subMsgKey: "APP_GOODS_DETAIL_PAGE", 
+            subMsgKey: "APP_GOODS_DETAIL_PAGE",
         },
     }
 
   （2）使用push()、replace() 在query或parmas上带唯一标识（业务Id或时间戳）
+  （3）该配置实现的效果，A页面内有链接，点击跳转还是跳到A页面，但当业务id改变时，跳转后会触发页面初始化函数，在点击回退上一页面时，
+       上一页面缓存的是跳转前的页面数据。
 
 ```
 
