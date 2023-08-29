@@ -23,12 +23,12 @@ export const userMapper = (middleValue, middleState, isComputed = false) => {
 // 模块处理
 export const handleModule = (parmas) => {
 	const storeKey = Object.keys(parmas)[0];
-	const { mapModule, moduleValue, mapValue } = parmas;
+	const { moduleValue, mapValue } = parmas;
 	const isModule = typeof moduleValue === "string" && moduleValue.length;
 
 	const middleState = isModule
 		? createNamespacedHelpers(moduleValue)[storeKey]
-		: mapModule;
+		: parmas[storeKey];
 	const middleValue = isModule ? mapValue : moduleValue;
 	return { middleValue, middleState };
 };
