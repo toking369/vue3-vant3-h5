@@ -9,7 +9,6 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.12.1",
     "axios": "^1.5.0",
     "core-js": "^3.32.1",
     "jsonp": "^0.2.1",
@@ -22,22 +21,16 @@
     "vuex": "^4.1.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~5.0.8",
-    "@vue/cli-plugin-eslint": "~5.0.8",
-    "@vue/cli-plugin-router": "^5.0.8",
-    "@vue/cli-plugin-vuex": "^5.0.8",
-    "@vue/cli-service": "~5.0.8",
-    "@vue/compiler-sfc": "^3.3.4",
-    "babel-eslint": "^10.1.0",
-    "babel-polyfill": "^6.26.0",
-    "es6-promise": "^4.2.8",
-    "eslint": "^8.48.0",
-    "eslint-plugin-import": "^2.28.1",
-    "eslint-plugin-vue": "^9.17.0",
+   "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-vue": "^8.0.3",
     "less": "^4.2.0",
     "less-loader": "^11.1.3",
-    "unplugin-vue-define-options": "^1.3.17",
-    "vue-loader-v16": "^16.0.0-beta.5.4"
+    "unplugin-vue-define-options": "^1.3.17"
   },
   "eslintConfig": {
     "root": true,
