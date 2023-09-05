@@ -1,11 +1,9 @@
 import { toRaw } from "vue";
-import { useRouter } from "vue-router";
 import eventBus from "@/common/js/eventBus";
 import store from "@/store"; // vuex
 import { cloneDeep } from "lodash";
 
 const configureInit = function (callback, data) {
-  const router = useRouter();
   const { subMsgKey = "" } = store.state;
   if (subMsgKey) {
     if (data) {
