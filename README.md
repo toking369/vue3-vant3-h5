@@ -43,7 +43,6 @@ npm run build:prod
 |-- .env.prod // 生产环境配置
 |-- .eslintrc.js // es配置
 |-- babel.config.js // babel配置
-|-- getLocalesModel.js // 动态合并模块下多语言
 |-- vue.config.js // 脚手架配置
 |-- src
     |-- App.vue // 入口文件
