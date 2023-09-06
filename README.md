@@ -70,7 +70,7 @@ npm run build:prod
 ```
 路由大体分为两种：缓存页面、不缓存页面 
 
-注意:缓存路由配置只使用push、replace跳转并且使用name:""不能使用path
+注意:缓存路由配置只能使用push、replace方式跳转
 
 1.通过路由配置+路由插件+中央事件总线+keep-alive组件+component组件共同构成
 2.配置不缓存组件：配置isKeepAlive为fasle或者不配置

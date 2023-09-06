@@ -36,9 +36,9 @@ const loadRouterModules = function (routes) {
 };
 
 // 获取发消息的key
-const getBusKey = function (name, data) {
+const getBusKey = function (name, path, data) {
 	const [res] = data.filter((item) => {
-		return [name].includes(item.name);
+		return name ? [name].includes(item.name) : [path].includes(item.path);
 	});
 	const { meta = {} } = res || {};
 	const {
@@ -56,8 +56,8 @@ const expandRouter = function (router, routes) {
 	// 扩展push方法
 	const routerPush = router.push;
 	router.push = function (location) {
-		const { name = "" } = location;
-		const subMsgKey = getBusKey(name, routes);
+		const { name = "", path = "" } = location;
+		const subMsgKey = getBusKey(name, path, routes);
 		store.commit("SET_SUB_MSG_KEY", subMsgKey);
 		return routerPush.call(this, location).then(() => {
 			if (subMsgKey) {
@@ -69,8 +69,8 @@ const expandRouter = function (router, routes) {
 	// 扩展replace方法
 	const routerReplace = router.replace;
 	router.replace = function (location) {
-		const { name = "" } = location;
-		const subMsgKey = getBusKey(name, routes);
+		const { name = "", path = "" } = location;
+		const subMsgKey = getBusKey(name, path, routes);
 		store.commit("SET_SUB_MSG_KEY", subMsgKey);
 		return routerReplace.call(this, location).then(() => {
 			if (subMsgKey) {
