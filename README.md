@@ -14,6 +14,7 @@ npm 9.6.4
 ```
 master分支使用 vue-cli
 vite分支使用 vite
+pinia分支使用 vite + pinia
 ```
 
 ## 项目安装
