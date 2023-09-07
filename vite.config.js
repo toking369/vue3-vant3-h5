@@ -1,6 +1,6 @@
 import { defineConfig, loadEnv } from "vite";
 import vue from "@vitejs/plugin-vue";
-import DefineOptions from 'unplugin-vue-define-options/vite'
+import vueSetupExtend from 'vite-plugin-vue-setup-extend-plus'
 import { resolve } from "path";
 
 export default ({ mode }) => {
@@ -31,7 +31,7 @@ export default ({ mode }) => {
 			},
 		},
 		// plugins
-		plugins: [vue(), DefineOptions()],
+		plugins: [vue(), vueSetupExtend()],
 		// build configure
 		build: {
 			outDir: "dist",

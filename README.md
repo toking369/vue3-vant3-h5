@@ -14,6 +14,7 @@ npm 9.6.4
 ```
 master分支使用 vue-cli
 vite分支使用 vite
+pinia分支使用 vite + pinia
 ```
 
 ## 项目安装
@@ -159,17 +160,16 @@ src/locales文件夹下：
 
 ```
 1.安装unplugin-vue-define-options插件，在vite.config.js进行插件配置
-  import DefineOptions from 'unplugin-vue-define-options/vite'
+   import vueSetupExtend from 'vite-plugin-vue-setup-extend-plus'
   defineConfig({
 		...
-        plugins: [DefineOptions()],
+        plugins: [vueSetupExtend()],
         ...
 	});
 2.在页面组件内使用：
-        <script setup>
-        defineOptions({
-            name: "wc-test-global-2",
-        });
+        <script setup name="wc-test-global-2">
+       import { onMounted } from "vue"; // 导出vue
+       onMounted(()=>{})
         </script>
 ```
 
