@@ -11,30 +11,10 @@ const importFn = function (data) {
 };
 
 let locales = {
-	...importFn(require.context("./US-EN", false, /\.json$/)),
-	...importFn(require.context("./ZH-CN", false, /\.json$/)),
+	en: importFn(require.context("./US-EN", false, /\.json$/)),
+	zh: importFn(require.context("./ZH-CN", false, /\.json$/)),
 };
 
-const modulesFiles = require.context("./modules", false, /\.json$/);
-
-modulesFiles.keys().forEach((modules) => {
-	const moduleName = modules.replace(/^\.\/(.*)\.\w+$/, "$1");
-	const value = modulesFiles(modules);
-	let moduleKeyMap = {
-		zh: [],
-		en: [],
-	};
-	Object.keys(value).forEach((k) => {
-		if (["zh"].includes(k)) {
-			locales[k][moduleName] = value[k];
-			moduleKeyMap[k] = Object.keys(value[k]);
-		}
-		if (["en"].includes(k)) {
-			locales[k][moduleName] = value[k];
-			moduleKeyMap[k] = Object.keys(value[k]);
-		}
-	});
-});
 const i18n = createI18n({
 	locale: DEFAULT_LANG,
 	messages: locales,
