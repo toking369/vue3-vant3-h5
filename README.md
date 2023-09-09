@@ -133,26 +133,11 @@ npm run build:prod
 ### 项目国际化配置
 
 ```
-├─src
-    ├─locales
-    |       ├─modules  // 模块文件夹(业务模块文件夹)
-    |       |
-    |       └─ test.json  // test模块集合
-    |       ├─ ZH-CN // 项目中文公共国际化配合配置文件
-    |       └─ US-EN // 项目英文公共国际化配合配置文件
-    └─index.js // 加载国际化入口
-
-1. modules 文件夹下（一级目录）是json文件。
-2. modules 文件夹下（一级目录）的json文件作为模块。
-3. 文件夹内的合并机制是对象合并原理，在一级目录的json，以一级目录的json为主。
-4. 建立新模块时，modules下建一个json文件名称要与文件夹名称相同才能达到合并效果
-5. 使用规则: US-EN、ZH-CN 文件夹下 $t('国际化key'),modules文件夹下，json文件->$t('json文件名.定义key')
-
-以上的modules内的json文件必须使用以下格式（例如：test.json）
-{
-  zh:{},
-  en:{}
-}
+src/locales文件夹下：
+1.ZH-CN文件夹配置中文json
+2.US-EN文件夹配置英文json
+3.ZH-CN/common.json、US-EN/common.json 中配置时使用：$t("文件名.json文件内定义的key") 如 $t("common.home")
+4. 接口返回的json格式要与本地配置的json格式一致才能起到远程覆盖本地的效果
 
 ```
 
