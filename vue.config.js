@@ -16,12 +16,6 @@ module.exports = {
       },
     },
   },
-  chainWebpack: (config) => {
-    config.resolve.symlinks(true); // 修复热更新失效
-    config.resolve.alias.set("vue-i18n", "vue-i18n/dist/vue-i18n.cjs.js"); // 去除国际化警告
-   
-  },
-
   configureWebpack: (config) => {
     const plugins = [require('unplugin-vue-define-options/webpack')];
     config.plugins = [...config.plugins, ...plugins];
