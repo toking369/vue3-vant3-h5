@@ -27,7 +27,7 @@ npm install 或 cnpm install
 ### 项目启动
 
 ```
-npm run serve
+npm run dev
 ```
 
 ### 项目打包
@@ -130,17 +130,10 @@ npm run build:prod
 
 ```
 src/locales文件夹下：
-1.ZH-CN文件夹配置中文en.json文件(不可建其他json文件)
-2.US-EN文件夹配置英文zh.json文件(不可建其他json文件)
-3.modules文件夹下的json,可以建多个json文件，最后以文件名作为模块合并到最终的json国际化中
-4.ZH-CN/en.json、US-EN/zh.json 中配置时使用：$t("key"),modules文件夹下的json配置时使用：$t("模块名.key")
-以上的modules内的json文件必须使用以下格式（例如：test.json）
-{
-  zh:{},
-  en:{}
-}
-
-
+1.ZH-CN文件夹配置中文json
+2.US-EN文件夹配置英文json
+3.ZH-CN/common.json、US-EN/common.json 中配置时使用：$t("文件名.json文件内定义的key") 如 $t("common.home")
+4. 接口返回的json格式要与本地配置的json格式一致才能起到远程覆盖本地的效果
 ```
 
 ### 项目 VUEX 配置
