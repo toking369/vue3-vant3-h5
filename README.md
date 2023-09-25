@@ -105,7 +105,7 @@ npm run build:prod
         });
    （4）在（3）的configureInit内做当前页面初始化操作
 
-   通过以上四步配置达到效果是：使用push()、replace()方法跳进页面会初始化当前页面，在当前页面再跳入其他页面后返回当前页面当前页面不会初始化起到缓存效果。例子：A->B->C, B页面缓存，C倒回B不初始化B页面，当C倒回B倒回A后再由A-B页面会执行初始化函数configureInit
+   通过以上四步配置达到效果是：使用push()、replace()方法跳进页面会初始化当前页面，在当前页面再跳入其他页面后,再返回当前页面当前页面不会初始化起到缓存效果。例子：A->B->C, B页面缓存，C倒回B不初始化B页面，当C倒回B倒回A后，再由A-B页面会执行初始化函数configureInit
 
 4.配置无限A页面跳A页面缓存路由：
    （1）配置和3步骤一致基础上加isRouterKeepAlive：true配置
@@ -160,10 +160,10 @@ src/locales文件夹下：
         ...
 	});
 2.在页面组件内使用：
-        <script setup name="wc-test-global-2">
-       import { onMounted } from "vue"; // 导出vue
-       onMounted(()=>{})
-        </script>
+    <script setup name="wc-test-global-2">
+        import { onMounted } from "vue"; // 导出vue
+        onMounted(()=>{})
+    </script>
 ```
 
 ## 项目图片
