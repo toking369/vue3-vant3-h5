@@ -9,8 +9,7 @@ export default ({ mode }) => {
 		// base: "/",
 		resolve: {
 			alias: {
-				"@": resolve("./src"),
-				"vue-i18n": "vue-i18n/dist/vue-i18n.cjs.js",
+				"@": resolve("./src")
 			},
 			extensions: [".js", ".vue", ".json", ".less", ".css"],
 		},
