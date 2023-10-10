@@ -128,6 +128,31 @@ npm run build:prod
   （3）该配置实现的效果，A页面内有链接，点击跳转还是跳到A页面，但当业务id改变时，跳转后会触发页面初始化函数，在点击回退上一页面时，
        上一页面缓存的是跳转前的页面数据。
 
+  5.路由(编程式)传参
+   （1）使用query传参
+        跳转：
+            import { useRouter } from "vue-router";
+            const router = useRouter();
+            router.push({
+                name: "路由名称",
+                query: { 参数 },
+            });
+        接收：
+            import { useRouter } from "vue-router";
+            const router = useRouter();
+            const queryParmas =  router?.currentRoute?.value?.query
+    (2) 使用state传参 (用于传较多参数)
+       
+         跳转：
+            import { useRouter } from "vue-router";
+            const router = useRouter();
+            router.push({
+                name: "路由名称",
+                state: { 参数 },
+            });
+        接收：
+            const queryParmas =  history.state
+
 ```
 
 ### 项目国际化配置
