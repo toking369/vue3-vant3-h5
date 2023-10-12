@@ -146,7 +146,7 @@ npm run build:prod
                 state: { 参数 },
             });
         接收：
-            const queryParmas =  history.state
+            const stateParmas =  history.state
 
 ```
 
@@ -176,8 +176,8 @@ src/locales文件夹下：
 ### 项目组件 name 属性设置
 
 ```
-1.安装unplugin-vue-define-options插件，在vite.config.js进行插件配置
-   import vueSetupExtend from 'vite-plugin-vue-setup-extend-plus'
+1.安装vite-plugin-vue-setup-extend插件，在vite.config.js进行插件配置
+   import vueSetupExtend from 'vite-plugin-vue-setup-extend'
   defineConfig({
 		...
         plugins: [vueSetupExtend()],

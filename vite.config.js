@@ -1,6 +1,6 @@
 import { defineConfig, loadEnv } from "vite";
 import vue from "@vitejs/plugin-vue";
-import vueSetupExtend from 'vite-plugin-vue-setup-extend-plus'
+import vueSetupExtend from 'vite-plugin-vue-setup-extend'
 import { resolve } from "path";
 
 export default ({ mode }) => {
