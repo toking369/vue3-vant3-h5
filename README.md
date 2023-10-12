@@ -151,7 +151,7 @@ npm run build:prod
                 state: { 参数 },
             });
         接收：
-            const queryParmas =  history.state
+            const stateParmas =  history.state
 
 ```
 
