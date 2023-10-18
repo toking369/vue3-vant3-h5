@@ -14,7 +14,10 @@ npm 9.6.4
 ```
 master分支使用 vue-cli
 vite分支使用 vite
-pinia分支使用 vite + pinia
+pinia分支使用 vite + pinia (推荐) 
+
+注：pinia分支利用脚手架(vite.config.js)插件自动导入全局库、方法、变量等
+
 ```
 
 ## 项目安装
@@ -27,7 +30,7 @@ npm install 或 cnpm install
 ### 项目启动
 
 ```
-npm run dev
+npm run vite
 ```
 
 ### 项目打包
