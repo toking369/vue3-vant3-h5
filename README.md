@@ -147,9 +147,10 @@ npm run build:prod
        上一页面缓存的是跳转前的页面数据。
  5.路由(编程式)传参
    （1）使用query传参
-        跳转：
 ```
 ```js
+        跳转：
+
             import { useRouter } from "vue-router";
             const router = useRouter();
             router.push({
@@ -157,20 +158,19 @@ npm run build:prod
                 query: { 参数 },
             });
 ```
-```
-        接收：
-```
 ```js
+        接收：
+
             import { useRouter } from "vue-router";
             const router = useRouter();
             const queryParmas =  router?.currentRoute?.value?.query
 ```
 ```
     (2) 使用state传参 (用于传较多参数)
-       
-         跳转：
 ```
 ```js
+         跳转：
+
             import { useRouter } from "vue-router";
             const router = useRouter();
             router.push({
@@ -178,10 +178,9 @@ npm run build:prod
                 state: { 参数 },
             });
 ```
-```
-        接收：
-```
 ```js
+        接收：
+
             const stateParmas =  history.state
 ```
 
