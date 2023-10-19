@@ -11,7 +11,6 @@ npm 9.6.4
 
 ## 脚手架
 
-```
 > &ensp;&ensp; master分支使用 vue-cli
 
 > &ensp;&ensp;vite分支使用 vite 
@@ -20,7 +19,6 @@ npm 9.6.4
 
 > &ensp;&ensp;$\color{red}{注} $：pinia分支利用脚手架(vite.config.js)插件自动导入全局库、方法、变量等
 
-```
 
 ## 项目安装
 
