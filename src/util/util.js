@@ -1,7 +1,8 @@
-import cStore from "@/store";
+
+
 // 设置购物车数量
 const setGoodsNum = function (data) {
-	cStore.commit("SET_GOODS_NUM", data);
+	global_store.useCommon.SET_GOODS_NUM(data);
 };
 
 // 判断是否还是一个对象

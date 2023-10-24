@@ -50,10 +50,7 @@
 </template>
 
 <script setup name="My">
-import headerNav from "@/components/common/headerNav.vue"; // 引入导航组件
-import footerNav from "@/components/common/footerNav.vue"; // 引入底部组件
-import { reactive } from "vue"; // 导出vue
-import { useRouter } from "vue-router"; // 导出路由
+
 const router = useRouter();
 const data = reactive({
   orderTab: [
@@ -76,7 +73,7 @@ const data = reactive({
   ],
 }); // tab
 const setting = () => {
-  router.push({ name: "setting" });
+  router.push({ name: "common-setting" });
 };
 </script>
 <style lang="less">

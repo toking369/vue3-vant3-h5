@@ -50,14 +50,8 @@
 </template>
 
 <script setup name="Classify">
-import headerNav from "@/components/common/headerNav.vue"; // 引入导航栏组件
-import footerNav from "@/components/common/footerNav.vue"; // 引入底部组件
-import refreshList from "@/components/common/refreshList.vue"; // 引入上拉加载触底刷新组件
-import goodsCard from "@/components/common/goodsCard.vue"; // 引入商品卡片组件
-import loddingCard from "@/components/common/loddingCard.vue"; // 引入lodding组件
-import { onMounted, reactive, ref } from "vue"; // 导出vue
-import { storeAction } from "@/store/storeUtil"; // 引入vuex辅助函数
-const classifyFn = storeAction("Classify", ["getClassify", "classifyGoods"]); // 页面接口
+
+const { useClassify } = global_store
 
 let classifyId = ref(""); // 分类id
 let classifyActive = ref(0); // 是否是选择中分类
@@ -102,7 +96,7 @@ const chioceClassify = (item) => {
 // 获取分类数据
 const getClassify = () => {
 	return new Promise(async (resolve) => {
-		const res = await classifyFn.getClassify();
+		const res = await useClassify.getClassify();
 		if (res?.code === 20000) {
 			classifyList.push(...res?.data);
 			resolve(res.data);
@@ -114,7 +108,7 @@ const getClassify = () => {
 
 //获取分类下的商品列表
 const getGoodslist = async (onLoad) => {
-	const res = await classifyFn.classifyGoods();
+	const res = await useClassify.classifyGoods();
 	if (res?.code === 20000) {
 		goodsList = onLoad ? goodsList.concat(res?.data) : res?.data;
 		freshMap.refreshLoad = false;

@@ -20,10 +20,13 @@
 
 <script setup name="App">
 import "@/assets/css/index.less"; // 引入样式文件
-import { onMounted } from "vue"; // 导出vue
-import { getGoodsnum, getLang } from "@/initialize"; // 引入初始化函数
-onMounted(() => {
-	getGoodsnum();
-	getLang();
+const {
+	appContext: {
+		config: { globalProperties: proxy },
+	},
+} = getCurrentInstance();
+onMounted(async () => {
+	await proxy.getGoodsnum();
+	await proxy.getLang();
 });
 </script>

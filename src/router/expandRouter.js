@@ -1,33 +1,18 @@
-import eventBus from "@/common/js/eventBus";
 import { isObject } from "@/util/util";
-import store from "@/store"; // vuex
 
-// 加载模块路由
-const loadRouterModules = function (routes) {
-	let routesArr = [...routes];
-	const modulesRouter = require.context("./modules", true, /\.js$/);
-	modulesRouter.keys().forEach((modules) => {
-		const modulesArr = modulesRouter(modules).routes;
-		modulesArr.forEach((item) => {
-			routesArr.forEach((it) => {
-				const { meta: preMeta, name: preName } = it;
-				const { meta: nextMeta, name: nextName } = item;
-				const preBusName = isObject(preMeta) ? preMeta.subMsgKey : "";
-				const nextBusName = isObject(nextMeta) ? nextMeta.subMsgKey : "";
-				const isRepeatBus =
-					preBusName && nextBusName && preBusName === nextBusName;
-				if (preName === nextName || isRepeatBus) {
-					const errMsg =
-						preName === nextName
-							? `有路由名称重复${preName}`
-							: `有bus消息名称重复${preName}`;
-					console.error(errMsg);
-				}
-			});
-		});
-		routesArr = [...routesArr, ...modulesArr];
-	}, {});
-	return routesArr;
+// 加载模块配置的路由缓存配置
+const global_routerModules = function () {
+	let keepPageName = [];
+	let loopKeepPageName = [];
+	const modulesRouter = import.meta.glob("./modules/*.js", { eager: true });
+	for (const [, item] of Object.entries(modulesRouter)) {
+		keepPageName = [...keepPageName, ...item.keepPageName];
+		loopKeepPageName = [...loopKeepPageName, ...item.loopKeepPageName];
+	}
+	return {
+		keepPageName: Array.from(new Set(keepPageName)),
+		loopKeepPageName: Array.from(new Set(loopKeepPageName)),
+	};
 };
 
 // 获取发消息的key
@@ -43,21 +28,20 @@ const getBusKey = function (name, path, data) {
 	} = meta;
 	const uniId = new Date().getTime();
 	const resMsgKey = isRouterKeepAlive ? `${subMsgKey}_${uniId}` : subMsgKey;
-	return isKeepAlive ? resMsgKey : "";
+	const busKey = isKeepAlive ? resMsgKey : "";
+	global_store.useCommon.SET_SUB_MSG_KEY(busKey);
+	return busKey;
 };
 
 // 添加扩展方法
-const expandRouter = function (router, routes) {
+const global_expandRouter = function (router, routes) {
 	// 扩展push方法
 	const routerPush = router.push;
 	router.push = function (location) {
 		const { name = "", path = "" } = location;
 		const subMsgKey = getBusKey(name, path, routes);
-		store.commit("SET_SUB_MSG_KEY", subMsgKey);
 		return routerPush.call(this, location).then(() => {
-			if (subMsgKey) {
-				eventBus.emit(subMsgKey);
-			}
+			subMsgKey && global_eventBus.emit(subMsgKey);
 		});
 	};
 
@@ -66,13 +50,10 @@ const expandRouter = function (router, routes) {
 	router.replace = function (location) {
 		const { name = "", path = "" } = location;
 		const subMsgKey = getBusKey(name, path, routes);
-		store.commit("SET_SUB_MSG_KEY", subMsgKey);
 		return routerReplace.call(this, location).then(() => {
-			if (subMsgKey) {
-				eventBus.emit(subMsgKey);
-			}
+			subMsgKey && global_eventBus.emit(subMsgKey);
 		});
 	};
 };
 
-export { loadRouterModules, expandRouter };
+export { global_routerModules, global_expandRouter };

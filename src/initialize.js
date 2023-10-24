@@ -1,10 +1,10 @@
-import i18n from "@/locales"; // 导出国际化
 import { setGoodsNum, isObject } from "@/util/util"; // 导出工具类
-import store from "@/store";
+import VueDompurifyHtml from "vue-dompurify-html"; // 替代v-html插件防止xss
+import "virtual:windi.css"; // 导入windicss
 
 // 进入应用查询购物车数量
 const getGoodsnum = async () => {
-	const res = await store.dispatch("getGoodsNum");
+	const res = await global_store.useCommon.getGoodsNum();
 	if (res?.code === 20000) {
 		setGoodsNum(res?.data || 0);
 	}
@@ -12,13 +12,25 @@ const getGoodsnum = async () => {
 
 // 远程国际化-会和本地国际化合并
 const getLang = async () => {
-	const res = await store.dispatch("getLang");
+	const res = await global_store.useCommon.getLang();
 	if (res?.code === 20000) {
 		if (isObject(res) && isObject(res?.data)) {
 			Object.keys(res?.data).forEach((key) => {
-				i18n.global.mergeLocaleMessage(key, res?.data[key]);
+				global_i18n.global.mergeLocaleMessage(key, res?.data[key]);
 			});
 		}
 	}
 };
-export { getGoodsnum, getLang };
+
+const global_initialize = {
+	install: (app) => {
+		// 全局挂载
+		app.config.globalProperties.getGoodsnum = getGoodsnum;
+		app.config.globalProperties.getLang = getLang;
+
+		// 导入插件
+		app.use(VueDompurifyHtml);
+	},
+};
+
+export { global_initialize };

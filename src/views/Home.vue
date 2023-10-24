@@ -13,10 +13,10 @@
 				@onLoad="onLoad"
 			>
 				<div class="carousel_box">
-					<carousel
+					<carousel-card
 						v-if="carouselList.length"
 						v-model:carouselList="carouselList"
-					></carousel>
+					></carousel-card>
 				</div>
 				<div class="boutique_box">
 					<van-cell :border="false" title="精品" />
@@ -44,19 +44,7 @@
 </template>
 
 <script setup name="Home">
-import headerNav from "@/components/common/headerNav"; // 引入导航栏组件
-import footerNav from "@/components/common/footerNav"; // 引入底部组件
-import refreshList from "@/components/common/refreshList"; // 引入上拉加载触底刷新组件
-import goodsCard from "@/components/common/goodsCard"; // 引入商品卡片组件
-import carousel from "@/components/home/carousel"; // 引入轮播组件
-import { storeAction } from "@/store/storeUtil"; // 引入vuex辅助函数
-import { onMounted, reactive } from "vue";
-
-const homeFn = storeAction("Home", [
-	"getCarousel",
-	"boutiqueGoods",
-	"recommendGoods",
-]); // 页面接口
+const { useHome } = global_store;
 
 let carouselList = reactive([]); // 轮播列表
 let boutique = reactive([]); // 精品数据
@@ -75,7 +63,7 @@ const boutiqueAttr = reactive({
 //获取轮播
 const getCarousel = () => {
 	return new Promise(async (resolve) => {
-		const res = await homeFn.getCarousel();
+		const res = await useHome.getCarousel();
 		if (res?.code === 20000) {
 			carouselList = res?.data;
 		}
@@ -86,7 +74,7 @@ const getCarousel = () => {
 //精品
 const boutiqueGoods = () => {
 	return new Promise(async (resolve) => {
-		const res = await homeFn.boutiqueGoods();
+		const res = await useHome.boutiqueGoods();
 		if (res?.code === 20000) {
 			boutique = res?.data;
 		}
@@ -97,7 +85,7 @@ const boutiqueGoods = () => {
 //推荐
 const recommendGoods = (onLoad) => {
 	return new Promise(async (resolve) => {
-		const res = await homeFn.recommendGoods();
+		const res = await useHome.recommendGoods();
 		if (res?.code === 20000) {
 			recommend = onLoad ? recommend.concat(res.data) : res.data;
 			freshMap.listLoading = false;

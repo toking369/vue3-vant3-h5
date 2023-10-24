@@ -1,2 +1,5 @@
 import mitt from "mitt";
-export default new mitt();
+const global_eventBus = new mitt()
+export {
+    global_eventBus
+};

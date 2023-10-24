@@ -27,13 +27,8 @@
 </template>
 
 <script setup name="addressList">
-import headerNav from "@/components/common/headerNav.vue"; // 引入导航栏组件
-import loddingCard from "@/components/common/loddingCard.vue"; // 引入lodding组件
-import { onMounted, reactive, ref } from "vue";
-import { useRouter } from "vue-router";
-import { configureInit } from "@/common/js/configure"; // 引入路由缓存触发工具
-import { storeAction } from "@/store/storeUtil"; // 引入vuex辅助函数
-const myFn = storeAction("My", ["getAddersslist"]);
+
+const { useMy } = global_store
 
 const router = useRouter();
 let chosenAddressId = ref("");
@@ -45,7 +40,7 @@ const data = reactive({
 
 // 获取列表数据
 const getList = async () => {
-	const res = await myFn.getAddersslist();
+	const res = await useMy.getAddersslist();
 	isLodding.value = false;
 	if (res?.code === 20000) {
 		chosenAddressId = res.data.list.filter((item) => {
@@ -58,13 +53,13 @@ const getList = async () => {
 
 // 添加地址
 const onAdd = () => {
-	router.replace({ path: "addressEdit" });
+	router.replace({ path: "/common_addressedit" });
 };
 
 // 修改地址
 const onEdit = (item) => {
 	router.replace({
-		path: "addressEdit",
+		path: "/common_addressedit",
 		query: { addressId: item?.id },
 	});
 };
@@ -81,7 +76,7 @@ const selectDefault = (item) => {
 };
 
 onMounted(() => {
-	configureInit(() => {
+	global_configure(() => {
 		console.log("缓存页面时--总监听事件接收--用于初始化操作");
 		getList();
 	});

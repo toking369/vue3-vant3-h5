@@ -29,12 +29,9 @@
 </template>
 
 <script setup name="addressEdit">
-import headerNav from "@/components/common/headerNav.vue"; // 引入导航栏组件
+
 import util from "@/util/area";
-import { nextTick, onMounted, reactive, ref, watchEffect } from "vue";
-import { useRouter, useRoute } from "vue-router";
-import { storeAction } from "@/store/storeUtil"; // 引入vuex辅助函数
-const myFn = storeAction("My", ["getAddressedit"]);
+const { useMy } = global_store
 
 const router = useRouter();
 const route = useRoute();
@@ -53,12 +50,12 @@ const goBack = () => {
 
 // 保存地址操作
 const onSave = () => {
-	router.replace({ name: "AddressList" });
+	router.replace({ name: "common-addressList" });
 };
 
 // 删除地址操作
 const onDelete = () => {
-	router.replace({ name: "AddressList" });
+	router.replace({ name: "common-addressList" });
 };
 
 // 修改详细地址
@@ -66,7 +63,7 @@ const onChangeDetail = () => {};
 
 // 获取编辑地址数据
 const getEditdata = async (addressId) => {
-	const res = await myFn.getAddressedit({ addressId: addressId });
+	const res = await useMy.getAddressedit({ addressId: addressId });
 	if (res.code === 20000) {
 		data.addressInfo = res?.data;
 		data.areaColumns = [res?.data?.province, res?.data?.city, res?.data?.area];

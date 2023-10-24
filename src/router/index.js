@@ -1,97 +1,43 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import Home from "@/views/Home.vue";
-import { loadRouterModules, expandRouter } from "@/router/expandRouter";
-/*
-   meta: {
-      isKeepAlive: true,  // 是否缓存
-      isRouterKeepAlive: true, // 是否针对路由全路径作为key缓存
-      subMsgKey: "APP_GOODS_DETAIL_PAGE", // 缓存通知事件
-    }
-*/
+import generatedRoutes from "virtual:generated-pages"; // 通过插件获取目录下文件生成路由
 
-let routes = [
-  {
-    path: "/",
-    redirect: "/home",
-    name: "App",
-  },
-  {
-    path: "/home",
-    name: "Home",
-    component: Home,
-    meta: {
-      isKeepAlive: true,
-    },
-  },
-  {
-    path: "/classify",
-    name: "Classify",
-    component: () => import("@/views/Classify.vue"),
-    meta: {
-      isKeepAlive: true,
-    },
-  },
-  {
-    path: "/shop",
-    name: "Shop",
-    component: () => import("@/views/Shop.vue"),
-    meta: {
-      isKeepAlive: true,
-    },
-  },
-  {
-    path: "/my",
-    name: "My",
-    component: () => import("@/views/My.vue"),
-    meta: {
-      isKeepAlive: true,
-    },
-  },
-  {
-    path: "/setting",
-    name: "setting",
-    component: () => import("@/views/common/setting.vue"),
-    meta: {},
-  },
-  {
-    path: "/addressList",
-    name: "AddressList",
-    component: () => import("@/views/common/addressList.vue"),
-    meta: {
-      isKeepAlive: true, 
-      subMsgKey: "APP_ADDRESS_LIST_PAGE",
-    },
-  },
-  {
-    path: "/addressEdit",
-    name: "AddressEdit",
-    component: () => import("@/views/common/addressEdit.vue"),
-    meta: {},
-  },
-  {
-    path: "/goodsDetail",
-    name: "goodsDetail",
-    component: () => import("@/views/common/goodsDetail.vue"),
-    meta: {
-      isKeepAlive: true, 
-      isRouterKeepAlive: true,
-      subMsgKey: "APP_GOODS_DETAIL_PAGE",
-    },
-  },
-  {
-    path: "/:pathMatch(.*)*",
-    name: "404",
-    component: () => import("@/views/404.vue"),
-  },
-];
+const { keepPageName = [], loopKeepPageName = [] } = global_routerModules(); // 获取配置缓存页面路由名称
 
-routes = loadRouterModules(routes); // 加载模块路由
-
-const router = createRouter({
-  history: createWebHashHistory(),
-  routes,
+const viewsRoutes = generatedRoutes.map((item) => {
+	return {
+		...item,
+		meta: {
+			isKeepAlive:
+				keepPageName.includes(item.name) ||
+				loopKeepPageName.includes(item.name),
+			isRouterKeepAlive: loopKeepPageName.includes(item.name),
+			subMsgKey: `app_keep_alive_bus_${item.name}`,
+		},
+	};
 });
 
-expandRouter(router, routes); // 添加路由扩展
+let routes = [
+	{
+		path: "/",
+		redirect: "/home",
+		name: "App",
+	},
 
-export default router;
+	...viewsRoutes,
+
+	{
+		path: "/:pathMatch(.*)*",
+		name: "404",
+		component: () => import("@/views/404"),
+	},
+];
+
+//routes = global_routerModules(routes); // 加载模块路由
+
+const global_router = createRouter({
+	history: createWebHashHistory(),
+	routes,
+});
+global_expandRouter(global_router, routes); // 添加路由扩展
+
+export { global_router };

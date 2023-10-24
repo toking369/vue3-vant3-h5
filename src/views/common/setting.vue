@@ -39,13 +39,11 @@
 </template>
 
 <script setup name="setting">
-import headerNav from "@/components/common/headerNav.vue"; // 引入导航栏组件
-import { onMounted } from "vue";
-import { useRouter } from "vue-router";
+
 const router = useRouter();
 // 前往地址列表
 const goAddress = () => {
-	router.push({ name: "AddressList" });
+	router.push({ name: "common-addressList" });
 };
 onMounted(() => {});
 </script>

@@ -94,25 +94,9 @@
 
 <script setup name="Shop">
 import { showToast } from "vant"; // 引入提示组件
-import headerNav from "@/components/common/headerNav.vue"; // 引入导航组件
-import footerNav from "@/components/common/footerNav.vue"; // 引入底部组件
-import loddingCard from "@/components/common/loddingCard.vue"; // 引入lodding组件
-import { useRouter } from "vue-router"; // 导出路由
+
 import { setGoodsNum } from "@/util/util"; // 导出工具类
-import { storeState, storeMutation, storeAction } from "@/store/storeUtil"; // 引入vuex辅助函数
-
-const shopFn = storeAction("ShopCard", ["getCard", "delGoods", "changeGoods"]); // 页面接口
-const cState = storeState(["is_reload_card"]); // vuex状态
-const mState = storeMutation(["SET_RELAOD_SHOP"]); // vuex的mutation
-
-import {
-	onMounted,
-	reactive,
-	ref,
-	nextTick,
-	onActivated,
-	onDeactivated,
-} from "vue"; // 导出vue
+const { useCommon, useShopCard } = global_store
 
 const router = useRouter();
 let allchecked = ref(false); // 是否全选
@@ -211,7 +195,7 @@ const minus = async (item) => {
 
 //删除商品
 const delGoods = async (item) => {
-	const res = await shopFn.delGoods({ id: item?.id });
+	const res = await useShopCard.delGoods({ id: item?.id });
 	if (res.code === 20000) {
 		data.cartList = data?.cartList.filter((it) => {
 			return it.id != item?.id;
@@ -250,7 +234,7 @@ const stplimit = (e) => {
 
 //获取购物车数据
 const getCard = async () => {
-	const res = await shopFn.getCard();
+	const res = await useShopCard.getCard();
 	if (res?.code === 20000) {
 		data.cartList = res?.data;
 	}
@@ -263,7 +247,7 @@ const goto = (e, item) => {
 	let target = e?.srcElement || e?.target;
 	if (!["BUTTON", "INPUT"].includes(target?.tagName)) {
 		router.push({
-			name: "goodsDetail",
+			name: "common-goodsDetail",
 			query: {
 				goodsId: item?.id,
 			},
@@ -274,7 +258,7 @@ const goto = (e, item) => {
 // 操作购物车数量接口
 const changeGoods = (parmas) => {
 	return new Promise(async (resolve) => {
-		const res = await shopFn.changeGoods(parmas);
+		const res = await useShopCard.changeGoods(parmas);
 		resolve(res);
 	});
 };
@@ -284,13 +268,13 @@ onMounted(() => {
 });
 
 onActivated(() => {
-	if (cState.is_reload_card.value) {
+	if (useCommon.is_reload_card.value) {
 		getCard();
 	}
 });
 
 onDeactivated(() => {
-	mState.SET_RELAOD_SHOP(false);
+	useCommon.SET_RELAOD_SHOP(false);
 });
 </script>
 <style lang="less">
