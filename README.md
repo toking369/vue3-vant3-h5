@@ -11,13 +11,11 @@ npm 9.6.4
 
 ## 脚手架
 
-> &ensp;&ensp; master分支使用 vue-cli
+> &ensp;&ensp; master 分支使用 vite + pinia
 
-> &ensp;&ensp;vite分支使用 vite 
+> &ensp;&ensp; vite 分支使用 vite + vuex
 
-> &ensp;&ensp;pinia分支使用 vite + pinia ($\color{red} {推荐} $)
-
-> &ensp;&ensp;$\color{red}{注} $：pinia分支利用脚手架(vite.config.js)插件自动导入全局库、方法、变量等
+> &ensp;&ensp; vue-cli 分支使用 vue-cli + vuex
 
 
 ## 项目安装
