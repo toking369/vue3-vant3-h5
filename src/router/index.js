@@ -32,12 +32,11 @@ let routes = [
 	},
 ];
 
-//routes = global_routerModules(routes); // 加载模块路由
-
 const global_router = createRouter({
 	history: createWebHashHistory(),
 	routes,
 });
+
 global_expandRouter(global_router, routes); // 添加路由扩展
 
 export { global_router };
