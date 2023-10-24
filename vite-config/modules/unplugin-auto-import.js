@@ -16,7 +16,7 @@ const AutoImport = (viteEnv = {}) => {
 				"@/request/request": ["global_requestUrl", "global_request"], // 全局自动导入请求处理函数
 				"@/constant/index": ["global_constant"], // 全局自动导入常量
 				"@/router/index": ["global_router"], // 全局自动导入路由配置
-				"@/router/expandRouter": [
+				"@/common/js/expandRouter": [
 					"global_routerModules",
 					"global_expandRouter",
 				], // 全局自动导入路由处理方法

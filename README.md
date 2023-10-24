@@ -19,7 +19,7 @@ npm 9.6.4
   4. 使用 unplugin-vue-components 插件实现自动导入UI库、指定文件下自动全局导入作为组件
   5. 使用 vite-plugin-pages 插件实现对src/views文件夹下自动生成路由
   6. 通过模块化配置vite插件，在vite-config/modules文件夹下配置vite插件
-  
+
 ```
 
 ## 脚手架
@@ -109,7 +109,7 @@ export default async ({ mode }) => {
        可以直接使用 const route = useRouter()
     (5) 对于AutoImport项的配置，针对对象内的配置自定义导入的，key为路径，值为数组的形式，数组内的名称必须要与路径配置的文件export {}导
        出的名称一致
-    (6) 针对AutoImport项的自定义配置导出名称建议都以：global_作前缀定义，以说明是全局导入
+    (6) 针对AutoImport项的自定义配置导出名称建议都以：global_作前缀定义，以说明是通过插件全局自动导入，配置则在unplugin-auto-import.js文件内
 
     (7) 对于Components项配置，会读取dirs项数组内的路径加载以extensions项配置的后缀名的文件，目前以加载src/components
        下的所有.vue文件作为组件：
@@ -269,7 +269,8 @@ useCommon.SET_GOODS_NUM(); //调用actions
 ### 项目组件 name 属性设置
 
 ```
-1.安装vite-plugin-vue-setup-extend插件，在vite.config.js进行插件配置，在vite-config/modules下建vite-plugin-vue-setup-extend.js文件
+1.安装vite-plugin-vue-setup-extend插件，在vite.config.js进行插件配置，
+在vite-config/modules下建vite-plugin-vue-setup-extend.js文件
 ```
 
 ```js

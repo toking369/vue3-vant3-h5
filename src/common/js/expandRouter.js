@@ -4,7 +4,9 @@ import { isObject } from "@/util/util";
 const global_routerModules = function () {
 	let keepPageName = [];
 	let loopKeepPageName = [];
-	const modulesRouter = import.meta.glob("./modules/*.js", { eager: true });
+	const modulesRouter = import.meta.glob("../../router/modules/*.js", {
+		eager: true,
+	});
 	for (const [, item] of Object.entries(modulesRouter)) {
 		keepPageName = [...keepPageName, ...item.keepPageName];
 		loopKeepPageName = [...loopKeepPageName, ...item.loopKeepPageName];
