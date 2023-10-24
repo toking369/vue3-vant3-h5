@@ -32,6 +32,7 @@
     "vite-plugin-dynamic-import": "^1.5.0",
     "vite-plugin-pages": "^0.31.0",
     "vite-plugin-progress": "^0.0.7",
+    "vite-plugin-style-import": "^2.0.0",
     "vite-plugin-vue-setup-extend": "^0.4.0",
     "vite-plugin-windicss": "^1.9.1"
   },
