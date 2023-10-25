@@ -10,9 +10,10 @@ npm 9.6.4
 
 ```
 
-### 项目重要知识点
+## 项目重要知识点
 
-```
+```html
+
   1. 采用 vue3 + vite + pinia
   2. 可通过配置路由实现页面缓存效果（路由插件+中央事件总线+keep-alive组件+component组件构成）
   3. 使用 unplugin-auto-import 插件实现自动导入库、方法、函数、自定义等,以global_为前缀作为全局自动导入
@@ -37,20 +38,20 @@ npm install 或 cnpm install
 
 ```
 
-### 项目启动
+## 项目启动
 
 ```
 npm run vite
 ```
 
-### 项目打包
+## 项目打包
 
 ```
 npm run build:dev
 npm run build:prod
 ```
 
-### 项目目录结构
+## 项目目录结构
 
 ```
 |-- .env    // 本地环境配置
@@ -82,7 +83,7 @@ npm run build:prod
      |--index.js // vite处理配置
 ```
 
-### 项目全局导入自定义函数、UI 库、自定义组件、自动生成路由
+## 项目全局导入自定义函数、UI 库、自定义组件、自动生成路由
 
 ```
 （1）安装 unplugin-vue-components 插件用于导入组件库和自定义组件，安装 unplugin-auto-import 用于导入方法、变量等
@@ -111,15 +112,16 @@ export default async ({ mode }) => {
        出的名称一致
     (6) 针对AutoImport项的自定义配置导出名称建议都以：global_作前缀定义，以说明是通过插件全局自动导入，配置则在unplugin-auto-import.js文件内
 
-    (7) 对于Components项配置，会读取dirs项数组内的路径加载以extensions项配置的后缀名的文件，目前以加载src/components
-       下的所有.vue文件作为组件：
-          在文件夹内的index.vue文件时，组件会以文件夹名称作为组件名，例如：components/footer-nav/index.vue 组件名为<footer-nav></footer-nav>， 除index.vue以外的文件则以vue文件名作为组件。
+    (7) 对于unplugin-vue-components.js配置，会读取dirs项数组内的路径加载以extensions项配置的后缀名的文件，
+    目前以加载src/components下的所有.vue文件作为组件：
+      在文件夹内的index.vue文件时，组件会以文件夹名称作为组件名，例如：components/footer-nav/index.vue 
+      组件名为<footer-nav></footer-nav>， 除index.vue以外的文件则以vue文件名作为组件。
     (8) 规范化建议在components文件夹下的组件文件夹以分割号作为间隔命名文件夹名称，文件夹内建一个index.vue文件
     (9) vue文件同名机制是以外层的文件优先作为组件，以文件排在前面的文件优先
 
 ```
 
-### 项目路由原理
+## 项目路由原理
 
 ```
 路由大体分为两种：缓存页面、不缓存页面
@@ -139,9 +141,8 @@ export default async ({ mode }) => {
 
 ```
 4.配置缓存路由：
-   （1）只要在src/views/router/modules 内的所有模块js文件内的keepPageName数组都存在路由名称，则页面起缓存效果
+   （1）只要在src/views/router/modules 内的所有模块js文件内的keepPageName数组存在路由名称，则页面起缓存效果
 ```
-
 ```js
 let keepPageName = ["Home", "Classify", "Shop", "My", "common-addressList"]; // 缓存页面路由名称
 let loopKeepPageName = []; // 无限跳转自身缓存页面路由名称
@@ -152,7 +153,6 @@ export { keepPageName, loopKeepPageName };
 ```
    （2）在使用页面（缓存页面）的生命周期使用（global_initialize已插件全局导入可直接使用）
 ```
-
 ```js
 onMounted(() => {
 	global_initialize(() => {
@@ -227,7 +227,7 @@ export { keepPageName, loopKeepPageName };
             const stateParmas =  history.state
 ```
 
-### 项目国际化配置
+## 项目国际化配置
 
 ```
 src/locales文件夹下：
@@ -238,16 +238,13 @@ src/locales文件夹下：
 
 ```
 
-### 项目 pinia 配置
+## 项目 pinia 配置
 
 ```
 1.src/store文件夹下index.js负责加载modules下的模块
 2.模块命名规则：use+文件名首字母大写（store唯一ID），如：Common.js,处理后模块为useCommon
 3.本地起项目，若store中模块store唯一ID存在重复时，调试中会提示报错重复的具体store的ID
 4.在Common.js内
-```
-
-```js
 export default defineStore("store唯一ID", {
 	state: () => ({}),
 	getters: {},
@@ -266,7 +263,7 @@ useCommon.subMsgKey; // 使用state
 useCommon.SET_GOODS_NUM(); //调用actions
 ```
 
-### 项目组件 name 属性设置
+## 项目组件 name 属性设置
 
 ```
 1.安装vite-plugin-vue-setup-extend插件，在vite.config.js进行插件配置，
