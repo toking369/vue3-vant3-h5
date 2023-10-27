@@ -1,21 +1,21 @@
 import { cloneDeep } from "lodash";
 
-const global_configure = function (callback, data) {
-	const { subMsgKey = "" } = global_store.useCommon;
+const $globalConfigure = function (callback, data) {
+	const { subMsgKey = "" } = $globalStore.useCommon;
 	if (subMsgKey) {
 		if (data) {
-			global_store.useCommon.SET_ALL_KEEP_PAGE_INIT_DATA({
+			$globalStore.useCommon.SET_ALL_KEEP_PAGE_INIT_DATA({
 				dataKey: subMsgKey,
 				initData: cloneDeep(data),
 			});
 		}
-		global_eventBus.on(subMsgKey, ($event) => {
+		$globalEventBus.on(subMsgKey, ($event) => {
 			if (
 				callback &&
 				Object.prototype.toString.call(callback) === "[object Function]"
 			) {
 				const copyData =
-					global_store.useCommon.projectPageInitData[subMsgKey] || "";
+					$globalStore.useCommon.projectPageInitData[subMsgKey] || "";
 				copyData && data && Object.assign(data, toRaw(cloneDeep(copyData)));
 				callback({
 					subMsgKey,
@@ -30,4 +30,4 @@ const global_configure = function (callback, data) {
 	}
 };
 
-export { global_configure };
+export { $globalConfigure };

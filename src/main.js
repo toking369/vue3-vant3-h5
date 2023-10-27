@@ -1,10 +1,10 @@
 import App from "@/App"; // 挂载文件
 
 createApp(App)
-	.use(global_http())
+	.use($globalHttp())
 	.use(createPinia())
-	.use(global_registerStore)
-	.use(global_router)
-	.use(global_i18n)
-	.use(global_initialize)
+	.use($globalRegisterStore)
+	.use($globalRouter)
+	.use($globalLang)
+	.use($globalReady)
 	.mount("#app");

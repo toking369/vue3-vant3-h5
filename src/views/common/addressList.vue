@@ -28,7 +28,7 @@
 
 <script setup name="addressList">
 
-const { useMy } = global_store
+const { useMy } = $globalStore
 
 const router = useRouter();
 let chosenAddressId = ref("");
@@ -76,7 +76,7 @@ const selectDefault = (item) => {
 };
 
 onMounted(() => {
-	global_configure(() => {
+	$globalConfigure(() => {
 		console.log("缓存页面时--总监听事件接收--用于初始化操作");
 		getList();
 	});

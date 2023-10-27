@@ -44,7 +44,7 @@
 </template>
 
 <script setup name="Home">
-const { useHome } = global_store;
+const { useHome } = $globalStore;
 
 let carouselList = reactive([]); // 轮播列表
 let boutique = reactive([]); // 精品数据

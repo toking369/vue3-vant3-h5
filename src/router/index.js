@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import generatedRoutes from "virtual:generated-pages"; // 通过插件获取目录下文件生成路由
 
-const { keepPageName = [], loopKeepPageName = [] } = global_routerModules(); // 获取配置缓存页面路由名称
+const { keepPageName = [], loopKeepPageName = [] } = $globalRouterModules(); // 获取配置缓存页面路由名称
 
 const viewsRoutes = generatedRoutes.map((item) => {
 	return {
@@ -32,11 +32,11 @@ let routes = [
 	},
 ];
 
-const global_router = createRouter({
+const $globalRouter = createRouter({
 	history: createWebHashHistory(),
 	routes,
 });
 
-global_expandRouter(global_router, routes); // 添加路由扩展
+$globalExpandRouter($globalRouter, routes); // 添加路由扩展
 
-export { global_router };
+export { $globalRouter };

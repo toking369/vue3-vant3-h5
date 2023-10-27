@@ -51,7 +51,7 @@
 
 <script setup name="Classify">
 
-const { useClassify } = global_store
+const { useClassify } = $globalStore
 
 let classifyId = ref(""); // 分类id
 let classifyActive = ref(0); // 是否是选择中分类

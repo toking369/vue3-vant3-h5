@@ -1,7 +1,7 @@
 import { isObject } from "@/util/util";
 
 // 加载模块配置的路由缓存配置
-const global_routerModules = function () {
+const $globalRouterModules = function () {
 	let keepPageName = [];
 	let loopKeepPageName = [];
 	const modulesRouter = import.meta.glob("../../router/modules/*.js", {
@@ -31,19 +31,19 @@ const getBusKey = function (name, path, data) {
 	const uniId = new Date().getTime();
 	const resMsgKey = isRouterKeepAlive ? `${subMsgKey}_${uniId}` : subMsgKey;
 	const busKey = isKeepAlive ? resMsgKey : "";
-	global_store.useCommon.SET_SUB_MSG_KEY(busKey);
+	$globalStore.useCommon.SET_SUB_MSG_KEY(busKey);
 	return busKey;
 };
 
 // 添加扩展方法
-const global_expandRouter = function (router, routes) {
+const $globalExpandRouter = function (router, routes) {
 	// 扩展push方法
 	const routerPush = router.push;
 	router.push = function (location) {
 		const { name = "", path = "" } = location;
 		const subMsgKey = getBusKey(name, path, routes);
 		return routerPush.call(this, location).then(() => {
-			subMsgKey && global_eventBus.emit(subMsgKey);
+			subMsgKey && $globalEventBus.emit(subMsgKey);
 		});
 	};
 
@@ -53,9 +53,9 @@ const global_expandRouter = function (router, routes) {
 		const { name = "", path = "" } = location;
 		const subMsgKey = getBusKey(name, path, routes);
 		return routerReplace.call(this, location).then(() => {
-			subMsgKey && global_eventBus.emit(subMsgKey);
+			subMsgKey && $globalEventBus.emit(subMsgKey);
 		});
 	};
 };
 
-export { global_routerModules, global_expandRouter };
+export { $globalRouterModules, $globalExpandRouter };

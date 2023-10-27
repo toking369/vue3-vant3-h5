@@ -6,24 +6,24 @@ export default defineStore('useMy', {
 	getters: {},
 	actions: {
 		async getAddersslist(params) {
-			let url = global_requestUrl({
+			let url = $globalRequestUrl({
 				url: getAddersslist,
 			});
 
 			try {
-				const rep = await global_request(url, params, { method: "GET" });
+				const rep = await $globalRequest(url, params, { method: "GET" });
 				return rep;
 			} catch (error) {
 				return error;
 			}
 		},
 		async getAddressedit(params) {
-			let url = global_requestUrl({
+			let url = $globalRequestUrl({
 				url: getAddressedit,
 			});
 
 			try {
-				const rep = await global_request(url, params, { method: "POST" });
+				const rep = await $globalRequest(url, params, { method: "POST" });
 				return rep;
 			} catch (error) {
 				return error;

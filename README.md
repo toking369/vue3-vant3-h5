@@ -106,11 +106,11 @@ export default async ({ mode }) => {
 
 ```
     (3) 对于vite.config.js配置，通过在vite-config/modules文件夹下建js文件，在index.js会自动加载，在index.js文件内也可配置vite的基本配置
-    (4) 对于AutoImport项的配置， 针对vue、vue-router、vue-i18n、pinia页面无需使用例如： import { useRouter } from "vue-router";
+    (4) 对于unplugin-auto-import.js的配置， 针对vue、vue-router、vue-i18n、pinia页面无需使用例如： import { useRouter } from "vue-router";
        可以直接使用 const route = useRouter()
     (5) 对于AutoImport项的配置，针对对象内的配置自定义导入的，key为路径，值为数组的形式，数组内的名称必须要与路径配置的文件export {}导
        出的名称一致
-    (6) 针对AutoImport项的自定义配置导出名称建议都以：global_作前缀定义，以说明是通过插件全局自动导入，配置则在unplugin-auto-import.js文件内
+    (6) 针对AutoImport项的自定义配置导出名称建议都以：$global作前缀定义，以说明是通过插件全局自动导入，配置则在unplugin-auto-import.js文件内
 
     (7) 对于unplugin-vue-components.js配置，会读取dirs项数组内的路径加载以extensions项配置的后缀名的文件，
     目前以加载src/components下的所有.vue文件作为组件：
@@ -151,22 +151,22 @@ export { keepPageName, loopKeepPageName };
 ```
 
 ```
-   （2）在使用页面（缓存页面）的生命周期使用（global_initialize已插件全局导入可直接使用）
+   （2）在使用页面（缓存页面）的生命周期使用（$globalConfigure已插件全局导入可直接使用）
 ```
 ```js
 onMounted(() => {
-	global_initialize(() => {
+	$globalConfigure(() => {
 		console.log("缓存页面时--总监听事件接收--用于初始化操作");
 	});
 });
 ```
 
 ```
-   （3）在（2）的global_initialize内做当前页面初始化操作
+   （3）在（2）的$globalConfigure内做当前页面初始化操作
 
    通过以上四步配置达到效果是：使用push()、replace()方法跳进页面会初始化当前页面，在当前页面再跳入其他页面后,
    再返回当前页面当前页面不会初始化起到缓存效果。例子：A->B->C, B页面缓存，C倒回B不初始化B页面，
-   当C倒回B倒回A后再由A-B页面会执行初始化函数global_initialize
+   当C倒回B倒回A后再由A-B页面会执行初始化函数$globalConfigure
 
 5.配置无限A页面跳A页面缓存路由：
    （1）只要在src/views/router/modules 内的所有模块js文件内的loopKeepPageName数组都存在路由名称，则页面起缓存效果
@@ -254,8 +254,8 @@ export default defineStore("store唯一ID", {
 
 ```
 5.页面使用：
-（1）const { useCommon } =  global_store; // 已用插件导入全局(vue文件内可结构)
- (2) 通过 global_store.模块名.(state/getters/actions)的变量或方法进行使用。
+（1）const { useCommon } =  $globalStore; // 已用插件导入全局(vue文件内可结构)
+ (2) 通过 $globalStore.模块名.(state/getters/actions)的变量或方法进行使用。
 ```
 
 ```js

@@ -20,11 +20,11 @@ let locales = {
 	),
 };
 
-const global_i18n = createI18n({
+const $globalLang = createI18n({
 	locale: DEFAULT_LANG,
 	messages: locales,
 });
 
 export {
-	global_i18n
+	$globalLang
 };

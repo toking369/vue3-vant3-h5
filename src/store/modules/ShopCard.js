@@ -5,12 +5,12 @@ export default defineStore("useShopCard", {
 	getters: {},
 	actions: {
 		async getCard(params) {
-			let url = global_requestUrl({
+			let url = $globalRequestUrl({
 				url: getCard,
 			});
 
 			try {
-				const rep = await global_request(url, params, { method: "GET" });
+				const rep = await $globalRequest(url, params, { method: "GET" });
 				return rep;
 			} catch (error) {
 				return error;
@@ -18,12 +18,12 @@ export default defineStore("useShopCard", {
 		},
 
 		async delGoods(params) {
-			let url = global_requestUrl({
+			let url = $globalRequestUrl({
 				url: delGoods,
 			});
 
 			try {
-				const rep = await global_request(url, params, { method: "POST" });
+				const rep = await $globalRequest(url, params, { method: "POST" });
 				return rep;
 			} catch (error) {
 				return error;
@@ -31,12 +31,12 @@ export default defineStore("useShopCard", {
 		},
 
 		async changeGoods(params) {
-			let url = global_requestUrl({
+			let url = $globalRequestUrl({
 				url: changeGoods,
 			});
 
 			try {
-				const rep = await global_request(url, params, { method: "POST" });
+				const rep = await $globalRequest(url, params, { method: "POST" });
 				return rep;
 			} catch (error) {
 				return error;

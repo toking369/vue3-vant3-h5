@@ -25,7 +25,7 @@
 
 <script setup name="footerNav">
 
-const { useCommon } = global_store
+const { useCommon } = $globalStore
 
 let data = reactive({
 	footerActive: "Home",

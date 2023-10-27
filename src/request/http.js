@@ -1,7 +1,7 @@
 import axios from "axios";
 import { showToast } from "vant";
 
-const global_http = () => {
+const $globalHttp = () => {
 	return {
 		install: () => {
 			// 超时时间
@@ -44,5 +44,5 @@ const global_http = () => {
 };
 
 export {
-  global_http
+  $globalHttp
 };

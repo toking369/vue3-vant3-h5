@@ -31,7 +31,7 @@
 <script setup name="addressEdit">
 
 import util from "@/util/area";
-const { useMy } = global_store
+const { useMy } = $globalStore
 
 const router = useRouter();
 const route = useRoute();

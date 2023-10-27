@@ -1,11 +1,6 @@
 import { resolve, join, extname, basename } from "path";
 import fs from "fs";
 
-// 循环加载文件夹模块
-const eachModules = async (fileNames, modulesPath) => {
-	return new Promise(async (success) => {});
-};
-
 // 加载插件模块
 const loadPluginModules = async () => {
 	return new Promise(async (success) => {

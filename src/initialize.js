@@ -4,7 +4,7 @@ import "virtual:windi.css"; // 导入windicss
 
 // 进入应用查询购物车数量
 const getGoodsnum = async () => {
-	const res = await global_store.useCommon.getGoodsNum();
+	const res = await $globalStore.useCommon.getGoodsNum();
 	if (res?.code === 20000) {
 		setGoodsNum(res?.data || 0);
 	}
@@ -12,17 +12,17 @@ const getGoodsnum = async () => {
 
 // 远程国际化-会和本地国际化合并
 const getLang = async () => {
-	const res = await global_store.useCommon.getLang();
+	const res = await $globalStore.useCommon.getLang();
 	if (res?.code === 20000) {
 		if (isObject(res) && isObject(res?.data)) {
 			Object.keys(res?.data).forEach((key) => {
-				global_i18n.global.mergeLocaleMessage(key, res?.data[key]);
+				$globalLang.global.mergeLocaleMessage(key, res?.data[key]);
 			});
 		}
 	}
 };
 
-const global_initialize = {
+const $globalReady = {
 	install: (app) => {
 		// 全局挂载
 		app.config.globalProperties.getGoodsnum = getGoodsnum;
@@ -33,4 +33,4 @@ const global_initialize = {
 	},
 };
 
-export { global_initialize };
+export { $globalReady };

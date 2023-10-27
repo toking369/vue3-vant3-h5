@@ -80,7 +80,7 @@
 <script setup name="goodsDetail">
 
 import { showToast } from "vant";
-const { useCommon, useHome } = global_store
+const { useCommon, useHome } = $globalStore
 
 const router = useRouter();
 const data = reactive({
@@ -194,7 +194,7 @@ const goAddresList = () => {
 
 onMounted(() => {
 	console.log("获取路由参数:", router?.currentRoute?.value?.query);
-	global_configure(() => {
+	$globalConfigure(() => {
 		console.log("缓存页面时--总监听事件接收--用于初始化操作");
 		const { goodsId } = router?.currentRoute?.value?.query;
 		getGoodsdetal(goodsId);

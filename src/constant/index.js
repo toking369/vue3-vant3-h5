@@ -4,7 +4,7 @@ const modulesConstant = import.meta.glob("./modules/**/*.js", {
 });
 console.log(4444, modulesConstant);
 const constantArr = [];
-const global_constant = {};
+const $globalConstant = {};
 
 for (const [key, value] of Object.entries(modulesConstant)) {
 	for (const [childKey, childValue] of Object.entries(value)) {
@@ -12,9 +12,9 @@ for (const [key, value] of Object.entries(modulesConstant)) {
 			console.error(`文件${key}中常量${childValue}存在重复`);
 		} else {
 			constantArr.push(childValue);
-			global_constant[childKey] = childValue;
+			$globalConstant[childKey] = childValue;
 		}
 	}
 }
 
-export { global_constant };
+export { $globalConstant };

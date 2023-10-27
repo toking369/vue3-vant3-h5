@@ -5,24 +5,24 @@ export default defineStore("useClassify", {
 	getters: {},
 	actions: {
 		async classifyGoods(params) {
-			let url = global_requestUrl({
+			let url = $globalRequestUrl({
 				url: classifyGoods,
 			});
 
 			try {
-				const rep = await global_request(url, params, { method: "POST" });
+				const rep = await $globalRequest(url, params, { method: "POST" });
 				return rep;
 			} catch (error) {
 				return error;
 			}
 		},
 		async getClassify(params) {
-			let url = global_requestUrl({
+			let url = $globalRequestUrl({
 				url: getClassify,
 			});
 
 			try {
-				const rep = await global_request(url, params, { method: "GET" });
+				const rep = await $globalRequest(url, params, { method: "GET" });
 				return rep;
 			} catch (error) {
 				return error;

@@ -2,7 +2,7 @@
 
 // 设置购物车数量
 const setGoodsNum = function (data) {
-	global_store.useCommon.SET_GOODS_NUM(data);
+	$globalStore.useCommon.SET_GOODS_NUM(data);
 };
 
 // 判断是否还是一个对象

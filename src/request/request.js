@@ -2,7 +2,7 @@ import axios from "axios";
 import jsonp from "jsonp";
 axios.defaults.withCredentials = true;
 
-function global_requestUrl(params) {
+function $globalRequestUrl(params) {
 	const { VITE_BASE_URL } = import.meta.env;
 	const baseUrl = VITE_BASE_URL;
 	return `${params.baseUrl ? params.baseUrl : baseUrl}${params.url}`;
@@ -197,7 +197,7 @@ function handlePutFormData(params, option) {
 	return { headers, params };
 }
 
-function global_request(url = "", params = {}, option = {}) {
+function $globalRequest(url = "", params = {}, option = {}) {
 	try {
 		const { method } = option;
 		const methodStr =
@@ -295,4 +295,4 @@ function global_request(url = "", params = {}, option = {}) {
 	}
 }
 
-export { global_requestUrl, global_request };
+export { $globalRequestUrl, $globalRequest };

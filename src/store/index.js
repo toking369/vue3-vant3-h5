@@ -1,4 +1,4 @@
-const global_store = {};
+const $globalStore = {};
 const storeModule = {};
 const uniName = [];
 const modulesStore = import.meta.glob("./modules/**/*.js", {
@@ -16,15 +16,15 @@ for (const [, value] of Object.entries(modulesStore)) {
 	}
 }
 
-const global_registerStore = {
+const $globalRegisterStore = {
 	install() {
 		Object.entries(storeModule).forEach((item) => {
-			global_store[item[0]] = item[1]();
+			$globalStore[item[0]] = item[1]();
 		});
 	},
 };
 
 export { 
-	global_store,
-	global_registerStore
+	$globalStore,
+	$globalRegisterStore
  };

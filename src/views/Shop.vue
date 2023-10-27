@@ -96,7 +96,7 @@
 import { showToast } from "vant"; // 引入提示组件
 
 import { setGoodsNum } from "@/util/util"; // 导出工具类
-const { useCommon, useShopCard } = global_store
+const { useCommon, useShopCard } = $globalStore
 
 const router = useRouter();
 let allchecked = ref(false); // 是否全选

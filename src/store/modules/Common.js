@@ -31,12 +31,12 @@ export default defineStore('useCommon', {
 		},
 		// 获取多语言数据
 		async getLang(params) {
-			let url = global_requestUrl({
+			let url = $globalRequestUrl({
 				url: getLang,
 			});
 
 			try {
-				const rep = await global_request(url, params, { method: "GET" });
+				const rep = await $globalRequest(url, params, { method: "GET" });
 				return rep;
 			} catch (error) {
 				return error;
@@ -44,12 +44,12 @@ export default defineStore('useCommon', {
 		},
 		// 获取购物车数量
 		async getGoodsNum(params) {
-			let url = global_requestUrl({
+			let url = $globalRequestUrl({
 				url: getGoodsNum,
 			});
 
 			try {
-				const rep = await global_request(url, params, { method: "GET" });
+				const rep = await $globalRequest(url, params, { method: "GET" });
 				return rep;
 			} catch (error) {
 				return error;
@@ -57,12 +57,12 @@ export default defineStore('useCommon', {
 		},
 		// 获取商品详情
 		async getGoodsdetal(params) {
-			let url = global_requestUrl({
+			let url = $globalRequestUrl({
 				url: getGoodsdetal,
 			});
 
 			try {
-				const rep = await global_request(url, params, { method: "POST" });
+				const rep = await $globalRequest(url, params, { method: "POST" });
 				return rep;
 			} catch (error) {
 				return error;
