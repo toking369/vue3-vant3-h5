@@ -78,8 +78,9 @@ npm run build:prod
 |    |-- util // 工具类
 |    |-- views // 页面
 |--vite-config  // vite配置
-     |--modules // vite插件配置
-     |--index.js // vite处理配置
+|     |--modules // vite插件配置
+|     |--index.js // vite处理配置
+|--vite-env  // vite环境配置
 ```
 
 ## 项目全局导入自定义函数、UI 库、自定义组件、自动生成路由
