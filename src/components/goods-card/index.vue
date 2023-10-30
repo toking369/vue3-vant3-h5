@@ -50,7 +50,7 @@
   });
   const goGoodsdetail = (item) => {
     router.push({
-      name: "common-goodsDetail",
+      name: "goodsDetail",
       query: { goodsId: item?.goodsId },
     });
   };

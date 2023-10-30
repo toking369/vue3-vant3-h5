@@ -1,10 +1,10 @@
-import { resolve, join, extname, basename } from "path";
+import { resolve, join, extname } from "path";
 import fs from "fs";
 
 // 加载插件模块
 const loadPluginModules = async () => {
 	return new Promise(async (success) => {
-		const modulesPath = resolve(__dirname, "modules");
+		const modulesPath = resolve(__dirname, "plugins");
 		const fileNames = fs.readdirSync(modulesPath);
 		let modulesImprot = [];
 		fileNames.forEach(async (item) => {
@@ -13,7 +13,7 @@ const loadPluginModules = async () => {
 				fs.statSync(filePath).isFile() &&
 				[".js"].includes(extname(filePath))
 			) {
-				modulesImprot.push(import(`./vite-config/modules/${item}`));
+				modulesImprot.push(import(`./vite-config/plugins/${item}`));
 			}
 		});
 		
@@ -26,7 +26,7 @@ const loadPluginModules = async () => {
 const baseCfg = (viteEnv = {}) => {
 	const { VITE_BASE_URL } = viteEnv;
 	return {
-		// base: "/",
+		envDir:'vite-env',
 		resolve: {
 			alias: {
 				"@": resolve("./src"),

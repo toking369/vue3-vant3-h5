@@ -73,7 +73,7 @@ const data = reactive({
   ],
 }); // tab
 const setting = () => {
-  router.push({ name: "common-setting" });
+  router.push({ name: "setting" });
 };
 </script>
 <style lang="less">

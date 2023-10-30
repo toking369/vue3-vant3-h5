@@ -53,13 +53,13 @@ const getList = async () => {
 
 // 添加地址
 const onAdd = () => {
-	router.replace({ path: "/common_addressedit" });
+	router.replace({ path: "/addressedit" });
 };
 
 // 修改地址
 const onEdit = (item) => {
 	router.replace({
-		path: "/common_addressedit",
+		path: "/addressedit",
 		query: { addressId: item?.id },
 	});
 };

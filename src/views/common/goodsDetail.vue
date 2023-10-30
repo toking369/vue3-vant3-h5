@@ -188,7 +188,7 @@ const getComment = () => {};
 // 跳转到地址列表
 const goAddresList = () => {
 	router.push({
-		name: "common-addressList",
+		name: "addressList",
 	});
 };
 

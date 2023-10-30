@@ -50,12 +50,12 @@ const goBack = () => {
 
 // 保存地址操作
 const onSave = () => {
-	router.replace({ name: "common-addressList" });
+	router.replace({ name: "addressList" });
 };
 
 // 删除地址操作
 const onDelete = () => {
-	router.replace({ name: "common-addressList" });
+	router.replace({ name: "addressList" });
 };
 
 // 修改详细地址

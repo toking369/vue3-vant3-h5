@@ -247,7 +247,7 @@ const goto = (e, item) => {
 	let target = e?.srcElement || e?.target;
 	if (!["BUTTON", "INPUT"].includes(target?.tagName)) {
 		router.push({
-			name: "common-goodsDetail",
+			name: "goodsDetail",
 			query: {
 				goodsId: item?.id,
 			},

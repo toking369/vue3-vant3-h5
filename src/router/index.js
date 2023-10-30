@@ -1,20 +1,4 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import generatedRoutes from "virtual:generated-pages"; // 通过插件获取目录下文件生成路由
-
-const { keepPageName = [], loopKeepPageName = [] } = $globalRouterModules(); // 获取配置缓存页面路由名称
-
-const viewsRoutes = generatedRoutes.map((item) => {
-	return {
-		...item,
-		meta: {
-			isKeepAlive:
-				keepPageName.includes(item.name) ||
-				loopKeepPageName.includes(item.name),
-			isRouterKeepAlive: loopKeepPageName.includes(item.name),
-			subMsgKey: `app_keep_alive_bus_${item.name}`,
-		},
-	};
-});
 
 let routes = [
 	{
@@ -22,15 +6,14 @@ let routes = [
 		redirect: "/home",
 		name: "App",
 	},
-
-	...viewsRoutes,
-
 	{
 		path: "/:pathMatch(.*)*",
 		name: "404",
 		component: () => import("@/views/404"),
 	},
 ];
+
+routes = $globalRouterModules(routes); // 加载模块路由
 
 const $globalRouter = createRouter({
 	history: createWebHashHistory(),

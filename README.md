@@ -16,7 +16,7 @@ npm 9.6.4
 
   1. 采用 vue3 + vite + pinia
   2. 可通过配置路由实现页面缓存效果（路由插件+中央事件总线+keep-alive组件+component组件构成）
-  3. 使用 unplugin-auto-import 插件实现自动导入库、方法、函数、自定义等,以global_为前缀作为全局自动导入
+  3. 使用 unplugin-auto-import 插件实现自动导入库、方法、函数、自定义等,以$global为前缀作为全局自动导入
   4. 使用 unplugin-vue-components 插件实现自动导入UI库、指定文件下自动全局导入作为组件
   5. 使用 vite-plugin-pages 插件实现对src/views文件夹下自动生成路由
   6. 通过模块化配置vite插件，在vite-config/modules文件夹下配置vite插件
@@ -108,9 +108,11 @@ export default async ({ mode }) => {
     (3) 对于vite.config.js配置，通过在vite-config/modules文件夹下建js文件，在index.js会自动加载，在index.js文件内也可配置vite的基本配置
     (4) 对于unplugin-auto-import.js的配置， 针对vue、vue-router、vue-i18n、pinia页面无需使用例如： import { useRouter } from "vue-router";
        可以直接使用 const route = useRouter()
-    (5) 对于AutoImport项的配置，针对对象内的配置自定义导入的，key为路径，值为数组的形式，数组内的名称必须要与路径配置的文件export {}导
+    (5) 对于unplugin-auto-import.js的配置，针对对象内的配置自定义导入的，key为路径，值为数组的形式，
+    数组内的名称必须要与路径配置的文件export {}导
        出的名称一致
-    (6) 针对AutoImport项的自定义配置导出名称建议都以：$global作前缀定义，以说明是通过插件全局自动导入，配置则在unplugin-auto-import.js文件内
+    (6) 针对unplugin-auto-import.js的自定义配置导出名称建议都以：$global作前缀定义，以说明是通过插件全局自动导入，
+    配置则在unplugin-auto-import.js文件内
 
     (7) 对于unplugin-vue-components.js配置，会读取dirs项数组内的路径加载以extensions项配置的后缀名的文件，
     目前以加载src/components下的所有.vue文件作为组件：
@@ -130,28 +132,33 @@ export default async ({ mode }) => {
 
 1.通过路由配置+路由插件+中央事件总线+keep-alive组件+component组件共同构成
 
-2.由于使用vite-plugin-pages插件配置指定src/views下的vue文件自动生成路由
-  路由名规则默认：src/views下，文件夹名称-文件名，如果是index.vue则路由名就是拼到这层文件夹名称
-  例如：src/views/common/goodsDetail 路由名为common-goodsDetail，src/views/common/index.vue路由名为 common
-  对应路由path则是：/common_goodsDetail, /common，如果文件与src/views之间存在多层文件夹，则都是以文件夹名称拼接
-
-3.配置不缓存组件：src/views/router/modules 内的所有模块js文件内的keepPageName, loopKeepPageName两个数组都不存在路由名称
-  则路由不缓存，
-```
-
-```
-4.配置缓存路由：
-   （1）只要在src/views/router/modules 内的所有模块js文件内的keepPageName数组存在路由名称，则页面起缓存效果
+2.配置不缓存组件：配置isKeepAlive为fasle或者不配置
 ```
 ```js
-let keepPageName = ["Home", "Classify", "Shop", "My", "common-addressList"]; // 缓存页面路由名称
-let loopKeepPageName = []; // 无限跳转自身缓存页面路由名称
-
-export { keepPageName, loopKeepPageName };
+   {
+		path: "/setting",
+		name: "setting",
+		component: () => import("@/views/common/setting.vue"),
+		meta: {},
+	},
+```
+```
+3.配置缓存路由：
+   （1）只要在src/views/router/modules 内的所有模块js文件内的isKeepAlive设置为true，则页面起缓存效果
+```
+```js
+   {
+		path: "/addressList",
+		name: "addressList",
+		component: () => import("@/views/common/addressList.vue"),
+		meta: {
+			isKeepAlive: true,
+		},
+	},
 ```
 
 ```
-   （2）在使用页面（缓存页面）的生命周期使用（$globalConfigure已插件全局导入可直接使用）
+   （2）在使用页面（缓存页面）的生命周期使用($globalConfigure已插件全局导入可直接使用)
 ```
 ```js
 onMounted(() => {
@@ -168,15 +175,20 @@ onMounted(() => {
    再返回当前页面当前页面不会初始化起到缓存效果。例子：A->B->C, B页面缓存，C倒回B不初始化B页面，
    当C倒回B倒回A后再由A-B页面会执行初始化函数$globalConfigure
 
-5.配置无限A页面跳A页面缓存路由：
-   （1）只要在src/views/router/modules 内的所有模块js文件内的loopKeepPageName数组都存在路由名称，则页面起缓存效果
+4.配置无限A页面跳A页面缓存路由：
+   （1）只要在src/views/router/modules 内的所有模块js文件内的isKeepAlive、isRouterKeepAlive需要同时设置为true，则页面起缓存效果
 ```
 
 ```js
-let keepPageName = []; // 缓存页面路由名称
-let loopKeepPageName = ["common-goodsDetail"]; // 无限跳转自身缓存页面路由名称
-
-export { keepPageName, loopKeepPageName };
+   {
+		path: "/goodsDetail",
+		name: "goodsDetail",
+		component: () => import("@/views/common/goodsDetail.vue"),
+		meta: {
+			isKeepAlive: true,
+			isRouterKeepAlive: true,
+		},
+	},
 ```
 
 ```

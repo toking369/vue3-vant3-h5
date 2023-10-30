@@ -43,7 +43,7 @@
 const router = useRouter();
 // 前往地址列表
 const goAddress = () => {
-	router.push({ name: "common-addressList" });
+	router.push({ name: "addressList" });
 };
 onMounted(() => {});
 </script>

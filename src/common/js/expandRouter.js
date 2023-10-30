@@ -1,20 +1,24 @@
-import { isObject } from "@/util/util";
 
 // 加载模块配置的路由缓存配置
-const $globalRouterModules = function () {
-	let keepPageName = [];
-	let loopKeepPageName = [];
+const $globalRouterModules = (routes) => {
+	let routesArr = [...routes];
 	const modulesRouter = import.meta.glob("../../router/modules/*.js", {
 		eager: true,
 	});
-	for (const [, item] of Object.entries(modulesRouter)) {
-		keepPageName = [...keepPageName, ...item.keepPageName];
-		loopKeepPageName = [...loopKeepPageName, ...item.loopKeepPageName];
+
+	for (const [key, value] of Object.entries(modulesRouter)) {
+		const moduleName = key.replace(/^\.\/(.*)\.\w+$/, "$1").split("/")[4];
+		if (moduleName && value) {
+			for (const [, valueChild] of Object.entries(value)) {
+				valueChild.forEach((item, index) => {
+					item.meta &&
+						(item.meta.subMsgKey = `app_keep_alive_bus_${index}_${moduleName}`);
+				});
+				routesArr.splice(1, 0, ...valueChild);
+			}
+		}
 	}
-	return {
-		keepPageName: Array.from(new Set(keepPageName)),
-		loopKeepPageName: Array.from(new Set(loopKeepPageName)),
-	};
+	return routesArr;
 };
 
 // 获取发消息的key
@@ -36,10 +40,10 @@ const getBusKey = function (name, path, data) {
 };
 
 // 添加扩展方法
-const $globalExpandRouter = function (router, routes) {
+const $globalExpandRouter =  (router, routes)=> {
 	// 扩展push方法
 	const routerPush = router.push;
-	router.push = function (location) {
+	router.push =  (location)=> {
 		const { name = "", path = "" } = location;
 		const subMsgKey = getBusKey(name, path, routes);
 		return routerPush.call(this, location).then(() => {
@@ -49,7 +53,7 @@ const $globalExpandRouter = function (router, routes) {
 
 	// 扩展replace方法
 	const routerReplace = router.replace;
-	router.replace = function (location) {
+	router.replace =  (location)=> {
 		const { name = "", path = "" } = location;
 		const subMsgKey = getBusKey(name, path, routes);
 		return routerReplace.call(this, location).then(() => {
