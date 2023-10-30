@@ -18,8 +18,7 @@ npm 9.6.4
   2. 可通过配置路由实现页面缓存效果（路由插件+中央事件总线+keep-alive组件+component组件构成）
   3. 使用 unplugin-auto-import 插件实现自动导入库、方法、函数、自定义等,以$global为前缀作为全局自动导入
   4. 使用 unplugin-vue-components 插件实现自动导入UI库、指定文件下自动全局导入作为组件
-  5. 使用 vite-plugin-pages 插件实现对src/views文件夹下自动生成路由
-  6. 通过模块化配置vite插件，在vite-config/modules文件夹下配置vite插件
+  5. 通过模块化配置vite插件，在vite-config/modules文件夹下配置vite插件
 
 ```
 
