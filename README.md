@@ -2,7 +2,7 @@
 
 ## 项目地址
 
- [Google](https://www.lanlianjiu.xyz/weVueH5#/home)
+<a href="https://www.lanlianjiu.xyz/weVueH5#/home" target="_blank">项目演示地址</a>
 
 ## 环境版本
 
