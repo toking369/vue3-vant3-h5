@@ -4,7 +4,6 @@ import { getLang, getGoodsNum, getGoodsdetal } from "@/api/common";
 export default defineStore('useCommon', {
 	state: () => ({
 		subMsgKey: "", // 定义通知(由于路由不再支持parmas传参丢失)
-		projectPageInitData: {}, // 用于存储缓存页面初始化的数据，便于再次进入页面用于初始化
 		goods_card_num: 0,
 		is_reload_card: false,
 	}),
@@ -13,13 +12,6 @@ export default defineStore('useCommon', {
 		// 设置缓存页面通知事件标识
 		SET_SUB_MSG_KEY(data) {
 			this.subMsgKey = data;
-		},
-		// 缓存页面存储初始化页面数据
-		SET_ALL_KEEP_PAGE_INIT_DATA(state) {
-			return (data) => {
-				const { dataKey, initData } = data;
-				state.projectPageInitData[dataKey] = initData;
-			};
 		},
 		// 设置购物车数量
 		SET_GOODS_NUM(data) {

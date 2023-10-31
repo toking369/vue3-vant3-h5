@@ -24,6 +24,19 @@ const getLang = async () => {
 
 const $globalReady = {
 	install: (app) => {
+		//初始化请求
+		app.use($globalHttp());
+
+		// 实例化pinia
+		app.use(createPinia());
+		app.use($globalRegisterStore);
+
+		// 路由初始化
+		app.use($globalRouter);
+
+		// 初始化语言
+		app.use($globalLang);
+
 		// 全局挂载
 		app.config.globalProperties.getGoodsnum = getGoodsnum;
 		app.config.globalProperties.getLang = getLang;
