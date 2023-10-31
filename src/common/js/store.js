@@ -1,7 +1,7 @@
 const $globalStore = {};
 const storeModule = {};
 const uniName = [];
-const modulesStore = import.meta.glob("./modules/**/*.js", {
+const modulesStore = import.meta.glob("../../store/**/*.js", {
 	import: "default",
 	eager: true,
 });

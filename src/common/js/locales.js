@@ -13,10 +13,10 @@ const importFn = function (data) {
 
 let locales = {
 	en: importFn(
-		import.meta.glob("./US-EN/*.json", { import: "default", eager: true })
+		import.meta.glob("../../locales/US-EN/*.json", { import: "default", eager: true })
 	),
 	zh: importFn(
-		import.meta.glob("./ZH-CN/*.json", { import: "default", eager: true })
+		import.meta.glob("../../locales/ZH-CN/*.json", { import: "default", eager: true })
 	),
 };
 

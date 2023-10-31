@@ -1,5 +1,9 @@
 # vue3+vant4
 
+## 项目地址
+
+ [Google](https://www.lanlianjiu.xyz/weVueH5#/home)
+
 ## 环境版本
 
 ```
@@ -18,7 +22,7 @@ npm 9.6.4
   2. 可通过配置路由实现页面缓存效果（路由插件+中央事件总线+keep-alive组件+component组件构成）
   3. 使用 unplugin-auto-import 插件实现自动导入库、方法、函数、自定义等,以$global为前缀作为全局自动导入
   4. 使用 unplugin-vue-components 插件实现自动导入UI库、指定文件下自动全局导入作为组件
-  5. 通过模块化配置vite插件，在vite-config/modules文件夹下配置vite插件
+  5. 通过模块化配置vite插件，在vite-config/plugins文件夹下配置vite插件
 
 ```
 
@@ -66,9 +70,17 @@ npm run build:prod
 |    |-- api // api地址
 |    |-- assets // 样式以及图片
 |    |-- common // 公用模块
-|    |   |-- js
-|    |       |-- configure.js // 页面缓存时初始化函数
+|    |   |-- js (以下js内使用插件配置全局导入)
+|    |       |-- configure.js // 全局自动导入页面缓存初始化函数
+|    |       |-- constant.js // 全局自动导入常量
 |    |       |-- eventBus.js // 全局通知实例
+|    |       |-- expandRouter.js // 全局自动导入路由处理方法
+|    |       |-- http.js // 全局自动导入请求处理函数
+|    |       |-- initialize.js // 全局自动导入初始化方法
+|    |       |-- locales.js // 全局自动导入国际化方法
+|    |       |-- request.js // 全局自动导入请求拦截方法
+|    |       |-- router.js // 全局自动导入路由配置
+|    |       |-- store.js // 全局自动导入pinia处理函数
 |    |-- components // 全局自动注册组件
 |    |-- constant // 全局自动注册常量
 |    |-- locales // 多语言配置
@@ -78,7 +90,7 @@ npm run build:prod
 |    |-- util // 工具类
 |    |-- views // 页面
 |--vite-config  // vite配置
-|     |--modules // vite插件配置
+|     |--plugins // vite插件配置
 |     |--index.js // vite处理配置
 |--vite-env  // vite环境配置
 ```
@@ -105,7 +117,7 @@ export default async ({ mode }) => {
 ```
 
 ```
-    (3) 对于vite.config.js配置，通过在vite-config/modules文件夹下建js文件，在index.js会自动加载，在index.js文件内也可配置vite的基本配置
+    (3) 对于vite.config.js配置，通过在vite-config/plugins文件夹下建js文件，在index.js会自动加载，在index.js文件内也可配置vite的基本配置
     (4) 对于unplugin-auto-import.js的配置， 针对vue、vue-router、vue-i18n、pinia页面无需使用例如： import { useRouter } from "vue-router";
        可以直接使用 const route = useRouter()
     (5) 对于unplugin-auto-import.js的配置，针对对象内的配置自定义导入的，key为路径，值为数组的形式，
@@ -144,7 +156,7 @@ export default async ({ mode }) => {
 ```
 ```
 3.配置缓存路由：
-   （1）只要在src/views/router/modules 内的所有模块js文件内的isKeepAlive设置为true，则页面起缓存效果
+   （1）只要在src/views/router 内的所有模块js文件内的isKeepAlive设置为true，则页面起缓存效果
 ```
 ```js
    {
@@ -176,7 +188,7 @@ onMounted(() => {
    当C倒回B倒回A后再由A-B页面会执行初始化函数$globalConfigure
 
 4.配置无限A页面跳A页面缓存路由：
-   （1）只要在src/views/router/modules 内的所有模块js文件内的isKeepAlive、isRouterKeepAlive需要同时设置为true，则页面起缓存效果
+   （1）只要在src/views/router 内的所有模块js文件内的isKeepAlive、isRouterKeepAlive需要同时设置为true，则页面起缓存效果
 ```
 
 ```js
@@ -195,8 +207,6 @@ onMounted(() => {
  （2）使用push()、replace() 在query或parmas上带唯一标识（业务Id或时间戳）
  （3）该配置实现的效果，A页面内有链接，点击跳转还是跳到A页面，但当业务id改变时，跳转后会触发页面初始化函数，在点击回退上一页面时，
       上一页面缓存的是跳转前的页面数据。
-
-6. 针对4.和5.的优先级问题，5.的优先级高于4.配置的优先级
 
 6.路由(编程式)传参
   （1）使用query传参
@@ -253,7 +263,7 @@ src/locales文件夹下：
 ## 项目 pinia 配置
 
 ```
-1.src/store文件夹下index.js负责加载modules下的模块
+1.src/store文件夹下的每个js文件代表一个模块
 2.模块命名规则：use+文件名首字母大写（store唯一ID），如：Common.js,处理后模块为useCommon
 3.本地起项目，若store中模块store唯一ID存在重复时，调试中会提示报错重复的具体store的ID
 4.在Common.js内
@@ -279,7 +289,7 @@ useCommon.SET_GOODS_NUM(); //调用actions
 
 ```
 1.安装vite-plugin-vue-setup-extend插件，在vite.config.js进行插件配置，
-在vite-config/modules下建vite-plugin-vue-setup-extend.js文件
+在vite-config/plugins下建vite-plugin-vue-setup-extend.js文件
 ```
 
 ```js

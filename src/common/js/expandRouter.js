@@ -2,12 +2,12 @@
 // 加载模块配置的路由缓存配置
 const $globalRouterModules = (routes) => {
 	let routesArr = [...routes];
-	const modulesRouter = import.meta.glob("../../router/modules/*.js", {
+	const modulesRouter = import.meta.glob("../../router/*.js", {
 		eager: true,
 	});
 
 	for (const [key, value] of Object.entries(modulesRouter)) {
-		const moduleName = key.replace(/^\.\/(.*)\.\w+$/, "$1").split("/")[4];
+		const moduleName = key.replace(/^\.\/(.*)\.\w+$/, "$1").split("/")[2];
 		if (moduleName && value) {
 			for (const [, valueChild] of Object.entries(value)) {
 				valueChild.forEach((item, index) => {
