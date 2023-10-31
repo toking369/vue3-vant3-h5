@@ -1,4 +1,4 @@
-const $globalConfigure = function (callback, data) {
+const $globalConfigure = (callback, data) => {
 	const { subMsgKey = "" } = $globalStore.useCommon;
 	if (subMsgKey) {
 		$globalEventBus.on(subMsgKey, ($event) => {

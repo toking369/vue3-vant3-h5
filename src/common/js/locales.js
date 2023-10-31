@@ -1,7 +1,7 @@
 import { createI18n } from "vue-i18n";
 const DEFAULT_LANG = "zh";
 
-const importFn = function (data) {
+const importFn =  (data)=> {
 	let lang = {};
 
 	for (const [key, value] of Object.entries(data)) {

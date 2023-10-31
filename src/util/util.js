@@ -1,19 +1,17 @@
-
-
 // 设置购物车数量
-const setGoodsNum = function (data) {
+const setGoodsNum = (data) => {
 	$globalStore.useCommon.SET_GOODS_NUM(data);
 };
 
 // 判断是否还是一个对象
-const isObject = function (obj) {
+const isObject = (obj) => {
 	return Object.prototype.toString.call(obj) === "[object Object]";
 };
 
 // 扁平化对象
-const getObjKeys = function (obj) {
+const getObjKeys = (obj) => {
 	let result = {}; // 用于保存扁平化后的对象
-	const helpLoop = function (obj) {
+	const helpLoop = (obj) => {
 		const objKeys = Object.keys(obj);
 		for (let i = 0; i < objKeys.length; i++) {
 			if (typeof obj[objKeys[i]] == "object") {
@@ -29,7 +27,7 @@ const getObjKeys = function (obj) {
 };
 
 // 比较两个对象差异
-const comparisonObject = function (objPre, objNext) {
+const comparisonObject = (objPre, objNext) => {
 	if (Object.keys(objPre).length == 0 || !objPre || !objNext) return false;
 	const tempPre = getObjKeys(objPre);
 	const tempNext = getObjKeys(objNext);

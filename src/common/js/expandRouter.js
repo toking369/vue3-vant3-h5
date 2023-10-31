@@ -1,4 +1,3 @@
-
 // 加载模块配置的路由缓存配置
 const $globalRouterModules = (routes) => {
 	let routesArr = [...routes];
@@ -22,7 +21,7 @@ const $globalRouterModules = (routes) => {
 };
 
 // 获取发消息的key
-const getBusKey = function (name, path, data) {
+const getBusKey = (name, path, data) => {
 	const [res] = data.filter((item) => {
 		return name ? [name].includes(item.name) : [path].includes(item.path);
 	});
@@ -40,10 +39,10 @@ const getBusKey = function (name, path, data) {
 };
 
 // 添加扩展方法
-const $globalExpandRouter =  (router, routes)=> {
+const $globalExpandRouter = (router, routes) => {
 	// 扩展push方法
 	const routerPush = router.push;
-	router.push =  (location)=> {
+	router.push = (location) => {
 		const { name = "", path = "" } = location;
 		const subMsgKey = getBusKey(name, path, routes);
 		return routerPush.call(this, location).then(() => {
@@ -53,7 +52,7 @@ const $globalExpandRouter =  (router, routes)=> {
 
 	// 扩展replace方法
 	const routerReplace = router.replace;
-	router.replace =  (location)=> {
+	router.replace = (location) => {
 		const { name = "", path = "" } = location;
 		const subMsgKey = getBusKey(name, path, routes);
 		return routerReplace.call(this, location).then(() => {

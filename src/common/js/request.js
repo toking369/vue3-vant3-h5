@@ -2,11 +2,11 @@ import axios from "axios";
 import jsonp from "jsonp";
 axios.defaults.withCredentials = true;
 
-function $globalRequestUrl(params) {
+const $globalRequestUrl = (params) => {
 	const { VITE_BASE_URL } = import.meta.env;
 	const baseUrl = VITE_BASE_URL;
 	return `${params.baseUrl ? params.baseUrl : baseUrl}${params.url}`;
-}
+};
 
 function extend(dst) {
 	for (let i = 1, ii = arguments.length; i < ii; i++) {
@@ -27,7 +27,7 @@ function extend(dst) {
  * @param {Object} data
  * @returns {String}
  */
-function paramJsonp(data) {
+const paramJsonp = (data) => {
 	let url = "";
 
 	for (var k in data) {
@@ -38,7 +38,7 @@ function paramJsonp(data) {
 		}
 	}
 	return url ? url.substring(1) : "";
-}
+};
 
 /**
  * @description:jsonp
@@ -46,7 +46,7 @@ function paramJsonp(data) {
  * @param {Object} data
  * @param {Object} option
  */
-function getJsonpData(url, data, option) {
+const getJsonpData = (url, data, option) => {
 	url += (url.indexOf("?") < 0 ? "?" : "&") + paramJsonp(data);
 	return new Promise((resolve, reject) => {
 		jsonp(url, option, (err, data) => {
@@ -57,14 +57,14 @@ function getJsonpData(url, data, option) {
 			}
 		});
 	});
-}
+};
 
 /**
  * @description:post
  * @param {Object} config
  */
-function post(config) {
-	return new Promise(function (resolve, reject) {
+const post = (config) => {
+	return new Promise((resolve, reject) => {
 		extend(config, {
 			method: "post",
 		});
@@ -77,14 +77,14 @@ function post(config) {
 			}
 		);
 	});
-}
+};
 
 /**
  * @description:PUT
  * @param {Object} config
  */
-function put(config) {
-	return new Promise(function (resolve, reject) {
+const put = (config) => {
+	return new Promise((resolve, reject) => {
 		extend(config, {
 			method: "PUT",
 		});
@@ -97,14 +97,14 @@ function put(config) {
 			}
 		);
 	});
-}
+};
 
 /**
  * @description:get
  * @param {Object} config
  */
-function get(config) {
-	return new Promise(function (resolve, reject) {
+const get = (config) => {
+	return new Promise((resolve, reject) => {
 		extend(config, {
 			method: "GET",
 		});
@@ -116,14 +116,14 @@ function get(config) {
 				reject(error);
 			});
 	});
-}
+};
 
 /**
  * @description:delete
  * @param {Object} config
  */
-function Delete(config) {
-	return new Promise(function (resolve, reject) {
+const Delete = (config) => {
+	return new Promise((resolve, reject) => {
 		extend(config, {
 			method: "DELETE",
 		});
@@ -136,13 +136,13 @@ function Delete(config) {
 			}
 		);
 	});
-}
+};
 
 /**
  * @description: handlePostFormdata
  * @param {Object} params
  */
-function handlePostFormdata(params) {
+const handlePostFormdata = (params) => {
 	let fd = new FormData();
 	for (let i in params) {
 		if (params[i] instanceof Array) {
@@ -162,13 +162,13 @@ function handlePostFormdata(params) {
 		}
 	}
 	return fd;
-}
+};
 
 /**
  * @description: handlePostFormURLENCODED
  * @param {Object} params
  */
-function handlePostFormURLENCODED(params) {
+const handlePostFormURLENCODED = (params) => {
 	let str = "";
 	for (let i in params) {
 		if (Object.property.hasOwnProperty.call(params, i)) {
@@ -178,13 +178,13 @@ function handlePostFormURLENCODED(params) {
 	}
 	str = str.slice(0, str.length - 1);
 	return str;
-}
+};
 
 /**
  * @description: handlePutFormData
  * @param {Object} params
  */
-function handlePutFormData(params, option) {
+const handlePutFormData = (params, option) => {
 	let headers = { "Content-Type": "application/json;charset=UTF-8" };
 	if (option.method === "PUT_FORDATA") {
 		let formData = new FormData();
@@ -195,9 +195,9 @@ function handlePutFormData(params, option) {
 		params = formData;
 	}
 	return { headers, params };
-}
+};
 
-function $globalRequest(url = "", params = {}, option = {}) {
+const $globalRequest = (url = "", params = {}, option = {}) => {
 	try {
 		const { method } = option;
 		const methodStr =
@@ -293,6 +293,6 @@ function $globalRequest(url = "", params = {}, option = {}) {
 	} catch (error) {
 		console.error("请求方式代码异常", error);
 	}
-}
+};
 
 export { $globalRequestUrl, $globalRequest };
