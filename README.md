@@ -84,7 +84,6 @@ npm run build:prod
 |    |-- components // 全局自动注册组件
 |    |-- constant // 全局自动注册常量
 |    |-- locales // 多语言配置
-|    |-- request // 请求模块
 |    |-- router // 路由模块
 |    |-- store // pinia
 |    |-- util // 工具类
