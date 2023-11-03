@@ -58,9 +58,6 @@ npm run build:prod
 
 ```
 |-- src
-|    |-- App.vue // 入口文件
-|    |-- initialize.js // 初始化文件
-|    |-- main.js // 入口js文件
 |    |-- api // api地址
 |    |-- assets // 样式以及图片
 |    |-- common // 公用模块
@@ -82,6 +79,8 @@ npm run build:prod
 |    |-- store // pinia
 |    |-- util // 工具类
 |    |-- views // 页面
+|    |-- App.vue // 入口文件
+|    |-- main.js // 入口js文件
 |--vite-config  // vite配置
 |     |--plugins // vite插件配置
 |     |--index.js // vite处理配置
