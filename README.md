@@ -57,12 +57,6 @@ npm run build:prod
 ## 项目目录结构
 
 ```
-|-- .env    // 本地环境配置
-|-- .env.dev // 测试环境配置
-|-- .env.prod // 生产环境配置
-|-- .eslintrc.js // es配置
-|-- babel.config.js // babel配置
-|-- vite.config.js // 脚手架配置
 |-- src
 |    |-- App.vue // 入口文件
 |    |-- initialize.js // 初始化文件
@@ -92,6 +86,13 @@ npm run build:prod
 |     |--plugins // vite插件配置
 |     |--index.js // vite处理配置
 |--vite-env  // vite环境配置
+|     |-- .env    // 本地环境配置
+|     |-- .env.dev // 测试环境配置
+|     |-- .env.prod // 生产环境配置
+|     
+|-- .eslintrc.js // es配置
+|-- babel.config.js // babel配置
+|-- vite.config.js // 脚手架配置
 ```
 
 ## 项目全局导入自定义函数、UI 库、自定义组件、自动生成路由
