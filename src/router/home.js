@@ -13,7 +13,6 @@ const routes = [
 		name: "goodsDetail",
 		component: () => import("@/views/common/goodsDetail.vue"),
 		meta: {
-			isKeepAlive: true,
 			isRouterKeepAlive: true,
 		},
 	},

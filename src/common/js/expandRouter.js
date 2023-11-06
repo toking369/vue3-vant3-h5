@@ -32,10 +32,11 @@ const getBusKey = (name, path, data) => {
 		subMsgKey = "",
 	} = meta;
 	const uniId = new Date().getTime();
-	const resMsgKey = isRouterKeepAlive ? `${subMsgKey}_${uniId}` : subMsgKey;
-	const busKey = isKeepAlive ? resMsgKey : "";
-	$globalStore.useCommon.SET_SUB_MSG_KEY(busKey);
-	return busKey;
+	const resMsgKey = isRouterKeepAlive ? `${subMsgKey}_${uniId}` : "";
+	const busKey = isKeepAlive ? subMsgKey : "";
+	const resKey = resMsgKey || busKey;
+	resKey && $globalStore.useCommon.SET_SUB_MSG_KEY(resKey);
+	return resKey;
 };
 
 // 添加扩展方法

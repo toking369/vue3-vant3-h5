@@ -17,13 +17,12 @@ npm 9.6.4
 ## 项目重要知识点
 
 ```html
-
-  1. 采用 vue3 + vite + pinia
-  2. 可通过配置路由实现页面缓存效果（路由插件+中央事件总线+keep-alive组件+component组件构成）
-  3. 使用 unplugin-auto-import 插件实现自动导入库、方法、函数、自定义等,以$global为前缀作为全局自动导入
-  4. 使用 unplugin-vue-components 插件实现自动导入UI库、指定文件下自动全局导入作为组件
-  5. 通过模块化配置vite插件，在vite-config/plugins文件夹下配置vite插件
-
+1. 采用 vue3 + vite + pinia 2.
+可通过配置路由实现页面缓存效果（路由插件+中央事件总线+keep-alive组件+component组件构成）
+3. 使用 unplugin-auto-import
+插件实现自动导入库、方法、函数、自定义等,以$global为前缀作为全局自动导入 4. 使用
+unplugin-vue-components 插件实现自动导入UI库、指定文件下自动全局导入作为组件 5.
+通过模块化配置vite插件，在vite-config/plugins文件夹下配置vite插件
 ```
 
 ## 脚手架
@@ -88,7 +87,7 @@ npm run build:prod
 |     |-- .env    // 本地环境配置
 |     |-- .env.dev // 测试环境配置
 |     |-- .env.prod // 生产环境配置
-|     
+|
 |-- .eslintrc.js // es配置
 |-- babel.config.js // babel配置
 |-- vite.config.js // 脚手架配置
@@ -127,7 +126,7 @@ export default async ({ mode }) => {
 
     (7) 对于unplugin-vue-components.js配置，会读取dirs项数组内的路径加载以extensions项配置的后缀名的文件，
     目前以加载src/components下的所有.vue文件作为组件：
-      在文件夹内的index.vue文件时，组件会以文件夹名称作为组件名，例如：components/footer-nav/index.vue 
+      在文件夹内的index.vue文件时，组件会以文件夹名称作为组件名，例如：components/footer-nav/index.vue
       组件名为<footer-nav></footer-nav>， 除index.vue以外的文件则以vue文件名作为组件。
     (8) 规范化建议在components文件夹下的组件文件夹以分割号作为间隔命名文件夹名称，文件夹内建一个index.vue文件
     (9) vue文件同名机制是以外层的文件优先作为组件，以文件排在前面的文件优先
@@ -137,6 +136,8 @@ export default async ({ mode }) => {
 ## 项目路由原理
 
 ```
+注意：本地调试时，在缓存页面进行刷新时可能会导致不触发路由通知初始化的情况。
+
 路由大体分为两种：缓存页面、不缓存页面
 
 注意:缓存路由配置只能使用push、replace方式跳转
@@ -145,6 +146,7 @@ export default async ({ mode }) => {
 
 2.配置不缓存组件：配置isKeepAlive为fasle或者不配置
 ```
+
 ```js
    {
 		path: "/setting",
@@ -153,10 +155,12 @@ export default async ({ mode }) => {
 		meta: {},
 	},
 ```
+
 ```
 3.配置缓存路由：
    （1）只要在src/views/router 内的所有模块js文件内的isKeepAlive设置为true，则页面起缓存效果
 ```
+
 ```js
    {
 		path: "/addressList",
@@ -171,6 +175,7 @@ export default async ({ mode }) => {
 ```
    （2）在使用页面（缓存页面）的生命周期使用($globalConfigure已插件全局导入可直接使用)
 ```
+
 ```js
 onMounted(() => {
 	$globalConfigure(() => {
@@ -187,7 +192,7 @@ onMounted(() => {
    当C倒回B倒回A后再由A-B页面会执行初始化函数$globalConfigure
 
 4.配置无限A页面跳A页面缓存路由：
-   （1）只要在src/views/router 内的所有模块js文件内的isKeepAlive、isRouterKeepAlive需要同时设置为true，则页面起缓存效果
+   （1）只要在src/views/router 内的所有模块js文件内的isRouterKeepAlive需要设置为true，则页面起缓存效果
 ```
 
 ```js
@@ -196,8 +201,7 @@ onMounted(() => {
 		name: "goodsDetail",
 		component: () => import("@/views/common/goodsDetail.vue"),
 		meta: {
-			isKeepAlive: true,
-			isRouterKeepAlive: true,
+			isRouterKeepAlive: true
 		},
 	},
 ```
@@ -206,6 +210,8 @@ onMounted(() => {
  （2）使用push()、replace() 在query或parmas上带唯一标识（业务Id或时间戳）
  （3）该配置实现的效果，A页面内有链接，点击跳转还是跳到A页面，但当业务id改变时，跳转后会触发页面初始化函数，在点击回退上一页面时，
       上一页面缓存的是跳转前的页面数据。
+
+5. 针对isKeepAlive与isRouterKeepAlive的优先级问题，isRouterKeepAlive优先级高于isKeepAlive
 
 6.路由(编程式)传参
   （1）使用query传参

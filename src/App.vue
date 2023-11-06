@@ -4,7 +4,7 @@
 		<keep-alive>
 			<component
 				:is="Component"
-				v-if="route?.meta?.isKeepAlive"
+				v-if="route?.meta?.isKeepAlive || route?.meta?.isRouterKeepAlive"
 				:key="route?.meta?.isRouterKeepAlive ? route?.fullPath : route?.name"
 			/>
 		</keep-alive>
@@ -12,7 +12,7 @@
 		<!-- 不缓存 -->
 		<component
 			:is="Component"
-			v-if="!route?.meta?.isKeepAlive"
+			v-if="(!route?.meta?.isKeepAlive) && (!route?.meta?.isRouterKeepAlive)"
 			:key="route.name"
 		/>
 	</router-view>
