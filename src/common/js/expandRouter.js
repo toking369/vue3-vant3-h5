@@ -1,15 +1,23 @@
 // 加载模块配置的路由缓存配置
 const $globalRouterModules = (routes) => {
 	let routesArr = [...routes];
+	let pathArr = [];
+	let nameArr = [];
 	const modulesRouter = import.meta.glob("../../router/*.js", {
 		eager: true,
 	});
 
 	for (const [key, value] of Object.entries(modulesRouter)) {
-		const moduleName = key.replace(/^\.\/(.*)\.\w+$/, "$1").split("/")[2];
+		const moduleName = key.replace(/^\.\.\/(.*)\.\w+$/, "$1").split("/")[2];
 		if (moduleName && value) {
 			for (const [, valueChild] of Object.entries(value)) {
 				valueChild.forEach((item, index) => {
+					pathArr.includes(item.path)
+						? console.error(`模块${moduleName}的路由地址${item.path}存在重复`)
+						: pathArr.push(item.path);
+						nameArr.includes(item.path)
+						? console.error(`模块${moduleName}的路由名${item.name}存在重复`)
+						: nameArr.push(item.name);
 					item.meta &&
 						(item.meta.subMsgKey = `app_keep_alive_bus_${index}_${moduleName}`);
 				});
