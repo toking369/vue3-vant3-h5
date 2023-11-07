@@ -19,7 +19,7 @@
 </template>
 
 <script setup name="App">
-import "@/assets/css/index.less"; // 引入样式文件
+
 const {
 	appContext: {
 		config: { globalProperties: proxy },
