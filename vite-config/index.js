@@ -13,7 +13,7 @@ const loadPluginModules = async () => {
 				fs.statSync(filePath).isFile() &&
 				[".js"].includes(extname(filePath))
 			) {
-				modulesImprot.push(import(`./vite-config/plugins/${item}`));
+				modulesImprot.push(import(`./plugins/${item}`));
 			}
 		});
 		
