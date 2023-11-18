@@ -1,7 +1,6 @@
 import { setGoodsNum, isObject } from "@/util/util"; // 导出工具类
 import VueDompurifyHtml from "vue-dompurify-html"; // 替代v-html插件防止xss
 import "@/assets/style/index.less"; // 引入样式文件
-import "virtual:windi.css"; // 导入windicss
 
 // 进入应用查询购物车数量
 const getGoodsnum = async () => {
