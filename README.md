@@ -27,7 +27,7 @@ unplugin-vue-components 插件实现自动导入UI库、指定文件下自动全
 
 ## 脚手架
 
-> &ensp;&ensp; master 分支使用 vite + pinia
+> &ensp;&ensp; master 分支使用 vite + pinia ($\color{red} {推荐} $)
 
 > &ensp;&ensp; vite 分支使用 vite + vuex
 
