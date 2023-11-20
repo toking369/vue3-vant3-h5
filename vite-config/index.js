@@ -16,7 +16,7 @@ const loadPluginModules = async () => {
 				modulesImprot.push(import(`./plugins/${item}`));
 			}
 		});
-		
+
 		const modules = await Promise.all(modulesImprot);
 		success(modules);
 	});
@@ -26,7 +26,7 @@ const loadPluginModules = async () => {
 const baseCfg = (viteEnv = {}) => {
 	const { VITE_BASE_URL } = viteEnv;
 	return {
-		envDir:'vite-env',
+		envDir: "vite-env",
 		resolve: {
 			alias: {
 				"@": resolve("./src"),
@@ -53,6 +53,13 @@ const baseCfg = (viteEnv = {}) => {
 		build: {
 			outDir: "dist",
 			minify: "terser", // esbuild 打包更快，但是不能去除 console.log，去除 console 使用 terser 模式
+			rollupOptions: {
+				output: {
+					chunkFileNames: "js/[name]-[hash].js", // 引入文件名的名称
+					entryFileNames: "js/[name]-[hash].js", // 包的入口文件名称
+					assetFileNames: "[ext]/[name]-[hash].[ext]", // 资源文件像 字体，图片等
+				},
+			},
 		},
 	};
 };
