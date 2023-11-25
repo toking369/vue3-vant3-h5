@@ -1,4 +1,4 @@
-import legacy from "@vitejs/plugin-legacy"; // 打包显示进度条插件
+import legacy from "@vitejs/plugin-legacy"; // 兼容低版本浏览器插件
 const legacyPlugin = (viteEnv = {}) => {
 	return legacy();
 };
