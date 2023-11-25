@@ -25,7 +25,9 @@ const copyFile = (filePath, dist, file) => {
 
 const copyFun = (from, dist, fileName) => {
 	if (!isDir(from) && !isFile(from)) return;
-	if (!isDir(dist)) fs.mkdirSync(dist);
+	if (!isDir(dist)) {
+		fs.mkdirSync(dist);
+	}
 
 	if (isDir(from)) {
 		const dir = fs.readdirSync(from);
@@ -47,31 +49,55 @@ const copyFun = (from, dist, fileName) => {
 	}
 };
 
+const isObject = (obj) => {
+	return ["[object Object]"].includes(Object.prototype.toString.call(obj));
+};
+
+const isArray = (obj) => {
+	return typeof Array.isArray === "function"
+		? Array.isArray(obj)
+		: ["[object Array]"].includes(Object.prototype.toString.call(obj));
+};
+
+const handleFile = (root, option) => {
+	const { from = "", to = "", fileName } = option;
+	if (!from || !to) return;
+	try {
+		const fromDir = resolve(root, from);
+		const toDir = resolve(root, to);
+		copyFun(fromDir, toDir, fileName);
+	} catch (e) {}
+};
+
 let viteConfig = null;
 
 const vitePluginCopy = (viteEnv = {}) => {
 	const modeIndex = process.argv.indexOf("--mode");
 	const mode = modeIndex !== -1 ? process.argv[modeIndex + 1] : "";
-	const option = {
-		from: `vite-env/.env${mode ? `.${mode}` : ""}`, // 写要复制的目录或者文件
-		to: "dist", // 目标目录
-		fileName: "", // 复制文件时重命名文件名
-	};
+	const option = [
+		{
+			from: `vite-env/.env${mode ? `.${mode}` : ""}`, // 写要复制的目录或者文件
+			to: "dist", // 目标目录
+			fileName: "", // 复制文件时重命名文件名
+		},
+	];
 	return {
 		name: "vite-plugin-copy",
 		apply: "build",
 		configResolved(resolvedConfig) {
 			viteConfig = resolvedConfig;
 		},
-		buildEnd: () => {
+		closeBundle: async () => {
 			const root = viteConfig.root;
-			const { from = "", to = "", fileName } = option;
-			if (!from || !to) return;
-			try {
-				const fromDir = resolve(root, from);
-				const toDir = resolve(root, to);
-				copyFun(fromDir, toDir, fileName);
-			} catch (e) {}
+			if (isObject(option)) {
+				await handleFile(root, option);
+			}
+
+			if (isArray(option)) {
+				option.forEach(async (item) => {
+					await handleFile(root, item);
+				});
+			}
 		},
 	};
 };
